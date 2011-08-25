@@ -1,2 +1,19 @@
-html, body {margin:0; padding:0;}
-#function {display: none;}
+html, body {margin:0; padding:0; font-family:sans-serif; font-size:12pt;}
+#function {display: none; font-family:monospace;}
+
+.display {border:1px solid #eee; background:#ddd; padding:10px; font-family:monospace;}
+.display .git, .display .hg, .display .svn {background:#000; padding:3px; color:#fff; font-size:}
+
+.display .git-branch {color: #c7c323;}
+.display .svn-branch {color: #6cc2c6;}
+.display .hg-branch {color: #e484fd;}
+.display .git-conflicted, .display .hg-conflicted {color: #ae350e;}
+.display .git-modified {color: #6cc2c6;}
+.display .conflict-char {color: #c7c323;}
+
+">(master <span class="delta-char">༇</span>)</span><span class="git-modified"> +1</span><span class="git-conflicted"> (<span class="conflict-char">௰</span> index.js, package.json)</span> $ 
+
+.opposite {display: none;}
+.git {background: #ffffee;}
+.hg {background: #ffeeff;}
+.svn {background: #eeeeff;}
