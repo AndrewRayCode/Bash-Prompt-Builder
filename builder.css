@@ -1,10 +1,10 @@
 /* red          pale lime   green       dark pale   beige
    FF4242       F4FAD2      D4EE5E      E1EDB9      F0F2EB */
-html, body {margin:0; padding:0; font-family:sans-serif; font-size:12pt; background:#F0F2EB;}
+html, body {margin:0; padding:0; font-family:sans-serif; font-size:12pt; background:#333; height:100%;}
 .wrap {width:980px; padding:20px; margin:10px auto;}
 
-h1 {color:#FF4242; text-shadow: 0px 0px 3px #D4EE5E;}
-.section {background:#fff; padding:20px; border-radius:10px; box-shadow:2px 2px 2px #ddd; margin:0 0 10px; float:left; clear:both;}
+h1 {color:#FF4242; margin:0; padding:0; font-size:20pt;}
+.section {background:#fff; padding:20px; border-radius:8px; box-shadow:0px 0px 8px #111; margin:0 0 10px; float:left; clear:both;}
 
 .config {float:left; border-left:1px solid #F4FAD2; border-right:1px solid #E1EDB9; width:200px; padding:10px;}
 
