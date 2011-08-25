@@ -22,8 +22,17 @@
             <label for="svn">Subversion</label>
             <input type="checkbox" value="svn" id="svn" checked="checked" />
 
+            <label for="git-ahead">Git Ahead</label>
+            <input type="checkbox" value="git-ahead" id="git-ahead" checked="checked" />
+
             <label for="git-modified">Git Modified</label>
             <input type="checkbox" value="git-modified" id="git-modified" checked="checked" />
+
+            <label for="hg-modified">Mercurial Modified</label>
+            <input type="checkbox" value="hg-modified" id="hg-modified" checked="checked" />
+
+            <label for="svn-modified">Subversion Modified</label>
+            <input type="checkbox" value="svn-modified" id="svn-modified" checked="checked" />
 
             <label for="git-conflicted">Git Conflicted</label>
             <input type="checkbox" value="git-conflicted" id="git-conflicted" checked="checked" />
@@ -35,17 +44,17 @@
 
             <label for="git-display">Git</label>
             <div class="git" id="git-display">
-                <span class="git-branch">(master <span class="delta-char">༇</span>)</span><span class="git-modified"> +1</span><span class="git-conflicted"> (<span class="conflict-char">௰</span> index.js, package.json)</span> $ 
+                <span class="git-branch">(master<span class="delta-char git-modified"> ༇</span>)</span><span class="git-ahead"> +1</span><span class="git-conflicted"> (<span class="conflict-char">௰</span> index.js, package.json)</span> $ 
             </div>
 
             <label for="hg-display">Mercurial</label>
             <div class="hg" id="hg-display">
-                <span class="hg-branch">(master <span class="delta-char">༇</span>)</span><span class="hg-conflicted"> (<span class="conflict-char">௰</span> index.js, package.json)</span> $ 
+                <span class="hg-branch">(master<span class="delta-char hg-modified"> ༇</span>)</span><span class="hg-conflicted"> (<span class="conflict-char">௰</span> index.js, package.json)</span> $ 
             </div>
             
             <label for="svn-display">Subversion</label>
             <div class="svn" id="svn-display">
-                <span class="svn-branch">(master <span class="delta-char">༇</span>)</span> $ 
+                <span class="svn-branch">(svn:revno<span class="delta-char svn-modified"> ༇</span>)</span> $ 
             </div>
         </div>
         <div id="function">
@@ -102,8 +111,6 @@ dvcs_function="
                 if [[ \"\$gitChange\" != \"\" ]]; then
                     gitChange=\" \\[`tput sc`\\]  \\[`tput rc`\\]\\[\$DELTA_CHAR\\] \"
                 fi
-            # :else
-                gitChange=\"\"
             # /git-modified
 
             # :git-branch
@@ -138,8 +145,6 @@ dvcs_function="
                 else
                     hgChange=\"\"
                 fi
-            # :else
-                hgChange=\"\"
             # /hg-modified
 
             # :hg-branch

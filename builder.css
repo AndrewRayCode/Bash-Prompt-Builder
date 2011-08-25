@@ -8,7 +8,7 @@ html, body {margin:0; padding:0; font-family:sans-serif; font-size:12pt;}
 .display .svn-branch {color: #6cc2c6;}
 .display .hg-branch {color: #e484fd;}
 .display .git-conflicted, .display .hg-conflicted {color: #ae350e;}
-.display .git-modified {color: #6cc2c6;}
+.display .git-ahead {color: #6cc2c6;}
 .display .conflict-char {color: #c7c323;}
 
 ">(master <span class="delta-char">༇</span>)</span><span class="git-modified"> +1</span><span class="git-conflicted"> (<span class="conflict-char">௰</span> index.js, package.json)</span> $ 
