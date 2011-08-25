@@ -1,19 +1,26 @@
-html, body {margin:0; padding:0; font-family:sans-serif; font-size:12pt;}
-#function {display: none; font-family:monospace;}
+/* red          pale lime   green       dark pale   beige
+   FF4242       F4FAD2      D4EE5E      E1EDB9      F0F2EB */
+html, body {margin:0; padding:0; font-family:sans-serif; font-size:12pt; background:#F0F2EB;}
+.wrap {width:980px; padding:20px; margin:10px auto;}
 
-.display {border:1px solid #eee; background:#ddd; padding:10px; font-family:monospace;}
+h1 {color:#FF4242; text-shadow: 0px 0px 3px #D4EE5E;}
+.section {background:#fff; padding:20px; border-radius:10px; box-shadow:2px 2px 2px #ddd; margin:0 0 10px; float:left; clear:both;}
+
+.config {float:left; border-left:1px solid #F4FAD2; border-right:1px solid #E1EDB9; width:200px; padding:10px;}
+
+#function {display:none; font-family:monospace; overflow-x:scroll; width:940px; font-size:10pt;}
+
+.display {font-family:monospace;}
 .display .git, .display .hg, .display .svn {background:#000; padding:3px; color:#fff; font-size:}
 
-.display .git-branch {color: #c7c323;}
-.display .svn-branch {color: #6cc2c6;}
-.display .hg-branch {color: #e484fd;}
-.display .git-conflicted, .display .hg-conflicted {color: #ae350e;}
-.display .git-ahead {color: #6cc2c6;}
-.display .conflict-char {color: #c7c323;}
+.display .git-branch {color:#c7c323;}
+.display .svn-branch {color:#6cc2c6;}
+.display .hg-branch {color:#e484fd;}
+.display .git-conflicted, .display .hg-conflicted {color:#ae350e;}
+.display .git-ahead {color:#6cc2c6;}
+.display .conflict-char {color:#c7c323;}
 
-">(master <span class="delta-char">༇</span>)</span><span class="git-modified"> +1</span><span class="git-conflicted"> (<span class="conflict-char">௰</span> index.js, package.json)</span> $ 
-
-.opposite {display: none;}
-.git {background: #ffffee;}
-.hg {background: #ffeeff;}
-.svn {background: #eeeeff;}
+.opposite {display:none;}
+.git {background:#ffffee;}
+.hg {background:#ffeeff;}
+.svn {background:#eeeeff;}

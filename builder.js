@@ -1,5 +1,9 @@
 (function() {
     window.addEvent('domready', function() {
+        document.body.noisify({
+            monochrome: false
+        });
+
         var $built = $('function'),
             $options = $('options'),
             lines = $built.get('html').split('\n'),
@@ -16,7 +20,7 @@
                 $div;
 
             for(; $div = $divs[x++];) {
-                new Element($div).toggle();
+                $div.toggle();
             }
         });
 
