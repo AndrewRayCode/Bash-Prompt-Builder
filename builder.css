@@ -41,7 +41,7 @@ ul.nav li a:hover {text-decoration:none;}
 
 .display {font-family:monospace;}
 .display label {color:#666; font-family:sans-serif; margin:10px 0 5px; display:block;}
-.display .git, .display .hg, .display .svn {background:#000; padding:3px; color:#fff;}
+#git-display, #hg-display, #svn-display {background:#000; padding:3px; color:#fff;}
 
 .display .git-branch {color:#c7c323;}
 .display .svn-branch {color:#6cc2c6;}
