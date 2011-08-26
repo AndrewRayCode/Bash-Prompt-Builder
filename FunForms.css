@@ -1,0 +1,17 @@
+.fun-checkbox {display:inline-block; width:12px; height:12px; border:1px solid #9e9fa1; border-bottom:1px solid #888; border-top:1px solid #bbb; border-radius:3px; box-shadow:2px 2px 2px #ddd, inset 0 0 2px #686c77; cursor:pointer;
+background:-moz-linear-gradient(top, #bbc0ca 0%, #d2d5dc 100%); /* FF3.6+ */
+background:-webkit-gradient(linear, left top, left bottom, color-stop(0%,#bbc0ca), color-stop(100%,#d2d5dc)); /* Chrome,Safari4+ */
+background:-webkit-linear-gradient(top, #bbc0ca 0%,#d2d5dc 100%); /* Chrome10+,Safari5.1+ */
+background:-o-linear-gradient(top, #bbc0ca 0%,#d2d5dc 100%); /* Opera11.10+ */
+background:-ms-linear-gradient(top, #bbc0ca 0%,#d2d5dc 100%); /* IE10+ */
+filter:progid:DXImageTransform.Microsoft.gradient( startColorstr='#bbc0ca', endColorstr='#d2d5dc',GradientType=0 ); /* IE6-9 */
+background:linear-gradient(top, #bbc0ca 0%,#d2d5dc 100%); /* W3C */ }
+
+.fun-checkbox.checked:after {content:'✓'; text-shadow:0 0 1px #fff; opacity:0.8; color:#aa3037; position:absolute; top:-4px; left:2px; cursor:pointer;}
+
+.fun-checkbox.checked {position:relative;
+background: -webkit-gradient(radial, center center, 0, center center, 460, from(#feddd7), to(#fec3cd));
+background: -webkit-radial-gradient(circle, #feddd7, #fec3cd);
+background: -moz-radial-gradient(circle, #feddd7, #fec3cd);
+background: -ms-radial-gradient(circle, #feddd7, #fec3cd);
+box-shadow:1px 1px 2px #daaac3, inset 0 0 2px red; }

@@ -14,15 +14,21 @@
             stack = [],
             totalLines = lines.length;
 
-        $options.addEvent('click:relay(input)', function(evt) {
-            var $divs = bySelector('.' + evt.target.id),
+        $$('input[type="checkbox"]').addEvent('fun-change', function(evt) {
+            var $input = this,
+                $divs = bySelector('.' + $input.id),
                 x = 0,
-                $div;
+                $div,
+                toggles = $input.get('data-toggle');
+            
+            if(toggles) {
+                $$('#' + (toggles.split(' ').join(',#'))).set('checked', $input.checked).fireEvent('change');
+            }
 
             for(; $div = $divs[x++];) {
                 $div.toggle();
             }
-        });
+        }).funForm();
 
         do {
             if(line.indexOf('# :else') > -1) {
