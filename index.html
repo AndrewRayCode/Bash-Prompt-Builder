@@ -17,7 +17,15 @@
                 <h1>Bash Prompt Builder</h1>
             </div>
 
-            <h2>Options</h2>
+            <ul class="nav">
+                <li>Explore:</li>
+                <li><a href="#nav-options">Options</a></li>
+                <li><a href="#preview">Preview</a></li>
+                <li><a href="#code">Code</a></li>
+                <li><a href="#what">What is this I don't even</a></li>
+            </ul>
+
+            <h2 id="nav-options">Options</h2>
             <div class="section" id="options">
                 <div class="config config-git">
                     <div class="group">
@@ -89,7 +97,7 @@
                 </div>
             </div>
 
-            <h2>Preview</h2>
+            <h2 id="preview">Preview</h2>
             <div class="section display">
 
                 <label for="git-display">Git</label>
@@ -248,7 +256,7 @@ dvcs_function="
     # /conflicts
 
     echo -e \$prompt"
-        </div>
+            </div>
 
         function error_test() {
             if [[ $? = "0" ]]; then
@@ -259,6 +267,9 @@ dvcs_function="
         }
 
     PS1="\n\[$COLOR_YELLOW\]\u\[\$(error_test)\]@\[$COLOR_GREEN\]\w\$(${dvcs_function})\[$COLOR_RESET\] \$ "
+        </div>
+        <h2 id="what">What is this I don't even</h2>
+        <div class="section what">
         </div>
         </div>
     </body>
