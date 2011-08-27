@@ -14,6 +14,7 @@ If you wish to add any functionality you need to follow certain rules:
  - Color codes must be escaped as `\"\\[\$COLOR_YELLOW\\]\"`
 
 To make the function configurable, there is a simple comment notation in place. To mark a section of code, follow these rules:
+
     # :start-label
         ... code indented by 4 spaces ...
     # /end-label
