@@ -3,6 +3,7 @@
         document.body.noisify({
             monochrome: false
         });
+        //$$('ul.nav').noisify();
 
         var $built = $('function'),
             $options = $('options'),

@@ -1,6 +1,7 @@
 /* red          pale lime   green       dark pale   beige
    FF4242       F4FAD2      D4EE5E      E1EDB9      F0F2EB */
-html, body {margin:0; padding:0; font-family:sans-serif; font-size:12pt; background:#fff; overflow:auto;}
+html, body {margin:0; padding:0; font-family:sans-serif; font-size:12pt; background:#222; overflow:auto;
+}
 .wrap {width:980px; padding:0 20px 10px; margin:10px auto 10px;}
 
 h1, h2 {color:#FF4242; margin:0 0 0px 10px; padding:0; font-size:53pt; font-family:monospace; letter-spacing:0.1em; font-weight:bold;
@@ -9,26 +10,118 @@ text-shadow:1px 1px 0 #aa3037,
 2px 3px 0 #aa3037,
 3px 4px 0 #aa3037,
 4px 5px 0 #aa3037,
-5px 3px 5px #000;}
-h2 {position:relative; top:16px; margin-left:20px; z-index:9; color:#B4CE1E; font-size:24pt; letter-spacing:7px; text-transform:uppercase; font-weight:normal;
+5px 3px 10px #000;}
+
+h1:hover {
+    margin-bottom:25px;
+    margin-left:-10px;
+text-shadow:
+-1px 1px 0 orange,
+2px 2px 0 orange,
+3px 3px 0 orange,
+4px 4px 0 orange,
+5px 5px 0 orange,
+6px 6px 0 yellow,
+7px 7px 0 yellow,
+8px 8px 0 yellow,
+9px 9px 0 yellow,
+10px 10px 0 yellow,
+11px 11px 0 green,
+12px 12px 0 green,
+13px 13px 0 green,
+14px 14px 0 green,
+15px 15px 0 green,
+16px 16px 0 blue,
+17px 17px 0 blue,
+18px 18px 0 blue,
+19px 19px 0 blue,
+20px 20px 0 blue,
+21px 21px 0 red,
+22px 22px 0 red,
+23px 23px 0 red,
+24px 24px 0 red,
+25px 25px 0 red;
+}
+
+h2 {clear:both; position:relative; top:16px; margin-left:20px; z-index:9; color:#B4CE1E; font-size:24pt; letter-spacing:7px; text-transform:uppercase; font-weight:normal;
 text-shadow:1px 1px 0 #546E6E,
 1px 2px 0 #546E6E,
 2px 3px 0 #546E6E,
-3px 3px 3px #aaa;}
+3px 3px 3px #222;}
 
 .section {background:#fff; padding:35px 20px 20px; border-radius:8px; margin:0 0 10px; overflow:auto; clear:both; position:relative;
-box-shadow:0px 1px 0 #bbb,
-1px 2px 0 #bbb,
-2px 3px 0 #bbb,
-3px 4px 0 #bbb,
-4px 5px 0 #bbb,
-5px 5px 16px #aaa;
+box-shadow:1px 1px 0 #bbb,
+2px 2px 0 #bbb,
+3px 3px 0 #bbb,
+4px 4px 0 #bbb,
+5px 5px 0 #bbb,
+5px 5px 16px #111;
 }
 
-ul.nav {padding:15px 25px 0; margin:0; overflow:auto;}
-ul.nav li {float:left; list-style:none; margin:0 20px 0 0;}
-ul.nav li a {color:#FF4242; text-decoration:underline;}
-ul.nav li a:hover {text-decoration:none;}
+ul.nav {padding:15px 0 0 10px; margin:0; height:30px; font-size:10pt;}
+ul.nav li {float:left; list-style:none;}
+ul.nav li:first-child {font-weight:bold; text-shadow:-1px -1px 0 #ae351e; border-radius:20px 0 0 20px; padding:6px 10px 4px 15px; background:#FF4242; color:#fff;
+box-shadow:1px 1px 0 #ae351e,
+2px 2px 0 #ae351e,
+3px 3px 0 #ae351e,
+4px 4px 0 #ae351e,
+5px 5px 0 #ae351e,
+5px 5px 10px #111;
+}
+ul.nav li:last-child a {border-radius:0 20px 20px 0; padding-right:15px;}
+ul.nav li a {position:relative; top:2px; left:2px; letter-spacing:0.05em; float:left; list-style:none; margin:0 1px 0 0; background:#fff; display:block; padding:5px 20px 2px; border-bottom:3px solid #ddd;
+/*background:-moz-linear-gradient(top, #fff 70%, #ddd 100%); [> FF3.6+ <]*/
+/*background:-webkit-gradient(linear, left top, left bottom, color-stop(0%,#fff), color-stop(100%,#eee)); [> Chrome,Safari4+ <]*/
+/*background:-webkit-linear-gradient(top, #fff 0%,#eee 100%); [> Chrome10+,Safari5.1+ <]*/
+/*background:-o-linear-gradient(top, #fff 0%,#eee 100%); [> Opera11.10+ <]*/
+/*background:-ms-linear-gradient(top, #fff 0%,#eee 100%); [> IE10+ <]*/
+/*background:-moz-linear-gradient(top, #feddd7 0%, #fec3cd 100%); [> FF3.6+ <]*/
+/*background:-webkit-gradient(linear, left top, left bottom, color-stop(0%,#feddd7), color-stop(100%,#fec3cd)); [> Chrome,Safari4+ <]*/
+/*background:-webkit-linear-gradient(top, #feddd7 0%,#fec3cd 100%); [> Chrome10+,Safari5.1+ <]*/
+/*background:-o-linear-gradient(top, #feddd7 0%,#fec3cd 100%); [> Opera11.10+ <]*/
+/*background:-ms-linear-gradient(top, #feddd7 0%,#fec3cd 100%); [> IE10+ <]*/
+box-shadow:1px 1px 0 #ae350e,
+1px 2px 0 #ae350e;
+/*2px 3px 0 #ae350e,*/
+/*3px 4px 0 #ae350e,*/
+/*4px 5px 0 #ae350e;*/
+}
+
+ul.nav a {
+  -webkit-transition: all 0.12s ease-out;
+  -moz-transition: all 0.12s ease-out;
+  -o-transition: all 0.12s ease-out;
+  -ms-transition: all 0.12s ease-out;
+  transition: all 0.12s ease-out;
+}
+
+h1 {
+  -webkit-transition: all 2.12s ease-out 0.5s;
+  -moz-transition: all 2.12s ease-out 0.5s;
+  -o-transition: all 2.12s ease-out 0.5s;
+  -ms-transition: all 2.12s ease-out 0.5s;
+  transition: all 2.12s ease-out 0.5s;
+}
+
+ul.nav li a {color:#ae350e; text-decoration:none;}
+ul.nav li a:hover {text-decoration:none; border:0 none; top:0; left:0; padding-bottom:5px;
+box-shadow:1px 1px 0 #ce553e,
+0px 0px 2px #444,
+2px 2px 0 #ce553e,
+3px 3px 0 #ce553e,
+4px 4px 0 #ce553e,
+5px 5px 0 #ce553e,
+10px 5px 7px #000;
+}
+
+ul.nav li a:active {top:1px; left:1px;
+box-shadow:1px 1px 0 #ce553e,
+0px 0px 2px #444,
+2px 2px 0 #ce553e,
+3px 3px 0 #ce553e,
+4px 4px 0 #ce553e,
+10px 5px 7px #000;
+}
 
 .config {float:left; width:200px; padding:0 10px 10px;}
 
@@ -36,11 +129,11 @@ ul.nav li a:hover {text-decoration:none;}
 
 .options {border-left:13px solid #f6f6f6; overflow:auto; clear:both; padding:0 0 0 10px; margin:10px 0 0 1px;}
 .options .group {padding:2px 0; margin:4px 0 0; float:left; clear:both;}
-.group label {cursor:pointer; color:#666; padding:0 0 0 2px;}
+.group label {cursor:pointer; color:#444; padding:0 0 0 2px;}
 .group label:hover {color:#000;}
 
 .display {font-family:monospace;}
-.display label {color:#666; font-family:sans-serif; margin:10px 0 5px; display:block;}
+.display label {color:#444; font-family:sans-serif; margin:10px 0 5px; display:block;}
 #git-display, #hg-display, #svn-display {background:#000; padding:3px; color:#fff;}
 
 .display .git-branch {color:#c7c323;}
