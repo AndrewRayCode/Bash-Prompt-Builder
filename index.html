@@ -12,6 +12,9 @@
         <link type="text/css" rel="stylesheet" href="builder.css" />
     </head>
     <body>
+        <div class="ribbon">
+            <a href="https://github.com/DelvarWorld/Bash-Prompt-Builder" rel="me" target="_blank">Fork me on GitHub!</a>
+        </div>
         <div class="wrap">
             <div class="header">
                 <h1>Bash Prompt Builder</h1>
@@ -21,12 +24,18 @@
                 <li>Explore:</li>
                 <li><a href="#nav-options">Options</a></li>
                 <li><a href="#preview">Preview</a></li>
-                <li><a href="#code">Code</a></li>
+                <li><a href="#nav-code">Code</a></li>
                 <li><a href="#what">What is this I don't even</a></li>
             </ul>
 
             <h2 id="nav-options">Options</h2>
             <div class="section" id="options">
+                <div class="wtf">
+                    <div id="placeholder">Hover over an option to see its description here</div>
+                    <label id="wtf-label" for="wtf">What the merry-go-round does this option do?</label>
+                    <div id="wtf"></div>
+                </div>
+
                 <div class="config config-git">
                     <div class="group">
                         <input type="checkbox" value="git" id="git" data-toggle="git-ahead git-modified git-conflicted" checked="checked" />
@@ -94,6 +103,11 @@
                         <label for="conflict-char">Conflict Character</label>
                         <input type="text" value="௰" />
                     </div>
+
+                    <div class="group">
+                        <label for="max-conflicted-files">Maximum Conflicted Files</label>
+                        <input type="text" value="2" />
+                    </div>
                 </div>
             </div>
 
@@ -116,9 +130,39 @@
                 </div>
             </div>
 
-            <h2>Code</h2>
+            <h2 id="nav-code">Code</h2>
             <div class="section" id="code">
                 <div id="function">
+# Requirements (other than git, svn and hg):
+#   hg-prompt: https://bitbucket.org/sjl/hg-prompt/src
+#   ack
+# props to http://www.codeography.com/2009/05/26/speedy-bash-prompt-git-and-subversion-integration.html
+
+# :option-max-conflicted-files
+    MAX_CONFLICTED_FILES=2
+# /option-max-conflicted-chars
+
+# :option-delta
+    DELTA_CHAR="༇"
+    #DELTA_CHAR="△"
+# /option-delta
+
+# :option-conflict
+    #CONFLICT_CHAR="☠"
+    CONFLICT_CHAR="௰"
+# /option-conflict
+
+# Colors for prompt
+COLOR_RED=$(tput sgr0 && tput setaf 1)
+COLOR_GREEN=$(tput sgr0 && tput setaf 2)
+COLOR_YELLOW=$(tput sgr0 && tput setaf 3)
+COLOR_BLUE=$(tput sgr0 && tput setaf 6)
+COLOR_PURPLE=$(tput sgr0 && tput setaf 5)
+COLOR_LIGHT_GREEN=$(tput sgr0 && tput bold && tput setaf 2)
+COLOR_LIGHT_RED=$(tput sgr0 && tput bold && tput setaf 1)
+COLOR_LIGHT_CYAN=$(tput sgr0 && tput bold && tput setaf 6)
+COLOR_RESET=$(tput sgr0)
+
 dvcs_function="
     # Figure out what repo we are in
 
@@ -189,7 +233,7 @@ dvcs_function="
 
             # :conflicts
                 # any conflicts? (sed madness is to remove line breaks)
-                files=\$(git ls-files -u | cut -f 2 | sort -u | sed -e :a -e '\$!N;s/\\\n/, /;ta' -e 'P;D')
+                files=\$(git ls-files -u | cut -f 2 | sort -u | sed '$(($MAX_CONFLICTED_FILES+1)),1000d' |  sed -e :a -e '\$!N;s/\\\n/, /;ta' -e 'P;D')
             # /conflicts
         fi
     # /git
@@ -221,7 +265,7 @@ dvcs_function="
 
             # :conflicts
             # Conflicts?
-                files=\$(hg resolve -l | grep \"U \" | awk '{split(\$0,a,\" \"); print a[2];}') || return
+                files=\$(hg resolve -l | grep \"U \" | sed '$(($MAX_CONFLICTED_FILES+1)),1000d' | awk '{split(\$0,a,\" \"); print a[2];}') || return
             # /conflicts
         fi
     # /hg
@@ -256,17 +300,10 @@ dvcs_function="
     # /conflicts
 
     echo -e \$prompt"
+
+    PS1="\$(${dvcs_function})\[$COLOR_RESET\] \$ "
             </div>
 
-        function error_test() {
-            if [[ $? = "0" ]]; then
-                printf "$COLOR_LIGHT_GREEN"
-            else
-                printf "$COLOR_LIGHT_RED"
-            fi
-        }
-
-    PS1="\n\[$COLOR_YELLOW\]\u\[\$(error_test)\]@\[$COLOR_GREEN\]\w\$(${dvcs_function})\[$COLOR_RESET\] \$ "
         </div>
         <h2 id="what">What is this I don't even</h2>
         <div class="section what">
