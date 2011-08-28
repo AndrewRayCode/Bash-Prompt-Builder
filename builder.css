@@ -6,14 +6,27 @@ html, body {margin:0; padding:0; font-family:sans-serif; font-size:12pt; backgro
 .wrap {width:980px; padding:0 20px 10px; margin:10px auto 10px;}
 a{color:#ae350e;}
 
-.section {background:#fff; padding:35px 20px 20px; border-radius:8px; margin:0 0 10px; overflow:auto; clear:both; position:relative;
-box-shadow:1px 1px 0 #bbb,
-2px 2px 0 #bbb,
-3px 3px 0 #bbb,
-4px 4px 0 #bbb,
-5px 5px 0 #bbb,
-5px 5px 16px #111;
+.section {background:#fff; padding:35px 20px 20px; border-radius:8px; margin:0 0 10px; overflow:auto; clear:both; position:relative; z-index:20;
+box-shadow:1px 1px 0 #777,
+2px 2px 0 #999,
+3px 3px 0 #9a9a9a,
+4px 4px 0 #aaa,
+5px 5px 0 #a9a9a9,
+5px 5px 10px #000;
 }
+
+.footer {background:#D4EE5E; border-radius:5px; padding:28px 30px 32px 30px; color:#F4FEAE; letter-spacing:0.1em; margin:30px 0 0;
+text-shadow:1px 1px 0 #646E06,
+2px 2px 0 #545E00,
+2px 2px 5px #000;
+box-shadow:inset 2px 2px 8px #647E0E,
+-1px -1px 0 #848E0E,
+-2px -2px 0 #949E1E,
+-3px -3px 0 #A4AE2E,
+-4px -4px 0 #B4BE3E,
+-5px -5px 0 #C4CE4E;
+}
+.footer a {color:#fff; text-decoration:none;}
 
 /* Header */
 h1 {
@@ -24,7 +37,7 @@ h1 {
 transition:all 2.12s ease-out 0.5s;
 }
 
-h1, h2 {color:#FF4242; margin:0 0 0px 10px; padding:0; font-size:53pt; font-family:monospace; letter-spacing:0.1em; font-weight:bold;
+h1, h2 {color:#FF4242; margin:0 0 0px 10px; padding:0; font-size:53pt; font-family:monospace; letter-spacing:0.1em; font-weight:bold; z-index:30; position:relative;
 text-shadow:1px 1px 0 #aa3037,
 1px 2px 0 #881017,
 2px 3px 0 #801017,
@@ -60,7 +73,7 @@ text-shadow:
 24px 24px 0 red,
 25px 25px 0 red;}
 
-h2 {clear:both; position:relative; top:16px; margin-left:20px; z-index:9; color:#B4CE1E; font-size:24pt; letter-spacing:7px; text-transform:uppercase; font-weight:normal;
+h2 {clear:both; position:relative; top:16px; margin-left:20px; color:#B4CE1E; font-size:24pt; letter-spacing:7px; text-transform:uppercase; font-weight:normal;
 text-shadow:1px 1px 0 #546E6E,
 1px 2px 0 #546E6E,
 2px 3px 0 #546E6E,
@@ -138,7 +151,7 @@ box-shadow:1px 1px 0 #ce553e,
 .wtf label {display:block; font-style:italic; color:#aaa; display:none; font-size:11pt; margin:0 0 3px;}
 .wtf #placeholder {display:block; margin:10px auto 0; width:400px; color:#888; text-transform:uppercase;}
 
-.ribbon {background:#000; overflow:hidden; position:absolute; left:-3em; top:2.5em; -moz-transform:rotate(-45deg); -webkit-transform:rotate(-45deg); box-shadow:0 0 10px #111; opacity:0.4;}
+.ribbon {z-index:10; background:#000; overflow:hidden; position:fixed; left:-3em; top:2.5em; -moz-transform:rotate(-45deg); -webkit-transform:rotate(-45deg); box-shadow:0 0 10px #111; opacity:0.4;}
 .ribbon:hover {opacity:1.0;}
 .ribbon a {border:1px solid #000; color:#fff; display:block; font:bold 81.25% 'Helvetiva Neue', Helvetica, Arial, sans-serif; margin:0.05em 0 0.075em 0; padding:0.5em 3.5em; text-align:center; text-decoration:none; text-shadow:0 0 0.5em #444; }
 
