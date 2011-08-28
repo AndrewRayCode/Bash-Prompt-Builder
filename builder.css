@@ -2,11 +2,11 @@
    FF4242       F4FAD2      D4EE5E      E1EDB9      F0F2EB */
 
 /* Layout */
-html, body {margin:0; padding:0; font-family:sans-serif; font-size:12pt; background:#222; overflow:auto; }
+html, body {margin:0; padding:0; font-family:sans-serif; font-size:12pt; background:#222; overflow:auto;}
 .wrap {width:980px; padding:0 20px 10px; margin:10px auto 10px;}
 a{color:#ae350e;}
 
-.section {background:#fff; padding:35px 20px 20px; border-radius:8px; margin:0 0 10px; overflow:auto; clear:both; position:relative; z-index:20;
+section {background:#fff; padding:35px 20px 20px; border-radius:8px; margin:0 0 10px; overflow:auto; clear:both; position:relative; z-index:20;
 box-shadow:1px 1px 0 #777,
 2px 2px 0 #999,
 3px 3px 0 #9a9a9a,
@@ -15,7 +15,7 @@ box-shadow:1px 1px 0 #777,
 5px 5px 10px #000;
 }
 
-.footer {background:#D4EE5E; border-radius:5px; padding:28px 30px 32px 30px; color:#F4FEAE; letter-spacing:0.1em; margin:30px 0 0;
+footer {background:#D4EE5E; border-radius:5px; padding:28px 30px 32px 30px; color:#F4FEAE; letter-spacing:0.1em; margin:30px 0 0;
 text-shadow:1px 1px 0 #646E06,
 2px 2px 0 #545E00,
 2px 2px 5px #000;
@@ -26,7 +26,7 @@ box-shadow:inset 2px 2px 8px #647E0E,
 -4px -4px 0 #B4BE3E,
 -5px -5px 0 #C4CE4E;
 }
-.footer a {color:#fff; text-decoration:none;}
+footer a {color:#fff; text-decoration:none;}
 
 /* Header */
 h1 {
@@ -142,8 +142,9 @@ box-shadow:1px 1px 0 #ce553e,
 
 /* Configuration options */
 .config {float:left; width:200px; padding:0 10px 10px;}
-.options {border-left:13px solid #f6f6f6; overflow:auto; clear:both; padding:0 0 0 10px; margin:10px 0 0 1px;}
+.options {border-left:13px solid #eee; overflow:auto; clear:both; padding:0 0 0 10px; margin:10px 0 0 1px;}
 .options .group {padding:2px 0; margin:4px 0 0; float:left; clear:both;}
+#wtf {margin-left:10px;}
 .group label {cursor:pointer; color:#444; padding:0 0 0 2px;}
 .group label:hover {color:#000;}
 

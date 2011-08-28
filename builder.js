@@ -29,6 +29,9 @@
             instructionStart,
             stack = [],
             totalLines = lines.length;
+        
+        $('modified-char').funPicker({picker: $('modified-picker')});
+        $('conflict-char').funPicker({picker: $('conflict-picker')});
 
         $$('input[type="checkbox"]').addEvents({
             mouseover: updateDescription.bindWithEvent(this),

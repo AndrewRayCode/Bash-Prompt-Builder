@@ -1,6 +1,6 @@
 Bash Prompt Builder
 ===========================
-[Homepage](http://andrewray.me/fuzzy-complete/index.html) 
+[Homepage](http://andrewray.me/bash-prompt-builder/index.html) 
 
 This is a website hosting a configurable function to modify your bash prompt to include DVCS information. Currently supported are Git, Mercurial (hg) and Subversion.
 
@@ -28,6 +28,6 @@ The above code will essentially wrap that block in `<div class="toggle start-lab
 ## Modifying the website: 
 
 ## Submitting a pull request:
-Please indent all lines with four spaces. Keep all CSS rules on one line except cross-browser duplicate rules. Do not put a space after the colon. Make your commit message descriptive and submit a squashed commit as suggested (here)[http://sandofsky.com/blog/git-workflow.html].
+Please indent all lines with four spaces. Keep all CSS rules on one line except cross-browser duplicate rules. Do not put a space after the colon. Make your commit message descriptive and submit a squashed commit as suggested [here](http://sandofsky.com/blog/git-workflow.html).
 
- [http://andrewray.me/fuzzy-complete/index.html](http://andrewray.me/fuzzy-complete/index.html) 
+ [http://andrewray.me/bash-prompt-builder/index.html](http://andrewray.me/bash-prompt-builder/index.html) 
