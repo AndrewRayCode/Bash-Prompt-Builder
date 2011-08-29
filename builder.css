@@ -7,6 +7,9 @@ html, body {margin:0; padding:0; font-family:sans-serif; font-size:12pt; backgro
 a{color:#ae350e;}
 
 section {background:#fff; padding:35px 20px 20px; border-radius:8px; margin:0 0 10px; overflow:auto; clear:both; position:relative; z-index:20;
+-webkit-transition:all 0.4s ease-out;
+-moz-transition:all 0.4s ease-out;
+transition:all 0.4s ease-out; 
 box-shadow:1px 1px 0 #777,
 2px 2px 0 #999,
 3px 3px 0 #9a9a9a,
@@ -24,18 +27,14 @@ box-shadow:inset 2px 2px 8px #647E0E,
 -2px -2px 0 #949E1E,
 -3px -3px 0 #A4AE2E,
 -4px -4px 0 #B4BE3E,
--5px -5px 0 #C4CE4E;
-}
+-5px -5px 0 #C4CE4E; }
 footer a {color:#fff; text-decoration:none;}
 
 /* Header */
 h1 {
 -webkit-transition:all 2.12s ease-out 0.5s;
 -moz-transition:all 2.12s ease-out 0.5s;
--o-transition:all 2.12s ease-out 0.5s;
--ms-transition:all 2.12s ease-out 0.5s;
-transition:all 2.12s ease-out 0.5s;
-}
+transition:all 2.12s ease-out 0.5s; }
 
 h1, h2 {color:#FF4242; margin:0 0 0px 10px; padding:0; font-size:53pt; font-family:monospace; letter-spacing:0.1em; font-weight:bold; z-index:30; position:relative;
 text-shadow:1px 1px 0 #aa3037,
@@ -128,15 +127,17 @@ box-shadow:1px 1px 0 #ce553e,
 
 /* Preview output */
 .display {font-family:monospace;}
-.display label {color:#444; font-family:sans-serif; margin:10px 0 5px; display:block;}
-#git-display, #hg-display, #svn-display {background:#000; padding:3px; color:#fff;}
+.display label {color:#444; font-family:sans-serif; margin:5px 0 5px; display:block; float:left; width:100px;}
+#git-display, #hg-display, #svn-display {background:#000; padding:3px; color:#fff; float:left; width:800px; border-radius:4px; line-height:16pt;}
 
+.display .group {clear:both; margin:0 0 4px; float:left;}
+.display .group:last-child {border:0 none;}
 .display .git-branch {color:#c7c323;}
 .display .svn-branch {color:#6cc2c6;}
 .display .hg-branch {color:#e484fd;}
 .display .git-conflicted, .display .hg-conflicted {color:#ae350e;}
 .display .git-ahead {color:#6cc2c6;}
-.display .conflict-char {color:#c7c323;}
+.display .option-conflict {color:#c7c323;}
 
 /* Configuration options */
 .config {float:left; width:200px; padding:0 10px 10px;}
@@ -155,7 +156,19 @@ box-shadow:1px 1px 0 #ce553e,
 .wtf label {display:block; font-style:italic; color:#aaa; display:none; font-size:11pt; margin:0 0 3px;}
 .wtf #placeholder {display:block; margin:10px auto 0; width:400px; color:#888; text-transform:uppercase;}
 
+#float {position:absolute; right:10px; bottom:10px; padding:2px 30px;}
+#dock {display:none; position:absolute; font-size:8pt !important; right:20px; bottom:10px; padding:2px 20px;}
+button {font-size:10pt; margin:5px 0 0;}
+button span {font-size:23pt; line-height:2pt; position:relative; top:7px;}
+
+.floated {position:fixed; border-radius:0; width:100%; bottom:0; left:0; box-shadow:0 0 transparent; z-index:9999; padding:5px; font-size:9pt; margin:0; border-top:1px solid #888; box-shadow:0 0 8px #666; background:#ddd;}
+.floated .wtf {display:none;}
+.floated .config {padding:0;}
+.floated .checked {font-size:12pt;}
+.floated .options {marginp-top:4px;}
+.floated .config.characters .group {margin-bottom:1px;}
+
+/* Github Ribbon */
 .ribbon {z-index:10; background:#000; overflow:hidden; position:fixed; left:-3em; top:2.5em; -moz-transform:rotate(-45deg); -webkit-transform:rotate(-45deg); box-shadow:0 0 10px #111; opacity:0.4;}
 .ribbon:hover {opacity:1.0;}
 .ribbon a {border:1px solid #000; color:#fff; display:block; font:bold 81.25% 'Helvetiva Neue', Helvetica, Arial, sans-serif; margin:0.05em 0 0.075em 0; padding:0.5em 3.5em; text-align:center; text-decoration:none; text-shadow:0 0 0.5em #444; }
-

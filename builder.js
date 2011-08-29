@@ -18,7 +18,6 @@
         document.body.noisify({
             monochrome: false
         });
-        //$$('ul.nav').noisify();
 
         var $built = $('function'),
             $options = $('options'),
@@ -29,9 +28,23 @@
             instructionStart,
             stack = [],
             totalLines = lines.length;
+
+        $('float').addEvent('click', floatControls);
+        $('dock').addEvent('click', hideControls);
         
-        $('modified-char').funPicker({picker: $('modified-picker')});
-        $('conflict-char').funPicker({picker: $('conflict-picker')});
+        $('modified-char').addEvent('change', function() {
+            var val = this.get('value');
+            $deltaChars.forEach(function($delta) {
+                $delta.set('text', val ? (($delta.hasClass('configurable') ? '' : ' ') + val) : '');
+            });
+        }).funPicker({picker: $('modified-picker')});
+
+        $('conflict-char').addEvent('change', function() {
+            var val = this.get('value');
+            $conflictChars.forEach(function($conflict) {
+                $conflict.set('text', val ? (val + ($conflict.hasClass('configurable') ? '' : ' ')) : '');
+            });
+        }).funPicker({picker: $('conflict-picker')});
 
         $$('input[type="checkbox"]').addEvents({
             mouseover: updateDescription.bindWithEvent(this),
@@ -55,27 +68,43 @@
         $$('.config label').addEvent('mouseover', updateDescription.bindWithEvent(this));
 
         do {
+            var current = stack[stack.length - 1];
+
             if(line.indexOf('# :else') > -1) {
-                output += '</div><div class="toggle opposite ' + stack[stack.length - 1] + '">';
+                output += '</div><div class="toggle opposite ' + current + '">';
             } else if((instructionStart = line.indexOf('# :')) > -1) {
-                stack.push(line.substring(instructionStart + 3));
-                output += '<div class="toggle ' + stack[stack.length - 1 ] + '">';
+                var last = line.substring(instructionStart + 3)
+                stack.push(last);
+
+                if(last.indexOf('option-')) {
+                    output += '<div class="toggle ' + last + '">';
+                }
             } else if(line.indexOf('# /') > -1) {
                 stack.pop();
                 output += '</div>';
             } else {
-                output += (line
+                var newLine = (line
                     .replace(new RegExp('^\\s{' + (stack.length * 4) + '}'), '')
-                    .replace(/ /g, '&nbsp;') + '<br />')
+                    .replace(/ /g, '&nbsp;')
                     .replace(/([a-zA-Z_]+)=/, '<span class="line-def">$1</span><span class="operator">=</span>')
                     .replace(/\b(if|then|fi)\b/g, '<span class="keyword">$1</span>')
                     .replace(/(\$[a-zA-Z_]+)/g, '<span class="variable">$1</span>')
-                    .replace(/(#.+)/, '<span class="comment">$1</span>');
+                    .replace(/(#.+)/, '<span class="comment">$1</span>'))
+                    + '<br />';
+
+                if(current && !current.indexOf('option-')) {
+                    newLine = newLine.replace(/>(['"])([^'"]+)(['"]?)<br/, '>$1<span class="configurable ' + current + '">$2</span>$3<br');
+                }
+
+                output += newLine;
             }
             line = lines[index++];
         } while (line !== undefined);
 
         $built.set('html', output).setStyle('display', 'block');
+
+        var $deltaChars = $$('.option-delta'),
+            $conflictChars = $$('.option-conflict');
     });
 
     var elementCache = {};
@@ -91,5 +120,19 @@
         $('placeholder').hide();
         $('wtf').set('text', optionDetails[evt.target.get('for') || evt.target.get('id')] || optionDetails['default']).setStyle('opacity', 0).fade('in');
         $('wtf-label').show();
+    }
+
+    function floatControls() {
+        $('float').hide();
+        $('dock').show();
+        $('nav-options').hide();
+        $('options').addClass('floated');
+    }
+
+    function hideControls() {
+        $('float').show();
+        $('dock').hide();
+        $('nav-options').show();
+        $('options').removeClass('floated');
     }
 })();

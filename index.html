@@ -29,8 +29,10 @@
                 <li><a href="#contact">Contact and Contribute</a></li>
             </ul>
 
-            <h2 id="nav-options">Options</h2>
+            <h2 id="nav-options">Options </h2>
             <section id="options">
+                <button id="float"><span>➦</span> Float</button>
+                <button id="dock"><span>➥</span> Dock</button>
                 <div class="wtf">
                     <div id="placeholder">Hover over an option to see its description here</div>
                     <label id="wtf-label" for="wtf">What the merry-go-round does this option do?</label>
@@ -115,19 +117,25 @@
             <h2 id="preview">Preview</h2>
             <section class="display">
 
-                <label for="git-display" class="git">Git</label>
-                <div class="git" id="git-display">
-                    <span class="git-branch">(master<span class="delta-char git-modified"> ༇</span>)</span><span class="git-ahead"> +1</span><span class="git-conflicted"> (<span class="conflict-char">௰</span> index.js, package.json)</span> $ 
+                <div class="group">
+                    <label for="git-display" class="git">Git</label>
+                    <div class="git" id="git-display">
+                        <span class="git-branch">(master<span class="option-delta git-modified"> ༇</span>)</span><span class="git-ahead"> +1</span><span class="git-conflicted"> (<span class="option-conflict">௰ </span>index.js, package.json)</span> $ 
+                    </div>
                 </div>
 
-                <label for="hg-display" class="hg">Mercurial</label>
-                <div class="hg" id="hg-display">
-                    <span class="hg-branch">(master<span class="delta-char hg-modified"> ༇</span>)</span><span class="hg-conflicted"> (<span class="conflict-char">௰</span> index.js, package.json)</span> $ 
+                <div class="group">
+                    <label for="hg-display" class="hg">Mercurial</label>
+                    <div class="hg" id="hg-display">
+                        <span class="hg-branch">(master<span class="option-delta hg-modified"> ༇</span>)</span><span class="hg-conflicted"> (<span class="option-conflict">௰ </span>index.js, package.json)</span> $ 
+                    </div>
                 </div>
                 
-                <label for="svn-display" class="svn">Subversion</label>
-                <div class="svn" id="svn-display">
-                    <span class="svn-branch">(svn:revno<span class="delta-char svn-modified"> ༇</span>)</span> $ 
+                <div class="group">
+                    <label for="svn-display" class="svn">Subversion</label>
+                    <div class="svn" id="svn-display">
+                        <span class="svn-branch">(svn:revno<span class="option-delta svn-modified"> ༇</span>)</span> $ 
+                    </div>
                 </div>
             </section>
 
@@ -142,14 +150,10 @@
 # :option-max-conflicted-files
     MAX_CONFLICTED_FILES=2
 # /option-max-conflicted-chars
-
 # :option-delta
     DELTA_CHAR="༇"
-    #DELTA_CHAR="△"
 # /option-delta
-
 # :option-conflict
-    #CONFLICT_CHAR="☠"
     CONFLICT_CHAR="௰"
 # /option-conflict
 
@@ -166,15 +170,6 @@ COLOR_RESET=$(tput sgr0)
 
 dvcs_function="
     # Figure out what repo we are in
-
-    # :git
-        gitBranch=\"\"
-    # /git
-
-    # :svn
-        svnInfo=\"\"
-    # /svn
-
     # :hg
         hgBranch=\$(hg prompt \"{branch}\" 2> /dev/null)
 
@@ -183,17 +178,18 @@ dvcs_function="
     # /hg
     # :git
         gitBranch=\$(git symbolic-ref HEAD 2> /dev/null)
-
-        if [[ \"\$gitBranch\" == \"\" ]]; then
     # /git
+    # :hg
+        if [[ \"\$gitBranch\" == \"\" ]]; then
+    # /hg
     # :svn
         # Svn?
         svnInfo=\$(svn info 2> /dev/null)
     # /svn
 
-    # :git
+    # :hg
         fi
-    # /git
+    # /hg
     # :hg
         fi
     # /hg

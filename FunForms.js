@@ -113,7 +113,7 @@
         },
 
         pickClick: function(evt) {
-            this.input.set('value', evt.target.get('text'));
+            this.input.set('value', evt.target.get('text')).fireEvent('change');
         }
     });
 

@@ -6,8 +6,8 @@ background:linear-gradient(top, #bbc0ca 0%,#d2d5dc 100%);}
 .fun-checkbox.checked:after {content:'✓'; text-shadow:0 0 1px #fff; opacity:0.8; color:#aa3037; position:absolute; top:-4px; left:2px; cursor:pointer;}
 
 .fun-checkbox.checked {position:relative;
-background: -webkit-radial-gradient(circle, #feddd7, #fec3cd);
-background: -moz-radial-gradient(circle, #feddd7, #fec3cd);
+background:-webkit-radial-gradient(circle, #feddd7, #fec3cd);
+background:-moz-radial-gradient(circle, #feddd7, #fec3cd);
 box-shadow:0 0 5px #FFA2A2, 1px 1px 2px #daaac3, inset 0 0 2px red; }
 
 input[type="text"] {border:1px solid #aaa; padding:4px; font-family:serif; font-size:12pt; color:#666; box-shadow:2px 2px 3px #ccc;
@@ -16,15 +16,59 @@ background:-webkit-linear-gradient(top, #e0e0e0 10%,#fff 100%);
 background:linear-gradient(top, #e0e0e0 10%,#fff 100%);}
 input[type="text"]:focus {border:1px solid #dd8888; color:#444; box-shadow:inset 0 0 2px #eed2d2, 2px 2px 4px #ffcccc;}
 
-.fun-picker {position:absolute; z-index:999999; background:#fff; border-radius:12px; box-shadow:2px 2px 10px #666;}
+.fun-picker {position:absolute; z-index:999999; background:#fff; border-radius:12px; box-shadow:2px 2px 10px #666; display:none;}
 .fun-picker ul {border:1px solid #999; box-shadow:1px 1px 3px #ccc; border-radius:6px; float:left; margin:8px; padding:0; overflow:hidden; max-width:150px; border-right:0 none; border-bottom:0 none;}
 .fun-picker ul li {float:left; display:block; padding:3px; border-right:1px solid #999; border-left:1px solid #fff; width:17px; height:17px; text-shadow:-1px -1px 1px #666, 1px 1px 1px #fff; text-align:center; border-bottom:1px solid #aaa;
-background: -moz-linear-gradient(top, #eee 0%, #fff 18%, #ddd 100%);
-background: -webkit-linear-gradient(top, #eee 0%,#fff 18%,#ddd 100%);
-background: linear-gradient(top, #eee 0%,#fff 18%,#ddd 100%);
+background:-moz-linear-gradient(top, #eee 0%, #fff 18%, #ddd 100%);
+background:-webkit-linear-gradient(top, #eee 0%,#fff 18%,#ddd 100%);
+background:linear-gradient(top, #eee 0%,#fff 18%,#ddd 100%);
 }
 .fun-picker ul li:hover {cursor:pointer; text-shadow:0 0 0 transparent; border-left:1px solid #dd4242; border-top:1px solid #FFA2A2; padding-top:2px; color:#fff;
-background: -moz-linear-gradient(top, #dd4242 0%, #aa2222 100%);
-background: -webkit-linear-gradient(top, #dd4242 0%,#aa2222 100%);
-background: linear-gradient(top, #dd4242 0%,#aa2222 100%);
+background:-moz-linear-gradient(top, #dd4242 0%, #aa2222 100%);
+background:-webkit-linear-gradient(top, #dd4242 0%,#aa2222 100%);
+background:linear-gradient(top, #dd4242 0%,#aa2222 100%); }
+
+/* http://lab.simurai.com/css/buttons/ */
+button {text-decoration:none; font-weight:bold; text-shadow:rgba(255,255,255,.5) 0 1px 0; -webkit-user-select:none; -moz-user-select:none; user-select:none; padding:5px 10px; display:inline-block; position:relative; border-radius:8px; margin:10px; border-left:none; border-right:none;
+border-top:1px solid rgba(255,255,255,0.8); border-bottom:1px solid rgba(0,0,0,0.1);
+background-image:-webkit-gradient(radial, 50% 0, 100, 50% 0, 0, from( rgba(255,255,255,0) ), to( rgba(255,255,255,0.7) ));
+background-image:-moz-radial-gradient(top, ellipse cover, rgba(255,255,255,0.7) 0%, rgba(255,255,255,0) 100%);
+background-image:gradient(radial, 50% 0, 100, 50% 0, 0, from( rgba(255,255,255,0) ), to( rgba(255,255,255,0.7) ));
+-webkit-transition:background .2s ease-in-out;
+-moz-transition:background .2s ease-in-out;
+transition:background .2s ease-in-out;
+color:#444 !important;
+background-color:hsl(0, 0%, 75%);
+-webkit-box-shadow:inset rgba(255,254,255,0.6) 0 0.3em .3em, inset rgba(0,0,0,0.15) 0 -0.1em .3em, /* inner shadow */ 
+hsl(0, 0%, 60%) 0 .1em 3px, hsl(0, 0%, 45%) 0 .3em 1px, /* color border */
+rgba(0,0,0,0.2) 0 .5em 5px; /* drop shadow */
+-moz-box-shadow:inset rgba(255,254,255,0.6) 0 0.3em .3em, inset rgba(0,0,0,0.15) 0 -0.1em .3em, /* inner shadow */ 
+hsl(0, 0%, 60%) 0 .1em 3px, hsl(0, 0%, 45%) 0 .3em 1px, /* color border */
+rgba(0,0,0,0.2) 0 .5em 5px; /* drop shadow */
+box-shadow:inset rgba(255,254,255,0.6) 0 0.3em .3em, inset rgba(0,0,0,0.15) 0 -0.1em .3em, /* inner shadow */ 
+hsl(0, 0%, 60%) 0 .1em 3px, hsl(0, 0%, 45%) 0 .3em 1px, /* color border */
+rgba(0,0,0,0.2) 0 .5em 5px; /* drop shadow */
 }
+
+button:hover {cursor:pointer;}
+button:hover {background-color:hsl(0, 0%, 83%);}
+button:active {
+background-image:-webkit-gradient(radial, 50% 0, 100, 50% 0, 0, from( rgba(255,255,255,0) ), to( rgba(255,255,255,0) ));
+background-image:-moz-gradient(radial, 50% 0, 100, 50% 0, 0, from( rgba(255,255,255,0) ), to( rgba(255,255,255,0) ));
+background-image:gradient(radial, 50% 0, 100, 50% 0, 0, from( rgba(255,255,255,0) ), to( rgba(255,255,255,0) ));
+-webkit-box-shadow:inset rgba(255,255,255,0.6) 0 0.3em .3em, inset rgba(0,0,0,0.2) 0 -0.1em .3em, /* inner shadow */ 
+rgba(0,0,0,0.4) 0 .1em 1px, /* border */
+rgba(0,0,0,0.2) 0 .2em 6px; /* drop shadow */
+-moz-box-shadow:inset rgba(255,255,255,0.6) 0 0.3em .3em, inset rgba(0,0,0,0.2) 0 -0.1em .3em, /* inner shadow */ 
+rgba(0,0,0,0.4) 0 .1em 1px, /* border */
+rgba(0,0,0,0.2) 0 .2em 6px; /* drop shadow */
+box-shadow:inset rgba(255,255,255,0.6) 0 0.3em .3em, inset rgba(0,0,0,0.2) 0 -0.1em .3em, /* inner shadow */ 
+rgba(0,0,0,0.4) 0 .1em 1px, /* border */
+rgba(0,0,0,0.2) 0 .2em 6px; /* drop shadow */
+
+-webkit-transform:translateY(.2em);
+-moz-transform:translateY(.2em);
+transform:translateY(.2em);
+}
+
+button:focus { outline:none; color:rgba(254,255,255,0.9) !important; text-shadow:rgba(0,0,0,0.2) 0 1px 2px; }
