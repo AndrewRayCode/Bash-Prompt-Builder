@@ -199,6 +199,7 @@ transition:all 0.52s ease-out;}
 /* Floated config options */
 #float {position:absolute; right:10px; bottom:10px; padding:2px 30px;}
 #dock {display:none; position:absolute; font-size:8pt !important; right:20px; bottom:10px; padding:2px 20px;}
+#float-select {display:none; position:absolute; font-size:8pt !important; right:130px; bottom:10px; padding:2px 20px;}
 
 .floated {position:fixed; border-radius:0; width:100%; bottom:0; left:0; box-shadow:0 0 transparent; z-index:9999; padding:5px; font-size:9pt; margin:0; border-top:1px solid #888; box-shadow:0 0 8px #666; background:#ddd;}
 .floated .wtf {display:none;}

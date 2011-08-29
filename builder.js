@@ -51,7 +51,7 @@
 
         $('float').addEvent('click', floatControls);
         $('dock').addEvent('click', hideControls);
-        $('select').addEvent('click', function() {
+        $$('#float-select, #select').addEvent('click', function() {
             $('function').selectText();
         });
 
@@ -152,6 +152,7 @@
     function floatControls() {
         $('float').hide();
         $('dock').show();
+        $('float-select').show();
         $('nav-options').hide();
         $('options').addClass('floated');
     }
@@ -159,6 +160,7 @@
     function hideControls() {
         $('float').show();
         $('dock').hide();
+        $('float-select').hide();
         $('nav-options').show();
         $('options').removeClass('floated');
     }
