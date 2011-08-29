@@ -38,7 +38,8 @@
         Implements: Options,
 
         options: {
-            offsetTop: 2
+            offsetTop: 2,
+            blurTimeout: 100
         },
 
         initialize: function(input, options){
@@ -68,6 +69,8 @@
 
         show: function() {
             document.body.bind('click.fun' + this.id, this.bodyClick.bindWithEvent(this));
+            this.input.addEvent('blur', this.blurTest.bind(this));
+
             this.unbindEvents();
 
             var position = this.input.getPosition(),
@@ -81,14 +84,29 @@
             }).fade('in');
         },
 
+        blurTest: function(evt) {
+            this.blurred = true;
+            var me = this;
+            setTimeout(function() {
+                if(me.blurred) {
+                    me.hide();
+                }
+            }, this.options.blurTimeout);
+        },
+
         bodyClick: function(evt) {
-            if(!(evt.target.getParents().contains(this.input) || evt.target == this.input)) {
+            var parents = evt.target.getParents();
+            if(!(parents.contains(this.input) || parents.contains(this.picker) || evt.target == this.input)) {
                 this.hide();
+            } else {
+                this.blurred = false;
             }
         },
 
         hide: function() {
             document.body.unbind('click.fun' + this.id);
+            this.input.removeEvents('blur');
+
             this.bindEvents();
 
             this.picker.fade('out');
@@ -96,7 +114,6 @@
 
         pickClick: function(evt) {
             this.input.set('value', evt.target.get('text'));
-            this.hide();
         }
     });
 
