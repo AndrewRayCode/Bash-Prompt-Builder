@@ -17,12 +17,14 @@
 
     // Rollover text and default texts
     var optionDetails = {
+        // git options
         git: 'Toggles the Git version of the bash prompt.',
         'git-ahead': 'Shows how many local commits you have ahead of the upstream repository.',
         'git-modified': 'Shows a character if you have any locally modified, added or deleted files.',
         'git-conflicted': 'Shows list of files (including relative paths) in a conflicted state.',
         'git-revno': 'The current revision ID.',
         'git-prefix': 'Add "git:" to show that you are in a Git repository.',
+        'git-bisect': 'Show text if bisecting and currently bisected revision.',
 
         // hg options
         hg: 'Toggles the Mercurial version of the bash prompt.',
@@ -53,7 +55,7 @@
         document.body.noisify({
             monochrome: false
         }).addClass(Browser.Engine.webkit ? 'webkit' : '');
-        $$('#git-display, #svn-display, #hg-display').noisify();
+        $$('.screen').noisify();
 
         var $built = $('function'),
             $options = $('options'),

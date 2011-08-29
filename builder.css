@@ -8,9 +8,7 @@ a{color:#ae350e;}
 #nojs {position:fixed; width:80%; top:10%; height:60%; left:10%; background:red; z-index:99999; font-size:60pt; color:yellow; padding:40px; border-radius:10px;}
 
 section {background:#fff; padding:35px 20px 20px; border-radius:8px; margin:0 0 10px; overflow:auto; clear:both; position:relative; z-index:20;
--webkit-transition:all 0.4s ease-out;
--moz-transition:all 0.4s ease-out;
-transition:all 0.4s ease-out; 
+-moz-transition:all 0.4s ease-out; /* only ff looks ok */
 -webkit-box-shadow:1px 1px 0 #777,
 2px 2px 0 #999,
 3px 3px 0 #9a9a9a,
@@ -170,16 +168,21 @@ transition:all 0.52s ease-out;}
 /* Preview output */
 .display {font-family:monospace;}
 .display label {color:#444; font-family:sans-serif; margin:5px 0 5px; display:block; float:left; width:100px;}
-#git-display, #hg-display, #svn-display {background:#222; padding:3px; color:#fff; float:left; width:800px; border-radius:4px; line-height:16pt; box-shadow:3px 3px 9px #000 inset; -webkit-box-shadow:3px 3px 9px #000 inset text-shadow:1px 1px 3px #000;}
+.display .screen {background:#222; padding:3px; color:#fff; float:left; width:800px; border-radius:4px; line-height:16pt; box-shadow:3px 3px 9px #000 inset; -webkit-box-shadow:3px 3px 9px #000 inset text-shadow:1px 1px 3px #000;}
 
-.display .group {clear:both; margin:0 0 4px; float:left;}
+.display .group {clear:both; margin:0 0 20px; float:left;}
 .display .group:last-child {border:0 none;}
+.display .group .sub {margin:4px 0 0 20px; float:left;}
+.display .group .sub label {color:#888; width:80px;}
 .display .git-branch {color:#c7c323;}
 .display .svn-branch {color:#6cc2c6;}
 .display .hg-branch {color:#e484fd;}
 .display .git-conflicted, .display .hg-conflicted {color:#ae350e;}
 .display .git-ahead {color:#6cc2c6;}
 .display .option-conflict {color:#c7c323;}
+.display .git-no-branch {color: #ae350e;}
+.display .git-bisect {color: #e484fd;}
+.display .hg-bisect {color:#c7c323;}
 
 /* Configuration options */
 .config {float:left; width:200px; padding:0 10px 10px;}

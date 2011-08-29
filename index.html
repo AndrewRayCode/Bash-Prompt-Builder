@@ -46,7 +46,7 @@
 
                 <div class="config config-git">
                     <div class="group">
-                        <input type="checkbox" value="git" id="git" data-toggle="git-prefix git-revno git-ahead git-modified git-conflicted" checked="checked" />
+                        <input type="checkbox" value="git" id="git" data-toggle="git-prefix git-revno git-ahead git-modified git-conflicted git-bisect" checked="checked" />
                         <label for="git">Git</label>
                     </div>
 
@@ -75,12 +75,17 @@
                             <input type="checkbox" value="git-revno" id="git-revno" checked="checked" />
                             <label for="git-revno">Revision ID<label>
                         </div>
+
+                        <div class="group">
+                            <input type="checkbox" value="git-bisect" id="git-bisect" checked="checked" />
+                            <label for="git-bisect">Bisecting<label>
+                        </div>
                     </div>
                 </div>
 
                 <div class="config config-git">
                     <div class="group">
-                        <input type="checkbox" value="hg" id="hg" data-toggle="hg-prefix hg-revno hg-modified hg-conflicted" checked="checked" />
+                        <input type="checkbox" value="hg" id="hg" data-toggle="hg-prefix hg-revno hg-modified hg-conflicted hg-bisect" checked="checked" />
                         <label for="hg">Mercurial</label>
                     </div>
 
@@ -103,6 +108,11 @@
                         <div class="group">
                             <input type="checkbox" value="hg-revno" id="hg-revno" checked="checked" />
                             <label for="hg-revno">Revision ID<label>
+                        </div>
+
+                        <div class="group">
+                            <input type="checkbox" value="hg-bisect" id="hg-bisect" checked="checked" />
+                            <label for="hg-bisect">Bisecting<label>
                         </div>
                     </div>
                 </div>
@@ -147,23 +157,44 @@
             <h2 id="preview">Preview</h2>
             <section class="display">
 
-                <div class="group">
-                    <label for="git-display" class="git">Git</label>
-                    <div class="git" id="git-display">
+                <div class="group git">
+                    <label for="git-display">Git</label>
+                    <div id="git-display" class="screen">
                         <span class="git-branch">(<span class="git-prefix">git:</span>master<span class="git-revno">:f9302</span><span class="option-delta git-modified"> ༇</span>)</span><span class="git-ahead"> +1</span><span class="git-conflicted"> (<span class="option-conflict">௰ </span><span class="conflicted-files">index.js, package.json</span>)</span> $ 
+                    </div>
+
+                    <div class="sub git-bisect">
+                        <label for="git-bisecting-dsplay">Bisecting</label>
+                        <div id="git-bisecting-display" class="screen">
+                            <span class="git-branch">(<span class="git-prefix">git:</span><span class="git-bisect">bisecting:91acf15</span>)</span> $
+                        </div>
+                    </div>
+
+                    <div class="sub">
+                        <label for="git-no-branch">No branch</label>
+                        <div id="git-no-branch" class="screen">
+                            <span class="git-branch">(<span class="git-prefix">git:</span><span class="git-no-branch">no branch!</span>)</span> $
+                        </div>
                     </div>
                 </div>
 
-                <div class="group">
-                    <label for="hg-display" class="hg">Mercurial</label>
-                    <div class="hg" id="hg-display">
-                        <span class="hg-branch">(<span class="hg-prefix">hg:</span>master<span class="hg-revno">:f9302</span><span class="option-delta hg-modified"> ༇</span>)</span><span class="hg-conflicted"> (<span class="option-conflict">௰ </span><span class="conflicted-files">index.js, package.json</span>)</span> $ 
+                <div class="group hg">
+                    <label for="hg-display">Mercurial</label>
+                    <div class="screen" id="hg-display">
+                        <span class="hg-branch">(<span class="hg-prefix">hg:</span>default<span class="hg-revno">:f9302</span><span class="option-delta hg-modified"> ༇</span>)</span><span class="hg-conflicted"> (<span class="option-conflict">௰ </span><span class="conflicted-files">index.js, package.json</span>)</span> $ 
+                    </div>
+
+                    <div class="sub hg-bisect">
+                        <label for="hg-bisecting-dsplay">Bisecting</label>
+                        <div id="hg-bisecting-display" class="screen">
+                            <span class="hg-branch">(<span class="hg-prefix">hg:</span>default<span class="hg-bisect">:bisecting:91acf15</span>)</span> $
+                        </div>
                     </div>
                 </div>
                 
-                <div class="group">
-                    <label for="svn-display" class="svn">Subversion</label>
-                    <div class="svn" id="svn-display">
+                <div class="group svn">
+                    <label for="svn-display">Subversion</label>
+                    <div class="screen" id="svn-display">
                         <span class="svn-branch">(svn<span class="svn-revno">:9284</span><span class="option-delta svn-modified"> ༇</span>)</span> $ 
                     </div>
                 </div>
@@ -188,6 +219,12 @@
 # :option-conflict
     CONFLICT_CHAR="௰"
 # /option-conflict
+# :option-bisecting
+    BISECTING_TEXT="bisecting"
+# /option-bisecting
+# :option-nobranch
+    NOBRANCH_TEXT="no branch"
+# /option-nobranch
 
 # Colors for prompt
 COLOR_RED=$(tput sgr0 && tput setaf 1)
@@ -209,10 +246,10 @@ dvcs_function="
         if [[ \"\$hgBranch\" == \"\" ]]; then
     # /hg
     # :git
-        gitBranch=\$(git symbolic-ref HEAD 2> /dev/null)
+        gitStatus=\$(git status 2> /dev/null)
     # /git
     # :hg
-        if [[ \"\$gitBranch\" == \"\" ]]; then
+        if [[ \"\$gitStatus\" == \"\" ]]; then
     # /hg
     # :svn
         # Svn?
@@ -235,9 +272,27 @@ dvcs_function="
 
     # :git
         # If we are in git ...
-        if [[ \"\$gitBranch\" != \"\" ]]; then
+        if [[ \"\$gitStatus\" != \"\" ]]; then
             # find current branch
-            gitStatus=\$(git status)
+            gitBranch=\$(git symbolic-ref HEAD 2> /dev/null)
+
+            # Figure out current branch, or if we are bisecting, or lost in space
+            bisecting=\"\"
+            noBranch=\"\"
+            if [[ \"\"\$gitBranch\"\" == \"\" ]]; then
+                # :git-bisect
+                    bisect=\$(git rev-list --bisect 2> /devnull | cut -c1-7)
+                    if [[ \"\"\$bisect\"\" == \"\" ]]; then
+                # /git-bisect
+                noBranch=True
+                gitBranch=\"\\[\$COLOR_RED\\]no branch!\\[\$COLOR_YELLOW\\]\"
+                # :git-bisect
+                else
+                    bisecting=\"\\[\$COLOR_PURPLE\\]\$BISECTING_TEXT:\"\$bisect\"\\[\$COLOR_YELLOW\\]\"
+                    gitBranch=\"\"
+                fi
+                # /git-bisect
+            fi
 
             # :git-modified
                 # changed *tracked* files in local directory?
@@ -254,13 +309,17 @@ dvcs_function="
                 # :git-prefix
                     prefix=\"git:\"
                 # /git-prefix
-                prompt=\$prompt\${prefix}\${gitBranch#refs/heads/}
+                prompt=\$prompt\$prefix\${gitBranch#refs/heads/}\$bisecting
             # /git-branch
             # :git-revno
                 revNo=\$(git rev-parse HEAD | cut -c1-7) || return
-                prompt=\$prompt\":\$revNo\"
+
+                # If bisecting don't output revno
+                if [[ \"\"\$bisecting\"\" == \"\" ]] && [[ \"\"\$noBranch\"\" == \"\" ]];then
+                    prompt=\$prompt\":\$revNo\"
+                fi
+                prompt=\$prompt\"\$gitChange)\\[\$COLOR_RESET\\]\"
             # /git-revno
-            prompt=\$prompt\"\$gitChange)\\[\$COLOR_RESET\\]\"
 
             # :git-ahead
                 # How many local commits do you have ahead of origin?
@@ -298,18 +357,24 @@ dvcs_function="
                 # :hg-prefix
                     prefix=\"hg:\"
                 # /hg-prefix
-                prompt=\$prompt\"${prefix}\${hgBranch}\"
-                # :hg-revno
-                    revNo=\$(hg parents --template=\"{node}\" | cut -c1-7) || return
-                    prompt=\$prompt\":\$revNo\"
-                # /hg-revno
-                prompt=\$prompt\"\$hgChange)\"
+                prompt=\$prompt\"\${prefix}\${hgBranch}\"
 
-                # I guess we don't want this (better version?)
-                #num=\$(hg summary | grep \"update:\" | wc -l | sed -e 's/^ *//')
-                #if [[ \"\$num\" != \"\" ]]; then
-                    #prompt=\$prompt\"\\[\$COLOR_LIGHT_CYAN\\] +\$num\"
-                #fi
+                # :hg-bisect
+                    bisecting=\$(hg bisect 2> /dev/null | head -n 1)
+                    bisecting=\${bisecting:20:7}
+
+                    if [[ \"\$bisecting\" == \"\" ]]; then
+                # /hg-bisect
+                    # :hg-revno
+                        revNo=\$(hg parents --template=\"{node}\" | cut -c1-7) || return
+                        prompt=\$prompt\":\$revNo\"
+                    # /hg-revno
+                # :hg-bisect
+                    else
+                        prompt=\"\$prompt\\[\$COLOR_YELLOW\\]:$BISECTING_TEXT:\"\$bisecting\"\\[\$COLOR_PURPLE\\]\"
+                    fi
+                # /hg-bisect
+                prompt=\$prompt\"\$hgChange)\"
             # /hg-branch
 
             # :conflicts
@@ -337,9 +402,9 @@ dvcs_function="
             revNo=\$(echo \"\$svnInfo\" | sed -n -e '/^Revision: \([0-9]*\).*\$/s//\1/p')
             prompt=\$prompt\"\\[\$COLOR_BLUE\\] (svn\"
             # :svn-revno
-                prompt=\$prompt\":$revNo\"
+                prompt=\$prompt\":\$revNo\"
             # /svn-revno
-            prompt=\$prompt\"$svnChange)\\[\$COLOR_RESET\\]\"
+            prompt=\$prompt\"\$svnChange)\\[\$COLOR_RESET\\]\"
         fi
     # /svn
 
