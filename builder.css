@@ -5,6 +5,7 @@
 html, body {margin:0; padding:0; font-family:sans-serif; font-size:12pt; background:#222; overflow:auto;}
 .wrap {width:980px; padding:0 20px 10px; margin:10px auto 10px;}
 a{color:#ae350e;}
+#nojs {position:fixed; width:80%; top:10%; height:60%; left:10%; background:red; z-index:99999; font-size:60pt; color:yellow; padding:40px; border-radius:10px;}
 
 section {background:#fff; padding:35px 20px 20px; border-radius:8px; margin:0 0 10px; overflow:auto; clear:both; position:relative; z-index:20;
 -webkit-transition:all 0.4s ease-out;
