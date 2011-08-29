@@ -125,7 +125,7 @@
             } else if(line.indexOf('# /') > -1) {
                 stack.pop();
                 output += '</div>';
-            } else if(line) {
+            } else {
                 var newLine = (line
                     .replace(new RegExp('^\\s{' + (stack.length * 4) + '}'), '')
                     .replace(/ /g, '&nbsp;')

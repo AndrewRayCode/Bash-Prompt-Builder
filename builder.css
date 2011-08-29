@@ -87,9 +87,11 @@ text-shadow:
 
 h2 {clear:both; position:relative; top:16px; margin-left:20px; color:#B4CE1E; font-size:24pt; letter-spacing:7px; text-transform:uppercase; font-weight:normal;
 text-shadow:1px 1px 0 #546E6E,
-1px 2px 0 #546E6E,
-2px 3px 0 #546E6E,
+2px 2px 0 #546E6E,
+3px 3px 0 #546E6E,
 3px 3px 3px #222;}
+
+h3 {font-size:14pt; margin:10px 0; padding:0; letter-spacing:1px;}
 
 /* Navigation */
 ul.nav {padding:15px 0 0 10px; margin:0; height:30px; font-size:10pt;}
@@ -151,7 +153,7 @@ box-shadow:1px 1px 0 #ce553e,
 -webkit-transition:all 0.52s ease-out;
 -moz-transition:all 0.52s ease-out;
 transition:all 0.52s ease-out;}
-#function.expanded {height:1700px;}
+#function.expanded {height:2100px;}
 #function .opposite {display:none;}
 #function .git {background:#ffffee;}
 #function .hg {background:#ffeeff;}
@@ -207,6 +209,10 @@ transition:all 0.52s ease-out;}
 .floated .checked {font-size:12pt;}
 .floated .options {marginp-top:4px;}
 .floated .config.characters .group {margin-bottom:1px;}
+
+/* About */
+.what ol {padding:0 0 0 35px; margin:15px 0;}
+.what ol li {margin:5px 0 0; padding:0;}
 
 /* Button styles */
 button {font-size:10pt; margin:5px 0 0;}
