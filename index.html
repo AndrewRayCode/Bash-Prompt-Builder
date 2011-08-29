@@ -45,43 +45,63 @@
 
                 <div class="config config-git">
                     <div class="group">
-                        <input type="checkbox" value="git" id="git" data-toggle="git-ahead git-modified git-conflicted" checked="checked" />
+                        <input type="checkbox" value="git" id="git" data-toggle="git-prefix git-revno git-ahead git-modified git-conflicted" checked="checked" />
                         <label for="git">Git</label>
                     </div>
 
                     <div class="options">
                         <div class="group">
+                            <input type="checkbox" value="git-prefix" id="git-prefix" checked="checked" />
+                            <label for="git-prefix">"git:"</label>
+                        </div>
+
+                        <div class="group">
                             <input type="checkbox" value="git-ahead" id="git-ahead" checked="checked" />
-                            <label for="git-ahead">Git Ahead</label>
+                            <label for="git-ahead">Ahead</label>
                         </div>
 
                         <div class="group">
                             <input type="checkbox" value="git-modified" id="git-modified" checked="checked" />
-                            <label for="git-modified">Git Modified</label>
+                            <label for="git-modified">Modified</label>
                         </div>
 
                         <div class="group">
                             <input type="checkbox" value="git-conflicted" id="git-conflicted" checked="checked" />
-                            <label for="git-conflicted">Git Conflicted</label>
+                            <label for="git-conflicted">Conflicted</label>
+                        </div>
+
+                        <div class="group">
+                            <input type="checkbox" value="git-revno" id="git-revno" checked="checked" />
+                            <label for="git-revno">Revision ID<label>
                         </div>
                     </div>
                 </div>
 
                 <div class="config config-git">
                     <div class="group">
-                        <input type="checkbox" value="hg" id="hg" data-toggle="hg-modified hg-conflicted" checked="checked" />
+                        <input type="checkbox" value="hg" id="hg" data-toggle="hg-prefix hg-revno hg-modified hg-conflicted" checked="checked" />
                         <label for="hg">Mercurial</label>
                     </div>
 
                     <div class="options">
                         <div class="group">
+                            <input type="checkbox" value="hg-prefix" id="hg-prefix" checked="checked" />
+                            <label for="hg-prefix">"hg:"</label>
+                        </div>
+
+                        <div class="group">
                             <input type="checkbox" value="hg-modified" id="hg-modified" checked="checked" />
-                            <label for="hg-modified">Mercurial Modified</label>
+                            <label for="hg-modified">Modified</label>
                         </div>
 
                         <div class="group">
                             <input type="checkbox" value="hg-conflicted" id="hg-conflicted" checked="checked" />
-                            <label for="hg-conflicted">Mercurial Conflicted</label>
+                            <label for="hg-conflicted">Conflicted</label>
+                        </div>
+
+                        <div class="group">
+                            <input type="checkbox" value="hg-revno" id="hg-revno" checked="checked" />
+                            <label for="hg-revno">Revision ID<label>
                         </div>
                     </div>
                 </div>
@@ -95,7 +115,12 @@
                     <div class="options">
                         <div class="group">
                             <input type="checkbox" value="svn-modified" id="svn-modified" checked="checked" />
-                            <label for="svn-modified">Subversion Modified</label>
+                            <label for="svn-modified">Modified</label>
+                        </div>
+
+                        <div class="group">
+                            <input type="checkbox" value="svn-revno" id="svn-revno" checked="checked" />
+                            <label for="svn-revno">Revision ID<label>
                         </div>
                     </div>
                 </div>
@@ -112,7 +137,7 @@
                     </div>
 
                     <div class="group">
-                        <input type="text" value="2" />
+                        <input type="text" value="2" id="max-conflicted-files" />
                         <label for="max-conflicted-files">Maximum Conflicted Files</label>
                     </div>
                 </div>
@@ -124,21 +149,21 @@
                 <div class="group">
                     <label for="git-display" class="git">Git</label>
                     <div class="git" id="git-display">
-                        <span class="git-branch">(master<span class="option-delta git-modified"> ༇</span>)</span><span class="git-ahead"> +1</span><span class="git-conflicted"> (<span class="option-conflict">௰ </span>index.js, package.json)</span> $ 
+                        <span class="git-branch">(<span class="git-prefix">git:</span>master<span class="git-revno">:f9302</span><span class="option-delta git-modified"> ༇</span>)</span><span class="git-ahead"> +1</span><span class="git-conflicted"> (<span class="option-conflict">௰ </span><span class="conflicted-files">index.js, package.json</span>)</span> $ 
                     </div>
                 </div>
 
                 <div class="group">
                     <label for="hg-display" class="hg">Mercurial</label>
                     <div class="hg" id="hg-display">
-                        <span class="hg-branch">(master<span class="option-delta hg-modified"> ༇</span>)</span><span class="hg-conflicted"> (<span class="option-conflict">௰ </span>index.js, package.json)</span> $ 
+                        <span class="hg-branch">(<span class="hg-prefix">hg:</span>master<span class="hg-revno">:f9302</span><span class="option-delta hg-modified"> ༇</span>)</span><span class="hg-conflicted"> (<span class="option-conflict">௰ </span><span class="conflicted-files">index.js, package.json</span>)</span> $ 
                     </div>
                 </div>
                 
                 <div class="group">
                     <label for="svn-display" class="svn">Subversion</label>
                     <div class="svn" id="svn-display">
-                        <span class="svn-branch">(svn:revno<span class="option-delta svn-modified"> ༇</span>)</span> $ 
+                        <span class="svn-branch">(svn<span class="svn-revno">:9284</span><span class="option-delta svn-modified"> ༇</span>)</span> $ 
                     </div>
                 </div>
             </section>
@@ -146,6 +171,8 @@
             <h2 id="nav-code">Code</h2>
             <section id="code">
                 <div id="function">
+# This code was auto genereated by http://andrewray.me/bash-prompt-builder/index.html
+#
 # Requirements (other than git, svn and hg):
 #   hg-prompt: https://bitbucket.org/sjl/hg-prompt/src
 #   ack
@@ -221,8 +248,18 @@ dvcs_function="
 
             # :git-branch
                 # output the branch and changed character if present
-                prompt=\$prompt\"\\[\$COLOR_YELLOW\\] (\"\${gitBranch#refs/heads/}\"\$gitChange)\\[\$COLOR_RESET\\]\"
+                prompt=\$prompt\"\\[\$COLOR_YELLOW\\] (\"
+
+                # :git-prefix
+                    prefix=\"git:\"
+                # /git-prefix
+                prompt=\$prompt\${prefix}\${gitBranch#refs/heads/}
             # /git-branch
+            # :git-revno
+                revNo=\$(git rev-parse HEAD | cut -c1-7) || return
+                prompt=\$prompt\":\$revNo\"
+            # /git-revno
+            prompt=\$prompt\"\$gitChange)\\[\$COLOR_RESET\\]\"
 
             # :git-ahead
                 # How many local commits do you have ahead of origin?
@@ -247,7 +284,7 @@ dvcs_function="
                 # changed files in local directory?
                 hgChange=\$(hg status | ack '^M|^!')
                 if [[ \"\$hgChange\" != \"\" ]]; then
-                    hgChange=\" \\[`tput sc`\\]  \\[`tput rc`\\]\\[\$DELTA_CHAR\\] \"
+                    hgChange=\" \\[`tput sc`\\]  \\[`tput rc`\\]\\[\$DELTA_CHAR\\]\"
                 else
                     hgChange=\"\"
                 fi
@@ -255,7 +292,17 @@ dvcs_function="
 
             # :hg-branch
                 # output branch and changed character if present
-                prompt=\$prompt\"\\[\$COLOR_PURPLE\\] (\${hgBranch}\$hgChange)\"
+                prompt=\$prompt\"\\[\$COLOR_PURPLE\\] (\"
+                
+                # :hg-prefix
+                    prefix=\"hg:\"
+                # /hg-prefix
+                prompt=\$prompt\"${prefix}\${hgBranch}\"
+                # :hg-revno
+                    revNo=\$(hg parents --template=\"{node}\" | cut -c1-7) || return
+                    prompt=\$prompt\":\$revNo\"
+                # /hg-revno
+                prompt=\$prompt\"\$hgChange)\"
 
                 # I guess we don't want this (better version?)
                 #num=\$(hg summary | grep \"update:\" | wc -l | sed -e 's/^ *//')
@@ -287,7 +334,11 @@ dvcs_function="
 
             # revision number (instead of branch name, silly svn)
             revNo=\$(echo \"\$svnInfo\" | sed -n -e '/^Revision: \([0-9]*\).*\$/s//\1/p')
-            prompt=\$prompt\"\\[\$COLOR_BLUE\\] (svn:\$revNo\$svnChange)\\[\$COLOR_RESET\\]\"
+            prompt=\$prompt\"\\[\$COLOR_BLUE\\] (svn\"
+            # :svn-revno
+                prompt=\$prompt\":$revNo\"
+            # /svn-revno
+            prompt=\$prompt\"$svnChange)\\[\$COLOR_RESET\\]\"
         fi
     # /svn
 
@@ -296,11 +347,12 @@ dvcs_function="
         if [[ \"\$files\" != \"\" ]]; then
             prompt=\$prompt\" \\[\$COLOR_RED\\](\\[\$COLOR_YELLOW\\]\"
             prompt=\$prompt\"\\[`tput sc`\\]  \\[`tput rc`\\]\\[\$CONFLICT_CHAR\\] \"
-            prompt=\$prompt\"\\[\$COLOR_RED\\]\${files})\"
+            prompt=\$prompt\"\\[\$COLOR_RED\\] \${files})\"
         fi
     # /conflicts
 
     echo -e \$prompt"
+# End autogenerated code
 
     PS1="\$(${dvcs_function})\[$COLOR_RESET\] \$ "
             </div>
@@ -338,6 +390,14 @@ dvcs_function="
                 <li>☢</li>
                 <li>☠</li>
                 <li>☣</li>
+                <li>✍</li>
+                <li>✎</li>
+                <li>✏</li>
+                <li>✐</li>
+                <li>➲</li>
+                <li>⟁</li>
+                <li>⟠</li>
+                <li>𝄞</li>
                 <li>!</li>
                 <li>ʘ</li>
                 <li>Ѽ</li>
@@ -348,12 +408,10 @@ dvcs_function="
                 <li>✜</li>
                 <li>✻</li>
                 <li>❤</li>
-                <li>✎</li>
-                <li>⚛ </li>
+                <li>⚛</li>
                 <li>x</li>
                 <li>*</li>
                 <li>+</li>
-                <li>@</li>
                 <li>#</li>
                 <li>-</li>
             </ul>
@@ -366,6 +424,14 @@ dvcs_function="
                 <li>☢</li>
                 <li>☠</li>
                 <li>☣</li>
+                <li>✍</li>
+                <li>✎</li>
+                <li>✏</li>
+                <li>✐</li>
+                <li>➲</li>
+                <li>⟁</li>
+                <li>⟠</li>
+                <li>𝄞</li>
                 <li>!</li>
                 <li>ʘ</li>
                 <li>Ѽ</li>
@@ -376,12 +442,10 @@ dvcs_function="
                 <li>✜</li>
                 <li>✻</li>
                 <li>❤</li>
-                <li>✎</li>
-                <li>⚛ </li>
+                <li>⚛</li>
                 <li>x</li>
                 <li>*</li>
                 <li>+</li>
-                <li>@</li>
                 <li>#</li>
                 <li>-</li>
             </ul>

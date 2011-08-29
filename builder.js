@@ -1,4 +1,18 @@
 (function() {
+    Element.implement({
+        selectText: function() {
+            if (document.selection) {
+                var range = document.body.createTextRange();
+                    range.moveToElementText(this);
+                range.select();
+            } else if (window.getSelection) {
+                var range = document.createRange();
+                range.selectNode(this);
+                window.getSelection().addRange(range);
+            }
+        }
+    });
+
     var optionDetails = {
         git: 'Toggles the Git version of the bash prompt.',
         'git-ahead': 'Shows how many local commits you have ahead of the upstream repository.',
@@ -11,13 +25,17 @@
         'svn-modified': '',
         'modified-char': '',
         'conflict-char': 'The character to show before the list of files currently in a conflicted state. Defaults to a unicdoe butt, because you are in a shitty situation.',
-        'default': 'No description found. God I am so lazy'
-    };
+        'default': 'No description found. God I am so lazy',
+        'conflicted-files': 'index.js,path/to/package.json,filename.txt,awful.php,...'
+    },
+    $deltaChars,
+    $conflictChars,
+    $conflictedFiles;
 
     window.addEvent('domready', function() {
         document.body.noisify({
             monochrome: false
-        });
+        }).addClass(Browser.Engine.webkit ? 'webkit' : '');
         $$('#git-display, #svn-display, #hg-display').noisify();
 
         var $built = $('function'),
@@ -33,19 +51,19 @@
         $('float').addEvent('click', floatControls);
         $('dock').addEvent('click', hideControls);
         
-        $('modified-char').addEvent('change', function() {
-            var val = this.get('value');
-            $deltaChars.forEach(function($delta) {
-                $delta.set('text', val ? (($delta.hasClass('configurable') ? '' : ' ') + val) : '');
-            });
+        $('modified-char').addEvents({
+            change: updateDeltaChars,
+            keyup:  updateDeltaChars
         }).funPicker({picker: $('modified-picker')});
 
-        $('conflict-char').addEvent('change', function() {
-            var val = this.get('value');
-            $conflictChars.forEach(function($conflict) {
-                $conflict.set('text', val ? (val + ($conflict.hasClass('configurable') ? '' : ' ')) : '');
-            });
+        $('conflict-char').addEvents({
+            change: updateConflictCharacters,
+            keyup:  updateConflictCharacters
         }).funPicker({picker: $('conflict-picker')});
+
+        $('max-conflicted-files').addEvents({
+            change: updateConflictedFilesList
+        });
 
         $$('input[type="checkbox"]').addEvents({
             mouseover: updateDescription.bindWithEvent(this),
@@ -104,8 +122,9 @@
 
         $built.set('html', output).setStyle('display', 'block');
 
-        var $deltaChars = $$('.option-delta'),
-            $conflictChars = $$('.option-conflict');
+        $deltaChars = $$('.option-delta'),
+        $conflictChars = $$('.option-conflict');
+        $conflictedFiles = $$('.conflicted-files');
     });
 
     var elementCache = {};
@@ -135,5 +154,26 @@
         $('dock').hide();
         $('nav-options').show();
         $('options').removeClass('floated');
+    }
+
+    function updateConflictCharacters() {
+        var val = this.get('value');
+        $conflictChars.forEach(function($conflict) {
+            $conflict.set('text', val ? (val + ($conflict.hasClass('configurable') ? '' : ' ')) : '');
+        });
+    }
+
+    function updateDeltaChars() {
+        var val = this.get('value');
+        $deltaChars.forEach(function($delta) {
+            $delta.set('text', val ? (($delta.hasClass('configurable') ? '' : ' ') + val) : '');
+        });
+    }
+
+    function updateConflictedFilesList() {
+        var split = optionDetails['conflicted-files'].split(','),
+            val = Math.max(0, parseInt(this.get('value'))) || 0;
+        $conflictedFiles.set('text', split.slice(0, val).join(', '));
+        this.set('value', val).focus();
     }
 })();
