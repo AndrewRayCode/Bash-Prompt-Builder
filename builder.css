@@ -147,7 +147,11 @@ box-shadow:1px 1px 0 #ce553e,
 10px 5px 7px #000;}
 
 /* Function display */
-#function {display:none; font-family:monospace; overflow-x:scroll; width:940px; font-size:10pt;}
+#function {display:none; font-family:monospace; overflow-x:scroll; width:940px; font-size:10pt; height:300px;
+-webkit-transition:all 0.52s ease-out;
+-moz-transition:all 0.52s ease-out;
+transition:all 0.52s ease-out;}
+#function.expanded {height:1700px;}
 #function .opposite {display:none;}
 #function .git {background:#ffffee;}
 #function .hg {background:#ffeeff;}
@@ -158,6 +162,8 @@ box-shadow:1px 1px 0 #ce553e,
 #function .keyword {color:#b75400;}
 #function .comment {color:#672289;}
 #function .variable {color:#3598d2;}
+
+#code button {margin:15px 15px 0 0;}
 
 /* Preview output */
 .display {font-family:monospace;}
@@ -190,11 +196,9 @@ box-shadow:1px 1px 0 #ce553e,
 .wtf label {display:block; font-style:italic; color:#aaa; display:none; font-size:11pt; margin:0 0 3px;}
 .wtf #placeholder {display:block; margin:10px auto 0; width:400px; color:#888; text-transform:uppercase;}
 
+/* Floated config options */
 #float {position:absolute; right:10px; bottom:10px; padding:2px 30px;}
 #dock {display:none; position:absolute; font-size:8pt !important; right:20px; bottom:10px; padding:2px 20px;}
-button {font-size:10pt; margin:5px 0 0;}
-button span {font-size:23pt; line-height:2pt; position:relative; top:7px;}
-.webkit button span {font-size:13pt; top:2px;}
 
 .floated {position:fixed; border-radius:0; width:100%; bottom:0; left:0; box-shadow:0 0 transparent; z-index:9999; padding:5px; font-size:9pt; margin:0; border-top:1px solid #888; box-shadow:0 0 8px #666; background:#ddd;}
 .floated .wtf {display:none;}
@@ -202,6 +206,12 @@ button span {font-size:23pt; line-height:2pt; position:relative; top:7px;}
 .floated .checked {font-size:12pt;}
 .floated .options {marginp-top:4px;}
 .floated .config.characters .group {margin-bottom:1px;}
+
+/* Button styles */
+button {font-size:10pt; margin:5px 0 0;}
+button span {font-size:23pt; line-height:2pt; position:relative; top:7px;}
+.webkit button span {font-size:13pt; top:2px;}
+#despand {display:none;}
 
 /* Github Ribbon */
 .ribbon {z-index:10; background:#000; overflow:hidden; position:fixed; left:-3em; top:2.5em; -moz-transform:rotate(-45deg); -webkit-transform:rotate(-45deg); box-shadow:0 0 10px #111; opacity:0.4;}

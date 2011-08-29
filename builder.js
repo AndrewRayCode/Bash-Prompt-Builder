@@ -1,6 +1,7 @@
 (function() {
     Element.implement({
         selectText: function() {
+            deselect();
             if (document.selection) {
                 var range = document.body.createTextRange();
                     range.moveToElementText(this);
@@ -28,9 +29,9 @@
         'default': 'No description found. God I am so lazy',
         'conflicted-files': 'index.js,path/to/package.json,filename.txt,awful.php,...'
     },
-    $deltaChars,
-    $conflictChars,
-    $conflictedFiles;
+        $deltaChars,
+        $conflictChars,
+        $conflictedFiles;
 
     window.addEvent('domready', function() {
         document.body.noisify({
@@ -42,14 +43,20 @@
             $options = $('options'),
             lines = $built.get('html').split('\n'),
             output = '',
-            index = 0,
-            line = '',
+            index = 1,
+            line = lines[0],
             instructionStart,
             stack = [],
             totalLines = lines.length;
 
         $('float').addEvent('click', floatControls);
         $('dock').addEvent('click', hideControls);
+        $('select').addEvent('click', function() {
+            $('function').selectText();
+        });
+
+        $('expand').addEvent('click', toggleCodeView);
+        $('despand').addEvent('click', toggleCodeView);
         
         $('modified-char').addEvents({
             change: updateDeltaChars,
@@ -101,7 +108,7 @@
             } else if(line.indexOf('# /') > -1) {
                 stack.pop();
                 output += '</div>';
-            } else {
+            } else if(line) {
                 var newLine = (line
                     .replace(new RegExp('^\\s{' + (stack.length * 4) + '}'), '')
                     .replace(/ /g, '&nbsp;')
@@ -176,4 +183,17 @@
         $conflictedFiles.set('text', split.slice(0, val).join(', '));
         this.set('value', val).focus();
     }
+
+    function toggleCodeView() {
+        $('function').toggleClass('expanded');
+    }
+
+	function deselect() {
+		if (document.selection) {
+            document.selection.empty();
+        } else if (window.getSelection) {
+            window.getSelection().removeAllRanges();
+        }
+	}
+    
 })();
