@@ -1,4 +1,5 @@
 (function() {
+    // Implement a function to select the contents of an HTML element that isn't a form element
     Element.implement({
         selectText: function() {
             deselect();
@@ -14,18 +15,32 @@
         }
     });
 
+    // Rollover text and default texts
     var optionDetails = {
         git: 'Toggles the Git version of the bash prompt.',
         'git-ahead': 'Shows how many local commits you have ahead of the upstream repository.',
         'git-modified': 'Shows a character if you have any locally modified, added or deleted files.',
-        'git-conflicted': 'Shows list of files in a conflicted state in the prompt.',
+        'git-conflicted': 'Shows list of files (including relative paths) in a conflicted state.',
+        'git-revno': 'The current revision ID.',
+        'git-prefix': 'Add "git:" to show that you are in a Git repository.',
+
+        // hg options
         hg: 'Toggles the Mercurial version of the bash prompt.',
-        'hg-modified': '',
-        'hg-conflicted': '',
+        'hg-modified': 'Shows a character if you have any locally modified, added or deleted files.',
+        'hg-conflicted': 'Shows a list of files (including relative paths)jin a conflicted state.',
+        'hg-prefix': 'Add "hg:" to show that you are in a Mercurial repository.',
+        'hg-revno': 'The current revision ID.',
+
+        // svn options
         svn: 'Toggles the Subversion version of the bash prompt Subversion is the slowest and can add up to 100ms to your prompt display time.',
-        'svn-modified': '',
-        'modified-char': '',
+        'svn-modified': 'Shows a character if you have any locally modified, added or deleted files.',
+        'svn-revno': 'The current revision ID.',
+
+        // Character options
+        'modified-char': 'The character to show if you have any locally modified, added or deleted files.',
         'conflict-char': 'The character to show before the list of files currently in a conflicted state. Defaults to a unicdoe butt, because you are in a shitty situation.',
+
+        // Default options
         'default': 'No description found. God I am so lazy',
         'conflicted-files': 'index.js,path/to/package.json,filename.txt,awful.php,...'
     },
@@ -34,6 +49,7 @@
         $conflictedFiles;
 
     window.addEvent('domready', function() {
+        // Make the body and displays noisy and tag it with webkit
         document.body.noisify({
             monochrome: false
         }).addClass(Browser.Engine.webkit ? 'webkit' : '');
@@ -90,6 +106,7 @@
                 }
             }
         }).set('checked', 'checked').funForm();
+        $$('input[type="text"]').addEvent('mouseover', updateDescription.bindWithEvent(this));
 
         $$('.config label').addEvent('mouseover', updateDescription.bindWithEvent(this));
 
@@ -188,6 +205,8 @@
 
     function toggleCodeView() {
         $('function').toggleClass('expanded');
+        $('expand').toggle();
+        $('despand').setStyle('display', (toggleCodeView.expanded = !toggleCodeView.expanded) ? 'inline' : 'none');
     }
 
 	function deselect() {
