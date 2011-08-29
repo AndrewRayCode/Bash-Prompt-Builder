@@ -18,6 +18,7 @@
         document.body.noisify({
             monochrome: false
         });
+        $$('#git-display, #svn-display, #hg-display').noisify();
 
         var $built = $('function'),
             $options = $('options'),

@@ -129,7 +129,7 @@ box-shadow:1px 1px 0 #ce553e,
 /* Preview output */
 .display {font-family:monospace;}
 .display label {color:#444; font-family:sans-serif; margin:5px 0 5px; display:block; float:left; width:100px;}
-#git-display, #hg-display, #svn-display {background:#000; padding:3px; color:#fff; float:left; width:800px; border-radius:4px; line-height:16pt;}
+#git-display, #hg-display, #svn-display {background:#222; padding:3px; color:#fff; float:left; width:800px; border-radius:4px; line-height:16pt; box-shadow:3px 3px 9px #000 inset; text-shadow:1px 1px 3px #000;}
 
 .display .group {clear:both; margin:0 0 4px; float:left;}
 .display .group:last-child {border:0 none;}
