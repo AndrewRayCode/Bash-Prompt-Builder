@@ -8,7 +8,6 @@ a{color:#ae350e;}
 #nojs {position:fixed; width:80%; top:10%; height:60%; left:10%; background:red; z-index:99999; font-size:60pt; color:yellow; padding:40px; border-radius:10px;}
 
 section {background:#fff; padding:35px 20px 20px; border-radius:8px; margin:0 0 10px; overflow:auto; clear:both; position:relative; z-index:20;
--moz-transition:all 0.4s ease-out; /* only ff looks ok */
 -webkit-box-shadow:1px 1px 0 #777,
 2px 2px 0 #999,
 3px 3px 0 #9a9a9a,
@@ -163,6 +162,7 @@ transition:all 0.52s ease-out;}
 #function .comment {color:#672289;}
 #function .variable {color:#3598d2;}
 
+#code {padding-bottom:40px;}
 #code button {margin:15px 15px 0 0;}
 
 /* Preview output */
@@ -180,11 +180,12 @@ transition:all 0.52s ease-out;}
 .display .git-conflicted, .display .hg-conflicted {color:#ae350e;}
 .display .git-ahead {color:#6cc2c6;}
 .display .option-conflict {color:#c7c323;}
-.display .git-no-branch {color: #ae350e;}
-.display .git-bisect {color: #e484fd;}
+.display .git-no-branch {color:#ae350e;}
+.display .git-bisect {color:#e484fd;}
 .display .hg-bisect {color:#c7c323;}
 
 /* Configuration options */
+#options {padding-bottom:30px;}
 .config {float:left; width:200px; padding:0 10px 10px;}
 .options {border-left:13px solid #eee; overflow:auto; clear:both; padding:0 0 0 10px; margin:10px 0 0 1px;}
 .options .group {padding:2px 0; margin:4px 0 0; float:left; clear:both;}
@@ -204,7 +205,25 @@ transition:all 0.52s ease-out;}
 .wtf #placeholder {display:block; margin:10px auto 0; width:400px; color:#888; text-transform:uppercase;}
 
 /* Floated config options */
-#float {position:absolute; right:10px; bottom:10px; padding:2px 30px;}
+.form-buttons {position:relative; top:-26px; left:688px; z-index:9999; width:297px; background:#222; height:22px; border-radius:8px 0 0 0; margin-bottom:-20px;
+-webkit-box-shadow:-1px -1px 0 #777,
+-2px -2px 0 #999,
+-3px -3px 0 #9a9a9a,
+-4px -4px 0 #aaa,
+-5px -5px 0 #a9a9a9,
+3px 3px 10px #2c2c2c;
+box-shadow:-1px -1px 0 #777,
+-2px -2px 0 #999,
+-3px -3px 0 #9a9a9a,
+-4px -4px 0 #aaa,
+-5px -5px 0 #a9a9a9,
+3px 3px 10px #2c2c2c;}
+.form-buttons.floated {position:fixed; top:auto; left:auto; bottom:10px; right:10px; height:auto; margin:0; width:400px; height:auto; background:transparent; border-radius:0; -webkit-box-shadow:0 0 transparent; box-shadow:0 0 transparent; border-top:0 none;}
+.form-buttons.floated #link {bottom:10px;}
+.form-buttons#code-buttons {left:577px; width:408px;}
+.form-buttons button {margin:5px 0 0 6px; padding:2px 30px;}
+#float {position:absolute; right:6px; bottom:-8px;}
+#link {position:absolute; right:138px; bottom:-8px;}
 #dock {display:none; position:absolute; font-size:8pt !important; right:20px; bottom:10px; padding:2px 20px;}
 #float-select {display:none; position:absolute; font-size:8pt !important; right:130px; bottom:10px; padding:2px 20px;}
 

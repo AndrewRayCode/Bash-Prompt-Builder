@@ -12,6 +12,39 @@
                 range.selectNode(this);
                 window.getSelection().addRange(range);
             }
+        },
+        serialize: function() {
+            var serialized = [],
+                type,
+                val,
+                toQuery = function(id, value) {
+                    return encodeURIComponent(id) + '=' + encodeURIComponent(value);
+                };
+            $$('input[type="text"], input[type="checkbox"]').each(function(item) {
+                switch(item.type) {
+                    case 'text':
+                        serialized.push(toQuery(item.id, item.value.trim()));
+                    break;
+                    case 'checkbox':
+                        serialized.push(toQuery(item.id, item.checked || false));
+                    break;
+                }
+            });
+            return '#' + serialized.join('&');
+        },
+        deserialize: function(str) {
+            var values = str.replace(/^#/, '').parseQueryString();
+            $$('input[type="text"], input[type="checkbox"]').each(function(item) {
+                switch(item.type) {
+                    case 'text':
+                        item.value = values[item.id];
+                    break;
+                    case 'checkbox':
+                        item.checked = values[item.id] == 'true';
+                    break;
+                }
+                item.fireEvent('change');
+            });
         }
     });
 
@@ -59,10 +92,9 @@
         document.body.noisify({
             monochrome: false
         }).addClass(Browser.Engine.webkit ? 'webkit' : '');
-        $$('.screen').noisify();
+        $$('.screen, .form-buttons').noisify();
 
         var $built = $('function'),
-            $options = $('options'),
             lines = $built.get('html').split('\n'),
             output = '',
             index = 1,
@@ -78,7 +110,7 @@
 
         $('float').addEvent('click', floatControls);
         $('dock').addEvent('click', hideControls);
-        $$('#float-select, #select').addEvent('click', function() {
+        $('select').addEvent('click', function() {
             $('function').selectText();
         });
 
@@ -102,6 +134,9 @@
         $('bisecting-text').addEvents({
             change: updateBisectText,
             keyup: updateBisectText
+        }).funPicker({
+            picker: $('bisect-picker'), 
+            append: true
         });
         $('no-branch-text').addEvents({
             change: updateNoBranchText,
@@ -122,7 +157,7 @@
                 }
 
                 for(; $div = $divs[x++];) {
-                    $div.toggle();
+                    $div[$input.checked ? 'show' : 'hide']();
                 }
             }
         }).set('checked', 'checked').funForm();
@@ -192,16 +227,16 @@
     function floatControls() {
         $('float').hide();
         $('dock').show();
-        $('float-select').show();
         $('nav-options').hide();
+        $('config-buttons').addClass('floated');
         $('options').addClass('floated');
     }
 
     function hideControls() {
         $('float').show();
         $('dock').hide();
-        $('float-select').hide();
         $('nav-options').show();
+        $('config-buttons').removeClass('floated');
         $('options').removeClass('floated');
     }
 

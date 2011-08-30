@@ -35,9 +35,6 @@
 
             <h2 id="nav-options">Options </h2>
             <section id="options">
-                <button id="float"><span>➦</span> Float</button>
-                <button id="dock"><span>➥</span> Dock</button>
-                <button id="float-select">Select code (copy it yourself, jerk)</button>
                 <div class="wtf">
                     <div id="placeholder">Hover over an option to see its description here</div>
                     <label id="wtf-label" for="wtf">What the merry-go-round does this option do?</label>
@@ -163,6 +160,11 @@
                     </div>
                 </div>
             </section>
+            <div class="form-buttons" id="config-buttons">
+                <button id="link">Save as Link</button>
+                <button id="float"><span>➦</span> Float</button>
+                <button id="dock"><span>➥</span> Dock</button>
+            </div>
 
             <h2 id="preview">Preview</h2>
             <section class="display">
@@ -432,11 +434,12 @@ dvcs_function="
 
 PS1="\$(${dvcs_function})\[$COLOR_RESET\] \$ "
             </div>
+        </section>
+        <div class="form-buttons" id="code-buttons">
             <button id="expand">Expand</button>
             <button id="despand">Despand</button>
             <button id="select">Select (copy it yourself, jerk)</button>
-
-        </section>
+        </div>
 
         <h2 id="what">What is this I don't even</h2>
         <section class="what">
@@ -471,18 +474,19 @@ PS1="\$(${dvcs_function})\[$COLOR_RESET\] \$ "
 
         <div class="fun-picker" id="modified-picker">
             <ul>
-                <li>༇</li>
+                <li>✎</li>
+                <li>✏</li>
+                <li>✐</li>
                 <li>△</li>
+                <li>▲</li>
+                <li>⟁</li>
+                <li>༇</li>
                 <li>±</li>
                 <li>☢</li>
                 <li>☠</li>
                 <li>☣</li>
                 <li>✍</li>
-                <li>✎</li>
-                <li>✏</li>
-                <li>✐</li>
                 <li>➲</li>
-                <li>⟁</li>
                 <li>⟠</li>
                 <li>𝄞</li>
                 <li>!</li>
@@ -496,21 +500,24 @@ PS1="\$(${dvcs_function})\[$COLOR_RESET\] \$ "
                 <li>✻</li>
                 <li>❤</li>
                 <li>⚛</li>
-                <li>x</li>
+                <li>‽</li>
                 <li>*</li>
-                <li>+</li>
                 <li>#</li>
                 <li>௰</li>
             </ul>
         </div>
         <div class="fun-picker" id="conflict-picker">
             <ul>
-                <li>༇</li>
-                <li>△</li>
-                <li>±</li>
                 <li>☢</li>
                 <li>☠</li>
                 <li>☣</li>
+                <li>Ѽ</li>
+                <li>Ѿ</li>
+                <li>௰</li>
+                <li>!</li>
+                <li>༇</li>
+                <li>△</li>
+                <li>±</li>
                 <li>✍</li>
                 <li>✎</li>
                 <li>✏</li>
@@ -519,10 +526,7 @@ PS1="\$(${dvcs_function})\[$COLOR_RESET\] \$ "
                 <li>⟁</li>
                 <li>⟠</li>
                 <li>𝄞</li>
-                <li>!</li>
                 <li>ʘ</li>
-                <li>Ѽ</li>
-                <li>Ѿ</li>
                 <li>✓</li>
                 <li>✔</li>
                 <li>§</li>
@@ -533,8 +537,32 @@ PS1="\$(${dvcs_function})\[$COLOR_RESET\] \$ "
                 <li>x</li>
                 <li>*</li>
                 <li>+</li>
-                <li>#</li>
-                <li>௰</li>
+                <li>‽</li>
+            </ul>
+        </div>
+        <div class="fun-picker" id="bisect-picker">
+            <ul>
+                <li>Ψ</li>
+                <li>ϕ</li>
+                <li>ϕ</li>
+                <li>ϟ</li>
+                <li>Ж</li>
+                <li>Ф</li>
+                <li>ே</li>
+                <li>ჱ</li>
+                <li>ᅡ</li>
+                <li>ᅥ</li>
+                <li>ᙟ</li>
+                <li>᚜</li>
+                <li>᚛</li>
+                <li>ᚋ</li>
+                <li>⊕</li>
+                <li>◧</li>
+                <li>◨</li>
+                <li>◭</li>
+                <li>◮</li>
+                <li>✄</li>
+                <li>‡</li>
             </ul>
         </div>
     </body>

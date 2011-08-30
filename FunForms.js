@@ -39,7 +39,8 @@
 
         options: {
             offsetTop: 2,
-            blurTimeout: 100
+            blurTimeout: 100,
+            append: false
         },
 
         initialize: function(input, options){
@@ -113,7 +114,7 @@
         },
 
         pickClick: function(evt) {
-            this.input.set('value', evt.target.get('text')).fireEvent('change');
+            this.input.set('value', (this.options.append ? this.input.get('value') : '') + evt.target.get('text')).fireEvent('change');
         }
     });
 
