@@ -208,6 +208,10 @@
         $conflictedFiles = $$('.conflicted-files');
         $bisectingTexts = $$('.option-bisecting');
         $noBranchTexts = $$('.option-nobranch');
+
+        if(window.location.hash) {
+            $('options').deserialize(window.location.hash);
+        }
     });
 
     var elementCache = {};
@@ -284,9 +288,6 @@
             this.select();
         });
         new MooDialog.Alert(input);
-        setTimeout(function() {
-            input.select();
-        }, 500);
     }
 
 	function deselect() {
