@@ -92,7 +92,7 @@
         document.body.noisify({
             monochrome: false
         }).addClass(Browser.Engine.webkit ? 'webkit' : '');
-        $$('.screen, .form-buttons').noisify();
+        $$('.form-buttons').noisify();
 
         var $built = $('function'),
             lines = $built.get('html').split('\n'),
@@ -113,6 +113,7 @@
         $('select').addEvent('click', function() {
             $('function').selectText();
         });
+        $('link').addEvent('click', popLink);
 
         $('expand').addEvent('click', toggleCodeView);
         $('despand').addEvent('click', toggleCodeView);
@@ -273,6 +274,19 @@
 
     function updateNoBranchText() {
         $noBranchTexts.set('text', this.get('value'));
+    }
+
+    function popLink() {
+        var input = new Element('input').set({
+            value: window.location.href.replace(/#.*$|$/, $('options').serialize()),
+            type: 'text'
+        }).addEvent('focus', function() {
+            this.select();
+        });
+        new MooDialog.Alert(input);
+        setTimeout(function() {
+            input.select();
+        }, 500);
     }
 
 	function deselect() {

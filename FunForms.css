@@ -73,3 +73,28 @@ transform:translateY(.2em);
 }
 
 button:focus { outline:none; color:rgba(254,255,255,0.9) !important; text-shadow:rgba(0,0,0,0.2) 0 1px 2px; }
+
+/* Created by Arian Stolwijk <http://www.aryweb.nl> */
+
+.MooDialog {width:300px; height:30px; position:fixed; margin:-150px 0 0 -150px; top:50%; left:50%; z-index:50000; background:#fff; color:black; padding:10px;
+border-radius:7px;
+-moz-border-radius:7px;
+-webkit-border-radius:7px;
+border-radius:7px;
+-webkit-box-shadow:1px 1px 0 #777,
+2px 2px 0 #999,
+3px 3px 0 #9a9a9a,
+4px 4px 0 #aaa,
+5px 5px 0 #a9a9a9,
+3px 3px 10px #2c2c2c;
+box-shadow:1px 1px 0 #777,
+2px 2px 0 #999,
+3px 3px 0 #9a9a9a,
+4px 4px 0 #aaa,
+5px 5px 0 #a9a9a9,
+3px 3px 10px #2c2c2c;}
+.MooDialogTitle { padding-top:30px; }
+.MooDialog .content input {width:78%;}
+.MooDialog .buttons {float:right; text-align:right; margin:0; padding:0; border:0; background:none; position:relative; top:-6px;}
+.MooDialog .textInput { width:200px; float:left; }
+.MooDialog .MooDialogAlert{padding-left:40px; min-height:40px; }
