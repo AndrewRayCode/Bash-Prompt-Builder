@@ -194,6 +194,8 @@ transition:all 0.52s ease-out;}
 .config.characters input {font-family:monospace; float:left; width:25px; text-align:center;}
 .config.characters label {margin-left:1px; display:block; float:left; padding:8px 10px 4px; }
 .config.characters .group {clear:both; float:left; margin:0 0 10px;}
+.config.characters .long input {width:100px; font-size:10pt; text-align:left;}
+.config.characters .long label {padding:5px 10px 6px;}
 .fun-picker ul li {font-family:monospace;}
 
 #wtf {margin-left:10px;}

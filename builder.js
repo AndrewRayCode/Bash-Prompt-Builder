@@ -44,11 +44,15 @@
 
         // Default options
         'default': 'No description found. God I am so lazy',
-        'conflicted-files': 'index.js,path/to/package.json,filename.txt,awful.php,...'
+        'conflicted-files': 'index.js,path/to/package.json,filename.txt,awful.php,...',
+        'no-branch-text': 'Text to show when you are lost in space (detached head)',
+        'bisecting-text': 'Text to show when bisecting. Current commit comes after automatically.'
     },
         $deltaChars,
         $conflictChars,
-        $conflictedFiles;
+        $conflictedFiles,
+        $bisectingTexts,
+        $noBranchTexts;
 
     window.addEvent('domready', function() {
         // Make the body and displays noisy and tag it with webkit
@@ -67,6 +71,11 @@
             stack = [],
             totalLines = lines.length;
 
+        $$('.nav').addEvent('click:relay(a)', function(evt) {
+            evt.preventDefault();
+            window.scrollTo(0, $(this.get('href').substring(1)).getPosition().y);
+        });
+
         $('float').addEvent('click', floatControls);
         $('dock').addEvent('click', hideControls);
         $$('#float-select, #select').addEvent('click', function() {
@@ -78,16 +87,25 @@
         
         $('modified-char').addEvents({
             change: updateDeltaChars,
-            keyup:  updateDeltaChars
+            keyup: updateDeltaChars
         }).funPicker({picker: $('modified-picker')});
 
         $('conflict-char').addEvents({
             change: updateConflictCharacters,
-            keyup:  updateConflictCharacters
+            keyup: updateConflictCharacters
         }).funPicker({picker: $('conflict-picker')});
 
         $('max-conflicted-files').addEvents({
             change: updateConflictedFilesList
+        });
+
+        $('bisecting-text').addEvents({
+            change: updateBisectText,
+            keyup: updateBisectText
+        });
+        $('no-branch-text').addEvents({
+            change: updateNoBranchText,
+            keyup: updateNoBranchText
         });
 
         $$('input[type="checkbox"]').addEvents({
@@ -148,9 +166,12 @@
 
         $built.set('html', output).setStyle('display', 'block');
 
+        // Cache our element selectors
         $deltaChars = $$('.option-delta'),
         $conflictChars = $$('.option-conflict');
         $conflictedFiles = $$('.conflicted-files');
+        $bisectingTexts = $$('.option-bisecting');
+        $noBranchTexts = $$('.option-nobranch');
     });
 
     var elementCache = {};
@@ -211,6 +232,14 @@
         $('despand').setStyle('display', (toggleCodeView.expanded = !toggleCodeView.expanded) ? 'inline' : 'none');
     }
 
+    function updateBisectText() {
+        $bisectingTexts.set('text', this.get('value'));
+    }
+
+    function updateNoBranchText() {
+        $noBranchTexts.set('text', this.get('value'));
+    }
+
 	function deselect() {
 		if (document.selection) {
             document.selection.empty();
@@ -218,5 +247,4 @@
             window.getSelection().removeAllRanges();
         }
 	}
-    
 })();
