@@ -211,6 +211,7 @@
 
         if(window.location.hash) {
             $('options').deserialize(window.location.hash);
+            window.location.replace('#');
         }
     });
 
