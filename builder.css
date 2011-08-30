@@ -150,7 +150,7 @@ box-shadow:1px 1px 0 #ce553e,
 -webkit-transition:all 0.52s ease-out;
 -moz-transition:all 0.52s ease-out;
 transition:all 0.52s ease-out;}
-#function.expanded {height:2100px;}
+#function.expanded {height:2500px; /* estimation of total height, eyeball it after updating function */}
 #function .opposite {display:none;}
 #function .git {background:#ffffee;}
 #function .hg {background:#ffeeff;}

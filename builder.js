@@ -209,7 +209,7 @@
         $bisectingTexts = $$('.option-bisecting');
         $noBranchTexts = $$('.option-nobranch');
 
-        if(window.location.hash) {
+        if(window.location.hash && window.location.hash.trim() != '#') {
             $('options').deserialize(window.location.hash);
             window.location.replace('#');
         }
