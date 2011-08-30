@@ -26,6 +26,17 @@ The above code will essentially wrap that block in `<div class="toggle start-lab
     <input type="checkbox" value="sart-label" id="sart-label" />
  
 ## Modifying the website: 
+There's a lot going on. A checkbox with this:
+
+    data-toggle="git-prefix git-revno git-ahead git-modified git-conflicted git-bisect"
+
+means it's auto-wired up to toggle all other checkboxes with those IDs.
+
+No images please, keep it pure CSS. I know Noisy technically makes an image. Shushups.
+
+Feel free to comment the JS in places I havne't.
+
+MooModal.js is external to this codebase (submodule?), don't modify it.
 
 ## Submitting a pull request:
 Please indent all lines with four spaces. Keep all CSS rules on one line except cross-browser duplicate rules. Do not put a space after the colon. Make your commit message descriptive and submit a squashed commit as suggested [here](http://sandofsky.com/blog/git-workflow.html).
