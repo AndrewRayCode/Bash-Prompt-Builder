@@ -76,7 +76,7 @@ button:focus { outline:none; color:rgba(254,255,255,0.9) !important; text-shadow
 
 /* Created by Arian Stolwijk <http://www.aryweb.nl> */
 
-.MooDialog {width:300px; height:30px; position:fixed; margin:-150px 0 0 -150px; top:50%; left:50%; z-index:50000; background:#fff; color:black; padding:10px;
+.MooDialog {width:300px; height:30px; position:fixed; margin:-150px 0 0 -150px; top:50%; left:50%; z-index:9999999; background:#fff; color:black; padding:10px;
 border-radius:7px;
 -moz-border-radius:7px;
 -webkit-border-radius:7px;
