@@ -183,6 +183,7 @@ transition:all 0.52s ease-out;}
 .display .git-no-branch {color:#ae350e;}
 .display .git-bisect {color:#e484fd;}
 .display .hg-bisect {color:#c7c323;}
+.display .hg-patches {color:#c7c323;}
 
 /* Configuration options */
 #options {padding-bottom:30px;}

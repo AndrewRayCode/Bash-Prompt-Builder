@@ -57,7 +57,7 @@
         'git-conflicted': 'Shows list of files (including relative paths) in a conflicted state.',
         'git-revno': 'The current revision ID.',
         'git-prefix': 'Add "git:" to show that you are in a Git repository.',
-        'git-bisect': 'Show text if bisecting and currently bisected revision.',
+        'git-bisect': 'Show text if bisecting (initiated by `git bisect`) and currently bisected revision.',
 
         // hg options
         hg: 'Toggles the Mercurial version of the bash prompt.',
@@ -65,6 +65,8 @@
         'hg-conflicted': 'Shows a list of files (including relative paths)jin a conflicted state.',
         'hg-prefix': 'Add "hg:" to show that you are in a Mercurial repository.',
         'hg-revno': 'The current revision ID.',
+        'hg-bisect': 'Show text if bisecting (initiated by `hg bisect`) and currently bisected revision.',
+        'hg-patches': 'Show list of *applied* mq patches. Will show [patch1] in prompt after command `hg qnew patch1`.',
 
         // svn options
         svn: 'Toggles the Subversion version of the bash prompt Subversion is the slowest and can add up to 100ms to your prompt display time.',

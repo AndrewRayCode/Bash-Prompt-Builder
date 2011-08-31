@@ -83,7 +83,7 @@
 
                 <div class="config config-git">
                     <div class="group">
-                        <input type="checkbox" value="hg" id="hg" data-toggle="hg-prefix hg-revno hg-modified hg-conflicted hg-bisect" checked="checked" />
+                        <input type="checkbox" value="hg" id="hg" data-toggle="hg-patches hg-prefix hg-revno hg-modified hg-conflicted hg-bisect" checked="checked" />
                         <label for="hg">Mercurial</label>
                     </div>
 
@@ -111,6 +111,11 @@
                         <div class="group">
                             <input type="checkbox" value="hg-bisect" id="hg-bisect" checked="checked" />
                             <label for="hg-bisect">Bisecting<label>
+                        </div>
+
+                        <div class="group">
+                            <input type="checkbox" value="hg-patches" id="hg-patches" checked="checked" />
+                            <label for="hg-patches">Patch List<label>
                         </div>
                     </div>
                 </div>
@@ -194,7 +199,7 @@
                 <div class="group hg">
                     <label for="hg-display">Mercurial</label>
                     <div class="screen" id="hg-display">
-                        <span class="hg-branch">(<span class="hg-prefix">hg:</span>default<span class="hg-revno">:f9302</span><span class="option-delta hg-modified"> ༇</span>)</span><span class="hg-conflicted"> (<span class="option-conflict">௰ </span><span class="conflicted-files">index.js, package.json</span>)</span> $ 
+                        <span class="hg-branch">(<span class="hg-prefix">hg:</span>default<span class="hg-revno">:f9302</span><span class="option-delta hg-modified"> ༇</span><span class="hg-patches"> [patch1,patch2]</span>)</span><span class="hg-conflicted"> (<span class="option-conflict">௰ </span><span class="conflicted-files">index.js, package.json</span>)</span> $ 
                     </div>
 
                     <div class="sub hg-bisect">
@@ -220,6 +225,7 @@
 #
 # Requirements (other than git, svn and hg):
 #   hg-prompt: https://bitbucket.org/sjl/hg-prompt/src
+#   svnversion (you probably have it if you have svn)
 #   ack
 # props to http://www.codeography.com/2009/05/26/speedy-bash-prompt-git-and-subversion-integration.html
 
@@ -250,52 +256,73 @@ COLOR_LIGHT_RED=$(tput sgr0 && tput bold && tput setaf 1)
 COLOR_LIGHT_CYAN=$(tput sgr0 && tput bold && tput setaf 6)
 COLOR_RESET=$(tput sgr0)
 
+# :hg
+    _hg_dir=""
+    function _hg_check {
+        [ -d ".hg" ] && _hg_dir=`pwd`
+        base_dir="."
+        while [ -d "$base_dir/../.hg" ]; do base_dir="$base_dir/.."; done
+        if [ -d "$base_dir/.hg" ]; then
+            _hg_dir=`cd $base_dir; pwd`
+            return 0
+        else
+            return 1
+        fi
+    }
+# /hg
+
+# :svn
+    _svn_dir=""
+    function _svn_check {
+        parent=""
+        grandparent="."
+
+        while [ -d "$grandparent/.svn" ]; do
+            parent=$grandparent
+            grandparent="$parent/.."
+        done
+
+        if [ ! -z "$parent" ]; then
+            _svn_dir=`cd $parent; pwd`
+            return 0
+        else
+            return 1
+        fi
+    }
+# /svn
+
+# :git
+    _git_dir=""
+    function _git_check {
+        _git_dir=`git rev-parse --show-toplevel 2> /dev/null`
+        if [[ "$_git_dir" == "" ]]; then
+            return 1
+        else
+            return 0
+        fi
+    }
+# /git
+
 dvcs_function="
     # Figure out what repo we are in
-    # :hg
-        hgBranch=\$(hg prompt \"{branch}\" 2> /dev/null)
-
-        # Done for speed reasons. Feel free to swap
-        if [[ \"\$hgBranch\" == \"\" ]]; then
-    # /hg
-    # :git
-        gitStatus=\$(git status 2> /dev/null)
-    # /git
-    # :hg
-        if [[ \"\$gitStatus\" == \"\" ]]; then
-    # /hg
-    # :svn
-        # Svn?
-        svnInfo=\$(svn info 2> /dev/null)
-    # /svn
-
-    # :hg
-        fi
-    # /hg
-    # :hg
-        fi
-    # /hg
+    _git_check || _hg_check || _svn_check
 
     # Build the prompt!
     prompt=\"\"
 
-    # :conflict
-        files=\"\"
-    # /conflict
-
     # :git
         # If we are in git ...
-        if [[ \"\$gitStatus\" != \"\" ]]; then
+        if [ -n \"\$_git_dir\" ]; then
             # find current branch
             gitBranch=\$(git symbolic-ref HEAD 2> /dev/null)
 
             # Figure out current branch, or if we are bisecting, or lost in space
             bisecting=\"\"
             noBranch=\"\"
-            if [[ \"\"\$gitBranch\"\" == \"\" ]]; then
+            if [ -z \"\$gitBranch\" ]; then
                 # :git-bisect
                     bisect=\$(git rev-list --bisect 2> /devnull | cut -c1-7)
-                    if [[ \"\"\$bisect\"\" == \"\" ]]; then
+                    if [ -z \"\$bisect\" ]; then
                 # /git-bisect
                 noBranch=True
                 gitBranch=\"\\[\$COLOR_RED\\]\$NOBRANCH_TEXT\\[\$COLOR_YELLOW\\]\"
@@ -309,8 +336,8 @@ dvcs_function="
 
             # :git-modified
                 # changed *tracked* files in local directory?
-                gitChange=\$(echo \$gitStatus | ack 'modified:|deleted:|new file:')
-                if [[ \"\$gitChange\" != \"\" ]]; then
+                gitChange=\$(git status | ack 'modified:|deleted:|new file:')
+                if [ -n \"\$gitChange\" ]; then
                     gitChange=\" \\[`tput sc`\\]  \\[`tput rc`\\]\\[\$DELTA_CHAR\\] \"
                 fi
             # /git-modified
@@ -328,16 +355,16 @@ dvcs_function="
                 revNo=\$(git rev-parse HEAD | cut -c1-7) || return
 
                 # If bisecting don't output revno
-                if [[ \"\"\$bisecting\"\" == \"\" ]] && [[ \"\"\$noBranch\"\" == \"\" ]];then
+                if [ -z \"\$bisecting\" ] && [ -z \"\$noBranch\" ];then
                     prompt=\$prompt\":\$revNo\"
                 fi
-                prompt=\$prompt\"\$gitChange)\\[\$COLOR_RESET\\]\"
             # /git-revno
+            prompt=\$prompt\"\$gitChange)\\[\$COLOR_RESET\\]\"
 
             # :git-ahead
                 # How many local commits do you have ahead of origin?
                 num=\$(echo \"\$gitStatus\" | grep \"Your branch is ahead of\" | awk '{split(\$0,a,\" \"); print a[9];}') || return
-                if [[ \"\$num\" != \"\" ]]; then
+                if [ -n \"\$num\" ]; then
                     prompt=\$prompt\"\\[\$COLOR_LIGHT_CYAN\\] +\$num\"
                 fi
             # /git-ahead
@@ -351,15 +378,30 @@ dvcs_function="
 
     # :hg
         # If we are in mercurial ...
-        if [[ \"\$hgBranch\" != \"\" ]]; then
+        if [ -n \"\$_hg_dir\" ]; then
+            hgBranch=\`cat \"\$_hg_dir/.hg/branch\"\`
+
+            hgPrompt=\"s\"
+            # :hg-modified
+                hgPrompt=\"\$hgPrompt{status|modified}\"
+            # /hg-modified
+
+            hgPrompt=\"\$hgPrompt n\"
+            # :hg-revno
+                hgPrompt=\"\$hgPrompt{node}\"
+            # /hg-revno
+
+            hgPrompt=\"\$hgPrompt p\"
+            # :hg-patches
+                hgPrompt=\"\$hgPrompt{patches|hide_unapplied|join(,)}\"
+            # /hg-patches
+
+            promptOptions=(\`hg prompt \"\$hgPrompt\" | tr -s ':' ' '\`)
 
             # :hg-modified
-                # changed files in local directory?
-                hgChange=\$(hg status | ack '^M|^!')
-                if [[ \"\$hgChange\" != \"\" ]]; then
+                hgm=\${promptOptions[0]:1}
+                if [ -n \"\$hgm\" ]; then
                     hgChange=\" \\[`tput sc`\\]  \\[`tput rc`\\]\\[\$DELTA_CHAR\\]\"
-                else
-                    hgChange=\"\"
                 fi
             # /hg-modified
 
@@ -376,18 +418,25 @@ dvcs_function="
                     bisecting=\$(hg bisect 2> /dev/null | head -n 1)
                     bisecting=\${bisecting:20:7}
 
-                    if [[ \"\$bisecting\" == \"\" ]]; then
+                    if [ -z \"\$bisecting\" ]; then
                 # /hg-bisect
+                    prompt=\$prompt
                     # :hg-revno
-                        revNo=\$(hg parents --template=\"{node}\" | cut -c1-7) || return
-                        prompt=\$prompt\":\$revNo\"
+                        prompt=\$prompt\":\${promptOptions[1]:1:7}\"
                     # /hg-revno
                 # :hg-bisect
                     else
-                        prompt=\"\$prompt\\[\$COLOR_YELLOW\\]:$BISECTING_TEXT:\"\$bisecting\"\\[\$COLOR_PURPLE\\]\"
+                        prompt=\"\$prompt\\[\$COLOR_YELLOW\\]:\$BISECTING_TEXT:\"\$bisecting\"\\[\$COLOR_PURPLE\\]\"
                     fi
                 # /hg-bisect
-                prompt=\$prompt\"\$hgChange)\"
+                prompt=\$prompt\"\$hgChange\"
+                # :hg-patches
+                    patches=\${promptOptions[2]:1}
+                    if [ -n \"\$patches\" ];then
+                        prompt=\$prompt\"\\[\$COLOR_YELLOW\\] [\$patches]\\[\$COLOR_PURPLE\\]\"
+                    fi
+                # /hg-patches
+                prompt=\$prompt\")\"
             # /hg-branch
 
             # :conflicts
@@ -399,7 +448,7 @@ dvcs_function="
 
     # :svn
         # If we are in subversion ...
-        if [[ \"\$svnInfo\" != \"\" ]]; then
+        if [ -n \"\$_svn_dir\" ]; then
 
             # :svn-changed
                 # changed files in local directory? NOTE: This command is the slowest of the bunch
@@ -412,7 +461,7 @@ dvcs_function="
             # /svn-changed
 
             # revision number (instead of branch name, silly svn)
-            revNo=\$(echo \"\$svnInfo\" | sed -n -e '/^Revision: \([0-9]*\).*\$/s//\1/p')
+            revNo=\`svnversion --no-newline\`
             prompt=\$prompt\"\\[\$COLOR_BLUE\\] (svn\"
             # :svn-revno
                 prompt=\$prompt\":\$revNo\"
@@ -423,7 +472,7 @@ dvcs_function="
 
     # :conflicts
         # Show conflicted files if any
-        if [[ \"\$files\" != \"\" ]]; then
+        if [ -n \"\$files\" ]; then
             prompt=\$prompt\" \\[\$COLOR_RED\\](\\[\$COLOR_YELLOW\\]\"
             prompt=\$prompt\"\\[`tput sc`\\]  \\[`tput rc`\\]\\[\$CONFLICT_CHAR\\] \"
             prompt=\$prompt\"\\[\$COLOR_RED\\] \${files})\"
