@@ -81,7 +81,7 @@
                     </div>
                 </div>
 
-                <div class="config config-git">
+                <div class="config config-hg">
                     <div class="group">
                         <input type="checkbox" value="hg" id="hg" data-toggle="hg-patches hg-prefix hg-revno hg-modified hg-conflicted hg-bisect" checked="checked" />
                         <label for="hg">Mercurial</label>
@@ -120,7 +120,7 @@
                     </div>
                 </div>
 
-                <div class="config config-git">
+                <div class="config config-svn">
                     <div class="group">
                         <input type="checkbox" value="svn" id="svn" data-toggle="svn-revno svn-modified" checked="checked" />
                         <label for="svn">Subversion</label>
@@ -136,6 +136,12 @@
                             <input type="checkbox" value="svn-revno" id="svn-revno" checked="checked" />
                             <label for="svn-revno">Revision ID<label>
                         </div>
+                    </div>
+
+                    <div class="group general">
+                        <label class="header">General Options</label>
+                        <input type="checkbox" value="comments" id="comments" />
+                        <label for="comments">Strip all comments</label>
                     </div>
                 </div>
 

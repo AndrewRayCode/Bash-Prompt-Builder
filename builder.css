@@ -192,6 +192,7 @@ transition:all 0.52s ease-out;}
 .options .group {padding:2px 0; margin:4px 0 0; float:left; clear:both;}
 .group label {cursor:pointer; color:#444; padding:0 0 0 2px;}
 .group label:hover {color:#000;}
+.group.general .header {float:none; background:#eee; border-radius:20px; padding:3px 12px; display:block; margin:12px 0;}
 .config.characters {width:250px;}
 .config.characters input {font-family:monospace; float:left; width:25px; text-align:center;}
 .config.characters label {margin-left:1px; display:block; float:left; padding:8px 10px 4px; }

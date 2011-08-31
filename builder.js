@@ -146,6 +146,11 @@
             keyup: updateNoBranchText
         });
 
+        $('comments').addEvents({
+            click: toggleComments,
+            change: toggleComments
+        });
+
         $$('input[type="checkbox"]').addEvents({
             mouseover: updateDescription.bindWithEvent(this),
             'fun-change': function(evt) {
@@ -165,7 +170,14 @@
 
                 updateLink();
             }
-        }).set('checked', 'checked').funForm();
+        }).each(function($cb) {
+            if($cb.id == 'comments') {
+                $cb.set('checked', false);
+            } else {
+                $cb.set('checked', 'checked')
+            }
+            $cb.funForm();
+        });
         $$('input[type="text"]').addEvent('mouseover', updateDescription.bindWithEvent(this));
 
         $$('.config label').addEvent('mouseover', updateDescription.bindWithEvent(this));
@@ -192,9 +204,10 @@
                     .replace(/([a-zA-Z_]+)=/, '<span class="line-def">$1</span><span class="operator">=</span>')
                     .replace(/\b(if|then|fi)\b/g, '<span class="keyword">$1</span>')
                     .replace(/(\$[a-zA-Z_]+)/g, '<span class="variable">$1</span>')
-                    .replace(/(#(.+|$))/, '<span class="comment">$1</span>')
-                    .replace(/#([a-zA-Z_0-9]+)#/, '<span id="$1"></span>'))
-                    + '<br />';
+                    .replace(/(#(.+|$))/, '<span class="comment">$1<br /></span>')
+                    .replace(/#([a-zA-Z_0-9]+)#/, '<span id="$1"></span>'));
+
+                newLine += (newLine.indexOf('class="comment"') == -1 ? '<br />' : '');
 
                 if(current && !current.indexOf('option-')) {
                     newLine = newLine.replace(/>(['"])([^'"]+)(['"]?)<br/, '>$1<span class="configurable ' + current + '">$2</span>$3<br');
@@ -309,6 +322,10 @@
 
     function updateLink() {
         $('auto_url').set('text', getLink());
+    }
+
+    function toggleComments() {
+        $$('.comment')[this.checked ? 'hide' : 'show']();
     }
 
 	function deselect() {
