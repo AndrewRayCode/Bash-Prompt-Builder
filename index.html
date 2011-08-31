@@ -315,6 +315,7 @@ dvcs_function="
         if [ -n \"\$_git_dir\" ]; then
             # find current branch
             gitBranch=\$(git symbolic-ref HEAD 2> /dev/null)
+            gitStatus=\`git status\`
 
             # Figure out current branch, or if we are bisecting, or lost in space
             bisecting=\"\"
@@ -336,7 +337,7 @@ dvcs_function="
 
             # :git-modified
                 # changed *tracked* files in local directory?
-                gitChange=\$(git status | ack 'modified:|deleted:|new file:')
+                gitChange=\$(echo \$gitStatus | ack 'modified:|deleted:|new file:')
                 if [ -n \"\$gitChange\" ]; then
                     gitChange=\" \\[`tput sc`\\]  \\[`tput rc`\\]\\[\$DELTA_CHAR\\] \"
                 fi
@@ -363,7 +364,7 @@ dvcs_function="
 
             # :git-ahead
                 # How many local commits do you have ahead of origin?
-                num=\$(echo \"\$gitStatus\" | grep \"Your branch is ahead of\" | awk '{split(\$0,a,\" \"); print a[9];}') || return
+                num=\$(echo \$gitStatus | grep \"Your branch is ahead of\" | awk '{split(\$0,a,\" \"); print a[13];}') || return
                 if [ -n \"\$num\" ]; then
                     prompt=\$prompt\"\\[\$COLOR_LIGHT_CYAN\\] +\$num\"
                 fi
