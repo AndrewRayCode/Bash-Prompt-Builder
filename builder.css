@@ -206,7 +206,7 @@ transition:all 0.52s ease-out;}
 .wtf #placeholder {display:block; margin:10px auto 0; width:400px; color:#888; text-transform:uppercase;}
 
 /* Floated config options */
-.form-buttons {position:relative; top:-26px; left:688px; z-index:9999; width:297px; background:#222; height:22px; border-radius:8px 0 0 0; margin-bottom:-20px;
+.form-buttons {position:relative; top:-26px; left:688px; z-index:9998; width:297px; background:#222; height:22px; border-radius:8px 0 0 0; margin-bottom:-20px;
 -webkit-box-shadow:-1px -1px 0 #777,
 -2px -2px 0 #999,
 -3px -3px 0 #9a9a9a,

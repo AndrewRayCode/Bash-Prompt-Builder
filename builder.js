@@ -162,6 +162,8 @@
                 for(; $div = $divs[x++];) {
                     $div[$input.checked ? 'show' : 'hide']();
                 }
+
+                updateLink();
             }
         }).set('checked', 'checked').funForm();
         $$('input[type="text"]').addEvent('mouseover', updateDescription.bindWithEvent(this));
@@ -190,7 +192,8 @@
                     .replace(/([a-zA-Z_]+)=/, '<span class="line-def">$1</span><span class="operator">=</span>')
                     .replace(/\b(if|then|fi)\b/g, '<span class="keyword">$1</span>')
                     .replace(/(\$[a-zA-Z_]+)/g, '<span class="variable">$1</span>')
-                    .replace(/(#.+)/, '<span class="comment">$1</span>'))
+                    .replace(/(#(.+|$))/, '<span class="comment">$1</span>')
+                    .replace(/#([a-zA-Z_0-9]+)#/, '<span id="$1"></span>'))
                     + '<br />';
 
                 if(current && !current.indexOf('option-')) {
@@ -215,6 +218,8 @@
             $('options').deserialize(window.location.hash);
             window.location.replace('#');
         }
+
+        updateLink();
     });
 
     var elementCache = {};
@@ -253,6 +258,7 @@
         $conflictChars.forEach(function($conflict) {
             $conflict.set('text', val ? (val + ($conflict.hasClass('configurable') ? '' : ' ')) : '');
         });
+        updateLink();
     }
 
     function updateDeltaChars() {
@@ -260,6 +266,7 @@
         $deltaChars.forEach(function($delta) {
             $delta.set('text', val ? (($delta.hasClass('configurable') ? '' : ' ') + val) : '');
         });
+        updateLink();
     }
 
     function updateConflictedFilesList() {
@@ -267,6 +274,7 @@
             val = Math.max(0, parseInt(this.get('value'))) || 0;
         $conflictedFiles.set('text', split.slice(0, val).join(', '));
         this.set('value', val).focus();
+        updateLink();
     }
 
     function toggleCodeView() {
@@ -276,21 +284,31 @@
     }
 
     function updateBisectText() {
+        updateLink();
         $bisectingTexts.set('text', this.get('value'));
     }
 
     function updateNoBranchText() {
         $noBranchTexts.set('text', this.get('value'));
+        updateLink();
     }
 
     function popLink() {
         var input = new Element('input').set({
-            value: window.location.href.replace(/#.*$|$/, $('options').serialize()),
+            value: getLink(),
             type: 'text'
         }).addEvent('focus', function() {
             this.select();
         });
         new MooDialog.Alert(input);
+    }
+
+    function getLink() {
+        return window.location.href.replace(/#.*$|$/, $('options').serialize());
+    }
+
+    function updateLink() {
+        $('auto_url').set('text', getLink());
     }
 
 	function deselect() {
