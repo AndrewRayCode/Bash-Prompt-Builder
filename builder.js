@@ -23,10 +23,14 @@
             $$('input[type="text"], input[type="checkbox"]').each(function(item) {
                 switch(item.type) {
                     case 'text':
-                        serialized.push(toQuery(item.id, item.value.trim()));
+                        if((val = item.value.trim())) {
+                            serialized.push(toQuery(item.id, val));
+                        }
                     break;
                     case 'checkbox':
-                        serialized.push(toQuery(item.id, item.checked || false));
+                        if(item.checked) {
+                            serialized.push(toQuery(item.id, 1));
+                        }
                     break;
                 }
             });
@@ -37,10 +41,10 @@
             $$('input[type="text"], input[type="checkbox"]').each(function(item) {
                 switch(item.type) {
                     case 'text':
-                        item.value = values[item.id];
+                        item.value = values[item.id] || '';
                     break;
                     case 'checkbox':
-                        item.checked = values[item.id] == 'true';
+                        item.checked = values[item.id] == '1';
                     break;
                 }
                 item.fireEvent('change');

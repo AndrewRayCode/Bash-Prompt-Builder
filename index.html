@@ -239,10 +239,10 @@
     MAX_CONFLICTED_FILES=2
 # /option-max-conflicted-chars
 # :option-delta
-    DELTA_CHAR="༇"
+    DELTA_CHAR="△"
 # /option-delta
 # :option-conflict
-    CONFLICT_CHAR="௰"
+    CONFLICT_CHAR="☢"
 # /option-conflict
 # :option-bisecting
     BISECTING_TEXT="bisecting"
@@ -311,7 +311,15 @@ COLOR_RESET=$(tput sgr0)
 
 dvcs_function="
     # Figure out what repo we are in
-    _git_check || _hg_check || _svn_check
+    # :git
+        _git_check \
+    # /git
+        # :hg
+            || _hg_check \
+        # /hg
+        # :svn
+            || _svn_check
+        # /svn
 
     # Build the prompt!
     prompt=\"\"
