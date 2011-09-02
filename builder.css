@@ -237,8 +237,10 @@ box-shadow:-1px -1px 0 #777,
 .floated .config.characters .group {margin-bottom:1px;}
 
 /* About */
+.what {line-height:1.3em;}
 .what ol {padding:0 0 0 35px; margin:15px 0;}
 .what ol li {margin:5px 0 0; padding:0;}
+.what code {background:#eee; border:1px solid #aaa; color:#333; padding:2px 5px; font-size:10pt;}
 
 /* Button styles */
 button {font-size:10pt; margin:5px 0 0;}

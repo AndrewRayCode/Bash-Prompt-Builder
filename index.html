@@ -147,12 +147,12 @@
 
                 <div class="config characters">
                     <div class="group">
-                        <input type="text" value="༇" id="modified-char" />
+                        <input type="text" value="△" id="modified-char" />
                         <label for="modified-char">Modified Character</label>
                     </div>
 
                     <div class="group">
-                        <input type="text" value="௰" id="conflict-char" />
+                        <input type="text" value="☢" id="conflict-char" />
                         <label for="conflict-char">Conflict Character</label>
                     </div>
 
@@ -232,9 +232,8 @@
 #
 # Requirements (other than git, svn and hg):
 #   hg-prompt: https://bitbucket.org/sjl/hg-prompt/src
-#   svnversion (you probably have it if you have svn)
-#   ack
-# props to http://www.codeography.com/2009/05/26/speedy-bash-prompt-git-and-subversion-integration.html
+#   svnversion: you probably have it if you have svn
+#   ack: http://betterthangrep.com
 
 # :option-max-conflicted-files
     MAX_CONFLICTED_FILES=2
@@ -377,10 +376,10 @@ dvcs_function="
                 fi
             # /git-ahead
 
-            # :conflicts
+            # :git-conflicted
                 # any conflicts? (sed madness is to remove line breaks)
                 files=\$(git ls-files -u | cut -f 2 | sort -u | sed '$(($MAX_CONFLICTED_FILES+1)),1000d' |  sed -e :a -e '\$!N;s/\\\n/, /;ta' -e 'P;D')
-            # /conflicts
+            # /git-conflicted
         fi
     # /git
 
@@ -447,10 +446,10 @@ dvcs_function="
                 prompt=\$prompt\")\"
             # /hg-branch
 
-            # :conflicts
+            # :hg-conflicted
             # Conflicts?
                 files=\$(hg resolve -l | grep \"U \" | sed '$(($MAX_CONFLICTED_FILES+1)),1000d' | awk '{split(\$0,a,\" \"); print a[2];}') || return
-            # /conflicts
+            # /hg-conflicted
         fi
     # /hg
 
@@ -504,7 +503,8 @@ PS1="\$(${dvcs_function})\[$COLOR_RESET\] \$ "
             <p>This is a website for customizing your bash prompt with VCS (version control system) information. It lets you see the state of your repository at a glance.</p>
             <h3>How to use</h3>
             <ol>
-                <li>Install <a href="http://sjl.bitbucket.org/hg-prompt/installation/">hg-prompt</a> if you plan to use Mercurial.</li>
+                <li>Install <a href="http://sjl.bitbucket.org/hg-prompt/installation/" target="_blank">hg-prompt</a> if you plan to use Mercurial.</li>
+                <li>Install ack. <code>sudo port install p5-app-ack</code> with MacPorts or <code>brew install ack</code> with HomeBrew or <a href="http://betterthangrep.com/" target="_blank">some other way</a>.
                 <li>Diddle with the options.</li>
                 <li>Use the preview pane to see what your prompt would look like in each repository.</li>
                 <li>Click the select button then press copy (CTRL-C Windows, Splat-C Mac).</li>
@@ -624,5 +624,13 @@ PS1="\$(${dvcs_function})\[$COLOR_RESET\] \$ "
                 <li>‡</li>
             </ul>
         </div>
+        <!-- Credits -->
+        <!-- Christopher Sexton: http://www.codeography.com/2009/05/26/speedy-bash-prompt-git-and-subversion-integration.html -->
+        <!-- Steve Losh: http://stevelosh.com/blog/2010/02/my-extravagant-zsh-prompt/ -->
+        <!-- simurai: http://lab.simurai.com/css/buttons/ -->
+        <!-- ColorZilla: http://www.colorzilla.com/gradient-editor/ -->
+        <!-- Miaka: http://www.colourlovers.com/palette/482416/Wasabi_Suicide -->
+        <!-- This guy: https://github.com/relevance/etc/blob/master/bash/bash_vcs.sh -->
+        <!-- Brodie Rao: https://bitbucket.org/brodie/dotfiles/src/1a3e7c8d25d2/.zsh/.zshrc#cl-201 -->
     </body>
 </html>
