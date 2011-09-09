@@ -178,7 +178,7 @@
             if($cb.id == 'comments') {
                 $cb.set('checked', false);
             } else {
-                $cb.set('checked', 'checked')
+                $cb.set('checked', 'checked');
             }
             $cb.funForm();
         });
@@ -192,7 +192,7 @@
             if(line.indexOf('# :else') > -1) {
                 output += '</div><div class="toggle opposite ' + current + '">';
             } else if((instructionStart = line.indexOf('# :')) > -1) {
-                var last = line.substring(instructionStart + 3)
+                var last = line.substring(instructionStart + 3);
                 stack.push(last);
 
                 if(last.indexOf('option-')) {
@@ -225,7 +225,7 @@
         $built.set('html', output).setStyle('display', 'block');
 
         // Cache our element selectors
-        $deltaChars = $$('.option-delta'),
+        $deltaChars = $$('.option-delta');
         $conflictChars = $$('.option-conflict');
         $conflictedFiles = $$('.conflicted-files');
         $bisectingTexts = $$('.option-bisecting');
@@ -288,7 +288,7 @@
 
     function updateConflictedFilesList() {
         var split = optionDetails['conflicted-files'].split(','),
-            val = Math.max(0, parseInt(this.get('value'))) || 0;
+            val = Math.max(0, parseInt(this.get('value'), 10)) || 0;
         $conflictedFiles.set('text', split.slice(0, val).join(', '));
         this.set('value', val).focus();
         updateLink();

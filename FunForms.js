@@ -50,7 +50,7 @@
             this.id = ++FunPicker.instances;
 
             this.input = input;
-            this.picker = this.options.picker;
+            this.picker = this.options.picker.clone();
 
             this.bindEvents();
             this.picker.addEvent('click:relay(li)', this.pickClick.bindWithEvent(this));
