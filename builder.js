@@ -23,7 +23,7 @@
             $$('input[type="text"], input[type="checkbox"]').each(function(item) {
                 switch(item.type) {
                     case 'text':
-                        if((val = item.value.trim())) {
+                        if((val = item.value) && val.trim()) {
                             serialized.push(toQuery(item.id, val));
                         }
                     break;
@@ -74,6 +74,7 @@
         'git-prefix': 'Add "git:" to show that you are in a Git repository.',
         'git-bisect': 'Show text if bisecting (initiated by `git bisect`) and currently bisected revision.',
         'git-submodule': 'Show text if in a submodule (submodule add remote, etc)',
+        'git-ontag': 'Show current tag, including local tags, such as `git tag 1.0` will show 1.0 in prompt`',
         'submodule-text': 'Text to show if in a submodule.',
 
         // hg options
@@ -110,14 +111,6 @@
         $noBranchTexts;
 
     window.addEvent('domready', function() {
-        // Cache our element selectors
-        $deltaChars = $$('.option-delta');
-        $conflictChars = $$('.option-conflict');
-        $conflictedFiles = $$('.conflicted-files');
-        $bisectingTexts = $$('.option-bisecting');
-        $submoduleTexts = $$('.option-submodule');
-        $noBranchTexts = $$('.option-nobranch');
-
         // Make the body and displays noisy and tag it with webkit
         document.body.noisify({
             monochrome: false
@@ -132,6 +125,52 @@
             instructionStart,
             stack = [],
             totalLines = lines.length;
+
+        do {
+            var current = stack[stack.length - 1];
+
+            if(line.indexOf('# :else') > -1) {
+                output += '</div><div class="toggle opposite ' + current + '">';
+            } else if((instructionStart = line.indexOf('# :')) > -1) {
+                var last = line.substring(instructionStart + 3);
+                stack.push(last);
+
+                if(last.indexOf('option-')) {
+                    output += '<div class="toggle ' + last + '">';
+                }
+            } else if(line.indexOf('# /') > -1) {
+                stack.pop();
+                output += '</div>';
+            } else {
+                var newLine = (line
+                    .replace(new RegExp('^\\s{' + (stack.length * 4) + '}'), '')
+                    .replace(/ /g, '&nbsp;')
+                    .replace(/([a-zA-Z_]+)=/, '<span class="line-def">$1</span><span class="operator">=</span>')
+                    .replace(/\b(if|then|fi)\b/g, '<span class="keyword">$1</span>')
+                    .replace(/(\$[a-zA-Z_]+)/g, '<span class="variable">$1</span>')
+                    .replace(/(#(.+|$))/, '<span class="comment">$1<br /></span>')
+                    .replace(/#([a-zA-Z_0-9]+)#/, '<span id="$1"></span>'));
+
+                newLine += (newLine.indexOf('class="comment"') == -1 ? '<br />' : '');
+
+                if(current && !current.indexOf('option-')) {
+                    newLine = newLine.replace(/>(['"])([^'"]+)(['"]?)<br/, '>$1<span class="configurable ' + current + '">$2</span>$3<br');
+                }
+
+                output += newLine;
+            }
+            line = lines[index++];
+        } while (line !== undefined);
+
+        $built.set('html', output).setStyle('display', 'block');
+
+        // Cache our element selectors
+        $deltaChars = $$('.option-delta');
+        $conflictChars = $$('.option-conflict');
+        $conflictedFiles = $$('.conflicted-files');
+        $bisectingTexts = $$('.option-bisecting');
+        $submoduleTexts = $$('.option-submodule');
+        $noBranchTexts = $$('.option-nobranch');
 
         $$('.nav').addEvent('click:relay(a)', function(evt) {
             evt.preventDefault();
@@ -174,6 +213,10 @@
             change: toggleComments
         });
 
+        var childClick,
+            parentToggle;
+
+        // Wire up change events for checkboxes
         $$('input[type="checkbox"]').addEvents({
             mouseover: updateDescription.bindWithEvent(this),
             'fun-change': function(evt) {
@@ -183,8 +226,11 @@
                     $div,
                     toggles = $input.get('data-toggle');
                 
-                if(toggles) {
+                // If our change event comes from child turning on master checkbox, don't toggle children
+                if(toggles && !childClick) {
+                    parentToggle = true;
                     $$('#' + (toggles.split(' ').join(',#'))).set('checked', $input.checked).fireEvent('change');
+                    parentToggle = false;
                 }
 
                 for(; $div = $divs[x++];) {
@@ -200,48 +246,24 @@
                 $cb.set('checked', 'checked');
             }
             $cb.funForm();
+        // Target only the child checkboxes and make them turn on parent checkbox
+        }).erase($('git')).erase($('hg')).erase($('svn')).addEvent('change', function(evt) {
+            // If our change event comes from master toggle, ignore it
+            if(!parentToggle) {
+                childClick = true;
+                var me = this;
+                $$('#git, #hg, #svn').each(function($master) {
+                    if($master.get('data-toggle').indexOf(me.get('id')) > -1) {
+                        $master.set('checked', 'checked').fireEvent('change');
+                    }
+                });
+                childClick = false;
+            }
         });
+
         $$('input[type="text"]').addEvent('mouseover', updateDescription.bindWithEvent(this));
 
         $$('.config label').addEvent('mouseover', updateDescription.bindWithEvent(this));
-
-        do {
-            var current = stack[stack.length - 1];
-
-            if(line.indexOf('# :else') > -1) {
-                output += '</div><div class="toggle opposite ' + current + '">';
-            } else if((instructionStart = line.indexOf('# :')) > -1) {
-                var last = line.substring(instructionStart + 3);
-                stack.push(last);
-
-                if(last.indexOf('option-')) {
-                    output += '<div class="toggle ' + last + '">';
-                }
-            } else if(line.indexOf('# /') > -1) {
-                stack.pop();
-                output += '</div>';
-            } else {
-                var newLine = (line
-                    .replace(new RegExp('^\\s{' + (stack.length * 4) + '}'), '')
-                    .replace(/ /g, '&nbsp;')
-                    .replace(/([a-zA-Z_]+)=/, '<span class="line-def">$1</span><span class="operator">=</span>')
-                    .replace(/\b(if|then|fi)\b/g, '<span class="keyword">$1</span>')
-                    .replace(/(\$[a-zA-Z_]+)/g, '<span class="variable">$1</span>')
-                    .replace(/(#(.+|$))/, '<span class="comment">$1<br /></span>')
-                    .replace(/#([a-zA-Z_0-9]+)#/, '<span id="$1"></span>'));
-
-                newLine += (newLine.indexOf('class="comment"') == -1 ? '<br />' : '');
-
-                if(current && !current.indexOf('option-')) {
-                    newLine = newLine.replace(/>(['"])([^'"]+)(['"]?)<br/, '>$1<span class="configurable ' + current + '">$2</span>$3<br');
-                }
-
-                output += newLine;
-            }
-            line = lines[index++];
-        } while (line !== undefined);
-
-        $built.set('html', output).setStyle('display', 'block');
 
         if(window.location.hash && window.location.hash.trim() != '#') {
             $('options').deserialize(window.location.hash);
