@@ -78,6 +78,11 @@
                             <input type="checkbox" value="git-bisect" id="git-bisect" checked="checked" />
                             <label for="git-bisect">Bisecting<label>
                         </div>
+
+                        <div class="group">
+                            <input type="checkbox" value="git-submodule" id="git-submodule" checked="checked" />
+                            <label for="git-submodule">In submodule<label>
+                        </div>
                     </div>
                 </div>
 
@@ -139,7 +144,7 @@
                     </div>
 
                     <div class="group general">
-                        <label class="header">General Options</label>
+                        <label class="header" id="general-options">General Options</label>
                         <input type="checkbox" value="comments" id="comments" />
                         <label for="comments">Strip all comments</label>
                     </div>
@@ -170,6 +175,11 @@
                         <input type="text" value="bisecting" id="bisecting-text" />
                         <label for="bisecting-text">Bisecting Text</label>
                     </div>
+
+                    <div class="group long">
+                        <input type="text" value="[submodule] " id="submodule-text" />
+                        <label for="submodule-text">Submodule Text</label>
+                    </div>
                 </div>
             </section>
             <div class="form-buttons" id="config-buttons">
@@ -184,7 +194,7 @@
                 <div class="group git">
                     <label for="git-display">Git</label>
                     <div id="git-display" class="screen">
-                        <span class="git-branch">(<span class="git-prefix">git:</span>master<span class="git-revno">:f9302</span><span class="option-delta git-modified"> △</span>)</span><span class="git-ahead"> +1</span><span class="git-conflicted"> (<span class="option-conflict">☢ </span><span class="conflicted-files">index.js, path/to/package.json</span>)</span> $ 
+                        <span class="git-branch">(<span class="git-submodule"><span class="option-submodule">[submodule] </span></span><span class="git-prefix">git:</span>master<span class="git-revno">:f9302</span><span class="option-delta git-modified"> △</span>)</span><span class="git-ahead"> +1</span><span class="git-conflicted"> (<span class="option-conflict">☢ </span><span class="conflicted-files">index.js, path/to/package.json</span>)</span> $ 
                     </div>
 
                     <div class="sub git-bisect">
@@ -245,6 +255,9 @@
 # :option-nobranch
     NOBRANCH_TEXT="no branch!"
 # /option-nobranch
+# :option-submodule
+    SUBMODULE_TEXT="[submodule] "
+# /option-submodule
 
 # Colors for prompt
 COLOR_RED=$(tput sgr0 && tput setaf 1)
@@ -304,6 +317,19 @@ COLOR_RESET=$(tput sgr0)
     }
 # /git
 
+# :git-submodule
+    function is_submodule() {
+        parent_git=`cd "$_git_dir/.." && git rev-parse --show-toplevel 2> /dev/null`
+        if [[ -n $parent_git ]]; then
+            submodules=`cd $parent_git && git submodule --quiet foreach 'echo $path'`
+            for line in $submodules; do cd "$parent_git/$line"; \
+                if [[ `pwd` = $_git_dir ]]; then return 0; fi; \
+            done
+        fi
+        return 1
+    }
+
+# /git-submodule
 dvcs_function="
     # Figure out what repo we are in
     # :git
@@ -355,6 +381,12 @@ dvcs_function="
             # :git-branch
                 # output the branch and changed character if present
                 prompt=\$prompt\"\\[\$COLOR_YELLOW\\] (\"
+
+                # :git-submodule
+                    if is_submodule; then
+                        prompt=\$prompt\"\\[\$COLOR_PURPLE\]\$SUBMODULE_TEXT\\[\$COLOR_YELLOW\\]\"
+                    fi
+                # /git-submodule
 
                 # :git-prefix
                     prefix=\"git:\"
@@ -504,10 +536,13 @@ PS1="\$(${dvcs_function})\[$COLOR_RESET\] \$ "
         <h2 id="what">What is this I don't even</h2>
         <section class="what">
             <p>This is a website for customizing your bash prompt with VCS (version control system) information. It lets you see the state of your repository at a glance.</p>
+            <h3>Requirements</h3>
+                <ul>
+                    <li><a href="http://sjl.bitbucket.org/hg-prompt/installation/" target="_blank">hg-prompt</a> if you plan to use Mercurial.</li>
+                    <li>ack. <code>sudo port install p5-app-ack</code> with MacPorts or <code>brew install ack</code> with HomeBrew or <a href="http://betterthangrep.com/" target="_blank">some other way</a>.
+                </ul>
             <h3>How to use</h3>
             <ol>
-                <li>Install <a href="http://sjl.bitbucket.org/hg-prompt/installation/" target="_blank">hg-prompt</a> if you plan to use Mercurial.</li>
-                <li>Install ack. <code>sudo port install p5-app-ack</code> with MacPorts or <code>brew install ack</code> with HomeBrew or <a href="http://betterthangrep.com/" target="_blank">some other way</a>.
                 <li>Diddle with the options.</li>
                 <li>Use the preview pane to see what your prompt would look like in each repository.</li>
                 <li>Click the select button then press copy (CTRL-C Windows, Splat-C Mac).</li>

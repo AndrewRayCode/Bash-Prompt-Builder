@@ -172,8 +172,8 @@ transition:all 0.52s ease-out;}
 
 .display .group {clear:both; margin:0 0 20px; float:left;}
 .display .group:last-child {border:0 none;}
-.display .group .sub {margin:4px 0 0 20px; float:left;}
-.display .group .sub label {color:#888; width:80px;}
+.display .group .sub {margin:4px 0 0 11px; float:left;}
+.display .group .sub label {color:#888; width:89px;}
 .display .git-branch {color:#c7c323;}
 .display .svn-branch {color:#6cc2c6;}
 .display .hg-branch {color:#e484fd;}
@@ -182,6 +182,7 @@ transition:all 0.52s ease-out;}
 .display .option-conflict {color:#c7c323;}
 .display .git-no-branch {color:#ae350e;}
 .display .git-bisect {color:#e484fd;}
+.display .option-submodule {color:#e484fd;}
 .display .hg-bisect {color:#c7c323;}
 .display .hg-patches {color:#c7c323;}
 

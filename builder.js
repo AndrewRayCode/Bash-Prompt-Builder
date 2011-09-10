@@ -49,6 +49,17 @@
                 }
                 item.fireEvent('change');
             });
+        },
+        typeModifies: function($collection) {
+            var modify = function() {
+                $collection.set('text', this.get('value'));
+                updateLink();
+            };
+            this.addEvents({
+                change: modify,
+                keyup: modify
+            });
+            return this;
         }
     });
 
@@ -62,6 +73,8 @@
         'git-revno': 'The current revision ID.',
         'git-prefix': 'Add "git:" to show that you are in a Git repository.',
         'git-bisect': 'Show text if bisecting (initiated by `git bisect`) and currently bisected revision.',
+        'git-submodule': 'Show text if in a submodule (submodule add remote, etc)',
+        'submodule-text': 'Text to show if in a submodule.',
 
         // hg options
         hg: 'Toggles the Mercurial version of the bash prompt.',
@@ -82,7 +95,9 @@
         'conflict-char': 'The character to show before the list of files currently in a conflicted state. Defaults to a unicdoe butt, because you are in a shitty situation.',
 
         // Default options
-        'default': 'No description found. God I am so lazy',
+        'default': 'No description found. God I am so lazy.',
+        'general-options': 'Barf.',
+        'comments': 'Remove comments from function.',
         'conflicted-files': 'index.js,path/to/package.json,filename.txt,awful.php,...',
         'no-branch-text': 'Text to show when you are lost in space (detached head)',
         'bisecting-text': 'Text to show when bisecting. Current commit comes after automatically.'
@@ -91,9 +106,18 @@
         $conflictChars,
         $conflictedFiles,
         $bisectingTexts,
+        $submoduleTexts,
         $noBranchTexts;
 
     window.addEvent('domready', function() {
+        // Cache our element selectors
+        $deltaChars = $$('.option-delta');
+        $conflictChars = $$('.option-conflict');
+        $conflictedFiles = $$('.conflicted-files');
+        $bisectingTexts = $$('.option-bisecting');
+        $submoduleTexts = $$('.option-submodule');
+        $noBranchTexts = $$('.option-nobranch');
+
         // Make the body and displays noisy and tag it with webkit
         document.body.noisify({
             monochrome: false
@@ -138,17 +162,12 @@
             change: updateConflictedFilesList
         });
 
-        $('bisecting-text').addEvents({
-            change: updateBisectText,
-            keyup: updateBisectText
-        }).funPicker({
+        $('bisecting-text').typeModifies($bisectingTexts).funPicker({
             picker: $('bisect-picker'), 
             append: true
         });
-        $('no-branch-text').addEvents({
-            change: updateNoBranchText,
-            keyup: updateNoBranchText
-        });
+        $('no-branch-text').typeModifies($noBranchTexts);
+        $('submodule-text').typeModifies($submoduleTexts);
 
         $('comments').addEvents({
             click: toggleComments,
@@ -224,13 +243,6 @@
 
         $built.set('html', output).setStyle('display', 'block');
 
-        // Cache our element selectors
-        $deltaChars = $$('.option-delta');
-        $conflictChars = $$('.option-conflict');
-        $conflictedFiles = $$('.conflicted-files');
-        $bisectingTexts = $$('.option-bisecting');
-        $noBranchTexts = $$('.option-nobranch');
-
         if(window.location.hash && window.location.hash.trim() != '#') {
             $('options').deserialize(window.location.hash);
             window.location.replace('#');
@@ -298,16 +310,6 @@
         $('function').toggleClass('expanded');
         $('expand').toggle();
         $('despand').setStyle('display', (toggleCodeView.expanded = !toggleCodeView.expanded) ? 'inline' : 'none');
-    }
-
-    function updateBisectText() {
-        updateLink();
-        $bisectingTexts.set('text', this.get('value'));
-    }
-
-    function updateNoBranchText() {
-        $noBranchTexts.set('text', this.get('value'));
-        updateLink();
     }
 
     function popLink() {
