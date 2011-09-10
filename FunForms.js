@@ -41,6 +41,7 @@
             offsetTop: 2,
             blurTimeout: 100,
             append: false
+            //pickFunction
         },
 
         initialize: function(input, options){
@@ -53,7 +54,7 @@
             this.picker = this.options.picker.clone().inject(document.body);
 
             this.bindEvents();
-            this.picker.addEvent('click:relay(li)', this.pickClick.bindWithEvent(this));
+            this.picker.addEvent('click:relay(li)', (this.options.pickFunction || this.pickClick).bindWithEvent(this));
         },
 
         bindEvents: function() {

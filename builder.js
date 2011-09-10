@@ -102,6 +102,21 @@
         'conflicted-files': 'index.js,path/to/package.json,filename.txt,awful.php,...',
         'no-branch-text': 'Text to show when you are lost in space (detached head)',
         'bisecting-text': 'Text to show when bisecting. Current commit comes after automatically.'
+    }, colorCodes = {
+        '0': 'color-black',
+        '1': 'color-red',
+        '1b': 'color-lightred',
+        '2': 'color-green',
+        '2b': 'color-lightgreen',
+        '3': 'color-yellow',
+        '3b': 'color-lightyellow',
+        '4': 'color-blue',
+        '4b': 'color-lightblue',
+        '5': 'color-magenta',
+        '5b': 'color-lightmagenta',
+        '6': 'color-cyan',
+        '6b': 'color-lightcyan',
+        '7b': 'color-white'
     },
         $deltaChars,
         $conflictChars,
@@ -126,6 +141,7 @@
             stack = [],
             totalLines = lines.length;
 
+        // Parse the code
         do {
             var current = stack[stack.length - 1];
 
@@ -213,6 +229,17 @@
             change: toggleComments
         });
 
+        $$('.color-picker').funPicker({
+            picker: $('color-picker'),
+            pickFunction: function(evt) {
+                var color = evt.target.get('class');
+                this.input.set('class', 'color-picker ' + color);
+                $$('.' + this.input.getPrevious('input').value).each(function($item) {
+                    $item.set('class', $item.get('class').replace(/ ?color-[a-z]+|$/, ' ' + color));
+                });
+            }
+        });
+
         var childClick,
             parentToggle;
 
@@ -239,6 +266,7 @@
 
                 updateLink();
             }
+        // Override stupid firefox's pattern and auto-check everything
         }).each(function($cb) {
             if($cb.id == 'comments') {
                 $cb.set('checked', false);

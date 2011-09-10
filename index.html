@@ -46,6 +46,7 @@
                     <div class="group">
                         <input type="checkbox" value="git" id="git" data-toggle="git-prefix git-revno git-ahead git-modified git-conflicted git-bisect git-submodule" checked="checked" />
                         <label for="git">Git</label>
+                        <div class="color-picker color-yellow"></div>
                     </div>
 
                     <div class="options">
@@ -57,36 +58,43 @@
                         <div class="group">
                             <input type="checkbox" value="git-ahead" id="git-ahead" checked="checked" />
                             <label for="git-ahead">Ahead</label>
+                            <div class="color-picker color-cyan"></div>
                         </div>
 
                         <div class="group">
                             <input type="checkbox" value="git-modified" id="git-modified" checked="checked" />
                             <label for="git-modified">Modified</label>
+                            <div class="color-picker color-yellow"></div>
                         </div>
 
                         <div class="group">
                             <input type="checkbox" value="git-conflicted" id="git-conflicted" checked="checked" />
                             <label for="git-conflicted">Conflicted</label>
+                            <div class="color-picker color-red"></div>
                         </div>
 
                         <div class="group">
                             <input type="checkbox" value="git-revno" id="git-revno" checked="checked" />
-                            <label for="git-revno">Revision ID<label>
+                            <label for="git-revno">Revision ID</label>
+                            <div class="color-picker color-yellow"></div>
                         </div>
 
                         <div class="group">
                             <input type="checkbox" value="git-bisect" id="git-bisect" checked="checked" />
-                            <label for="git-bisect">Bisecting<label>
+                            <label for="git-bisect">Bisecting</label>
+                            <div class="color-picker color-magenta"></div>
                         </div>
 
                         <div class="group">
                             <input type="checkbox" value="git-submodule" id="git-submodule" checked="checked" />
-                            <label for="git-submodule">In submodule<label>
+                            <label for="git-submodule">In submodule</label>
+                            <div class="color-picker color-magenta"></div>
                         </div>
 
                         <div class="group">
                             <input type="checkbox" value="git-ontag" id="git-ontag" checked="checked" />
-                            <label for="git-ontag">Current tag<label>
+                            <label for="git-ontag">Current tag</label>
+                            <div class="color-picker color-magenta"></div>
                         </div>
                     </div>
                 </div>
@@ -324,11 +332,12 @@ COLOR_RESET=$(tput sgr0)
 
 # :git-submodule
     function is_submodule() {
-        parent_git=`cd "$_git_dir/.." && git rev-parse --show-toplevel 2> /dev/null`
+        local parent_git=`cd "$_git_dir/.." && git rev-parse --show-toplevel 2> /dev/null`
         if [[ -n $parent_git ]]; then
-            submodules=`cd $parent_git && git submodule --quiet foreach 'echo $path'`
-            for line in $submodules; do cd "$parent_git/$line"; \
-                if [[ `pwd` = $_git_dir ]]; then return 0; fi; \
+            local submodules=`cd $parent_git && git submodule --quiet foreach 'echo $path'`
+            for line in $submodules; do
+                cd "$parent_git/$line"
+                if [[ `pwd` = $_git_dir ]]; then return 0; fi
             done
         fi
         return 1
@@ -407,7 +416,7 @@ dvcs_function="
                 fi
             # /git-revno
             # :git-ontag
-                tag=\`git describe --tags 2> /dev/null\`
+                tag=\`git describe --tags --exact 2> /dev/null\`
                 if [ -n \"\$tag\" ]; then
                     prompt=\"\$prompt\\[\$COLOR_YELLOW\\] \\\"\$tag\\\"\\[\$COLOR_YELLOW\\]\"
                 fi
@@ -671,6 +680,24 @@ PS1="\$(${dvcs_function})\[$COLOR_RESET\] \$ "
                 <li>◮</li>
                 <li>✄</li>
                 <li>‡</li>
+            </ul>
+        </div>
+        <div class="fun-picker color-modal" id="color-picker">
+            <ul class="bright">
+                <li class="color-red"></li>
+                <li class="color-green"></li>
+                <li class="color-yellow"></li>
+                <li class="color-blue"></li>
+                <li class="color-magenta"></li>
+                <li class="color-cyan"></li>
+                <li class="color-gray"></li>
+                <li class="color-lightred"></li>
+                <li class="color-lightgreen"></li>
+                <li class="color-lightyellow"></li>
+                <li class="color-lightblue"></li>
+                <li class="color-lightmagenta"></li>
+                <li class="color-lightcyan"></li>
+                <li class="color-white"></li>
             </ul>
         </div>
         <!-- Credits -->

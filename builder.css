@@ -175,26 +175,68 @@ transition:all 0.52s ease-out;}
 .display .group .sub {margin:4px 0 0 11px; float:left;}
 .display .group .sub label {color:#888; width:89px;}
 .display .git-branch {color:#c7c323;}
-.display .svn-branch {color:#6cc2c6;}
-.display .hg-branch {color:#e484fd;}
+.display .svn-branch {color:#00c7c7;}
+.display .hg-branch {color:#ca24c4;}
 .display .git-conflicted, .display .hg-conflicted {color:#ae350e;}
-.display .git-ahead {color:#6cc2c6;}
+.display .git-ahead {color:#00c7c7;}
 .display .option-conflict {color:#c7c323;}
-.display .git-no-branch {color:#ae350e;}
-.display .git-bisect {color:#e484fd;}
-.display .option-submodule {color:#e484fd;}
+.display .git-no-branch {color:#c80c00;}
+.display .git-bisect {color:#ca24c4;}
+.display .option-submodule {color:#ca24c4;}
 .display .hg-bisect {color:#c7c323;}
 .display .hg-patches {color:#c7c323;}
 
+/* Colors */
+.color-modal ul  {float:left; width:168px; max-width:168px;}
+.color-modal ul li {border-left:0 none; border-right:1px solid #fff; border-bottom:1px solid #fff;}
+.color-modal ul li:hover {width:17px; height:17px; margin:0; border-width:0 1px 1px 0; padding:3px;}
+.color-picker {opacity:0.4; width:10px; height:10px; margin:-3px 0 0 5px; cursor:pointer; float:right; border:1px solid #aaa; padding:4px; font-family:serif; font-size:12pt; color:#666; -webkit-box-shadow:2px 2px 3px #ccc; box-shadow:2px 2px 3px #ccc;
+-webkit-transition:all 0.22s ease-out;
+-moz-transition:all 0.22s ease-out;
+transition:all 0.22s ease-out;}
+.color-picker:hover {width:12px; height:12px; margin:-4px -1px -1px 4px; opacity:1.0;}
+
+.color-red {background:#c80c00 !important;}
+.color-lightred {background:#ff6a68 !important; font-weight:bold;}
+.color-green {background:#00c426 !important;}
+.color-lightgreen {background:#5dfc72 !important; font-weight:bold;}
+.color-yellow {background:#c5c525 !important;}
+.color-lightyellow {background:#fdfd71 !important; font-weight:bold;}
+.color-blue {background: #2773fc !important;}
+.color-lightblue {background:#6f6ffc !important; font-weight:bold;}
+.color-magenta {background:#ca24c4 !important;}
+.color-lightmagenta {background:#ff71fc !important; font-weight:bold;}
+.color-cyan {background:#00c7c7 !important;}
+.color-lightcyan {background:#65feff !important; font-weight:bold;}
+.color-gray {background:#c7c7c7 !important;}
+.color-white {background:#fff !important;}
+
+/* Foregrounds */
+.display .color-red {color:#c80c00 !important; background:transparent !important;}
+.display .color-lightred {color:#ff6a68 !important; background:transparent !important;}
+.display .color-green {color:#00c426 !important; background:transparent !important;}
+.display .color-lightgreen {color:#5dfc72 !important; background:transparent !important;}
+.display .color-yellow {color:#c5c525 !important; background:transparent !important;}
+.display .color-lightyellow {color:#fdfd71 !important; background:transparent !important;}
+.display .color-blue {color: #2773fc !important; background:transparent !important;}
+.display .color-lightblue {color:#6f6ffc !important; background:transparent !important;}
+.display .color-magenta {color:#ca24c4 !important; background:transparent !important;}
+.display .color-lightmagenta {color:#ff71fc !important; background:transparent !important;}
+.display .color-cyan {color:#00c7c7 !important; background:transparent !important;}
+.display .color-lightcyan {color:#65feff !important; background:transparent !important;}
+.display .color-gray {color:#c7c7c7 !important; background:transparent !important;}
+.display .color-white {color:#fff !important; background:transparent !important;}
+
 /* Configuration options */
 #options {padding-bottom:30px;}
-.config {float:left; width:200px; padding:0 10px 10px;}
-.options {border-left:13px solid #eee; overflow:auto; clear:both; padding:0 0 0 10px; margin:10px 0 0 1px;}
-.options .group {padding:2px 0; margin:4px 0 0; float:left; clear:both;}
-.group label {cursor:pointer; color:#444; padding:0 0 0 2px;}
+.config {float:left; width:193px; padding:0 10px 10px;}
+.options {border-left:13px solid #eee; overflow:auto; clear:both; padding:0 0 0 10px; margin:23px 0 0 1px;}
+.options .group {padding:2px 0; margin:4px 0 0; float:left; clear:both; width:99%;}
+.group .fun-checkbox {float:left;}
+.group label {cursor:pointer; color:#444; padding:0 0 0 8px; float:left;}
 .group label:hover {color:#000;}
 .group.general .header {float:none; background:#eee; border-radius:20px; padding:3px 12px; display:block; margin:12px 0;}
-.config.characters {width:250px;}
+.config.characters {width:280px;}
 .config.characters input {font-family:monospace; float:left; width:25px; text-align:center;}
 .config.characters label {margin-left:1px; display:block; float:left; padding:8px 10px 4px; }
 .config.characters .group {clear:both; float:left; margin:0 0 10px;}
