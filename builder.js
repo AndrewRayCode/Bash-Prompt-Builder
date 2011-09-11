@@ -183,7 +183,7 @@
         document.body.noisify({
             monochrome: false
         }).addClass(Browser.Engine.webkit ? 'webkit' : '');
-        ($formButtons = $$('.form-buttons'));//.noisify();
+        ($formButtons = $$('.form-buttons')).noisify();
 
         var $built = $('function'),
             lines = $built.get('html').split('\n'),
@@ -492,7 +492,10 @@
         }).addEvent('focus', function() {
             this.select();
         });
-        new MooDialog.Alert(input);
+        var dialog = new MooDialog.Alert(input, {
+            okText: 'Copy and Dismiss'
+        });
+        wheresMyClippy(dialog.okButton, input, false);
     }
 
     function getLink() {
@@ -516,13 +519,18 @@
 	}
 
     // There's my clippy!
-    function wheresMyClippy($button, $copyBoard) {
+    function wheresMyClippy($button, $copyBoard, confirmation) {
         var clippy = new ZeroClipboard.Client();
 
         clippy.glue($button, $button.getParent());
         clippy.setHandCursor(true);
         clippy.addEventListener('mouseDown', function(client) { 
-            clippy.setText($copyBoard.selectText().get('text'));
+            if($copyBoard.get('tag') == 'input') {
+                clippy.setText($copyBoard.value);
+                $copyBoard.select();
+            } else {
+                clippy.setText($copyBoard.selectText().get('text'));
+            }
             $button.addClass('toggled');
         });
 
@@ -531,9 +539,12 @@
         });
 
         clippy.addEventListener('onComplete', function(client) {
-            new MooDialog.Alert(new Element('div', {
-                text: 'Copied!'
-            }));
+            if(confirmation !== false) {
+                new MooDialog.Alert(new Element('p', {
+                    text: 'Copied! Paste in ~/.bashrc'
+                }));
+            }
+            $button.fireEvent('click');
         });
 
         return clippy;

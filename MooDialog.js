@@ -168,10 +168,12 @@ MooDialog.Alert = new Class({
 			$content,
 			new Element('div.buttons').adopt(okButton)
 		);
+        this.$content = $content;
+        this.okButton = okButton;
 		if (this.options.autoOpen) this.open();
 
 		if (this.options.focus) this.addEvent('show', function(){
-			okButton.focus()
+			okButton.focus();
 		});
 
 	}
