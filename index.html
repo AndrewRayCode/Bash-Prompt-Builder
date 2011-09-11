@@ -53,6 +53,7 @@
                         <div class="group">
                             <input type="checkbox" value="git-prefix" id="git-prefix" checked="checked" />
                             <label for="git-prefix">"git:"</label>
+                            <div class="color-picker color-yellow"></div>
                         </div>
 
                         <div class="group">
@@ -94,7 +95,7 @@
                         <div class="group">
                             <input type="checkbox" value="git-ontag" id="git-ontag" checked="checked" />
                             <label for="git-ontag">Current tag</label>
-                            <div class="color-picker color-magenta"></div>
+                            <div class="color-picker color-yellow"></div>
                         </div>
                     </div>
                 </div>
@@ -103,37 +104,44 @@
                     <div class="group master">
                         <input type="checkbox" value="hg" id="hg" data-toggle="hg-patches hg-prefix hg-revno hg-modified hg-conflicted hg-bisect" checked="checked" />
                         <label for="hg">Mercurial</label>
+                        <div class="color-picker color-magenta"></div>
                     </div>
 
                     <div class="options">
                         <div class="group">
                             <input type="checkbox" value="hg-prefix" id="hg-prefix" checked="checked" />
                             <label for="hg-prefix">"hg:"</label>
+                            <div class="color-picker color-magenta"></div>
                         </div>
 
                         <div class="group">
                             <input type="checkbox" value="hg-modified" id="hg-modified" checked="checked" />
                             <label for="hg-modified">Modified</label>
+                            <div class="color-picker color-magenta"></div>
                         </div>
 
                         <div class="group">
                             <input type="checkbox" value="hg-conflicted" id="hg-conflicted" checked="checked" />
                             <label for="hg-conflicted">Conflicted</label>
+                            <div class="color-picker color-red"></div>
                         </div>
 
                         <div class="group">
                             <input type="checkbox" value="hg-revno" id="hg-revno" checked="checked" />
-                            <label for="hg-revno">Revision ID<label>
+                            <label for="hg-revno">Revision ID</label>
+                            <div class="color-picker color-magenta"></div>
                         </div>
 
                         <div class="group">
                             <input type="checkbox" value="hg-bisect" id="hg-bisect" checked="checked" />
-                            <label for="hg-bisect">Bisecting<label>
+                            <label for="hg-bisect">Bisecting</label>
+                            <div class="color-picker color-yellow"></div>
                         </div>
 
                         <div class="group">
                             <input type="checkbox" value="hg-patches" id="hg-patches" checked="checked" />
-                            <label for="hg-patches">Patch List<label>
+                            <label for="hg-patches">Patch List</label>
+                            <div class="color-picker color-yellow"></div>
                         </div>
                     </div>
                 </div>
@@ -142,17 +150,20 @@
                     <div class="group master">
                         <input type="checkbox" value="svn" id="svn" data-toggle="svn-revno svn-modified" checked="checked" />
                         <label for="svn">Subversion</label>
+                        <div class="color-picker color-cyan"></div>
                     </div>
 
                     <div class="options">
                         <div class="group">
                             <input type="checkbox" value="svn-modified" id="svn-modified" checked="checked" />
                             <label for="svn-modified">Modified</label>
+                            <div class="color-picker color-cyan"></div>
                         </div>
 
                         <div class="group">
                             <input type="checkbox" value="svn-revno" id="svn-revno" checked="checked" />
-                            <label for="svn-revno">Revision ID<label>
+                            <label for="svn-revno">Revision ID</label>
+                            <div class="color-picker color-cyan"></div>
                         </div>
                     </div>
 
@@ -165,13 +176,14 @@
 
                 <div class="config characters">
                     <div class="group">
-                        <input type="text" value="△" id="modified-char" />
-                        <label for="modified-char">Modified Character</label>
+                        <input type="text" value="△" id="option-modified" />
+                        <label for="option-modified">Modified Character</label>
                     </div>
 
                     <div class="group">
-                        <input type="text" value="☢" id="conflict-char" />
-                        <label for="conflict-char">Conflict Character</label>
+                        <input type="text" value="☢" id="option-conflict" />
+                        <label for="option-conflict">Conflict Character</label>
+                        <div class="color-picker color-yellow"></div>
                     </div>
 
                     <div class="group">
@@ -180,8 +192,9 @@
                     </div>
 
                     <div class="group long">
-                        <input type="text" value="no branch!" id="no-branch-text" />
-                        <label for="no-branch-text">No Branch Text</label>
+                        <input type="text" value="no branch!" id="option-nobranch" />
+                        <label for="option-nobranch">No Branch Text</label>
+                        <div class="color-picker color-red"></div>
                     </div>
 
                     <div class="group long">
@@ -279,12 +292,12 @@ COLOR_YELLOW=$(tput sgr0 && tput setaf 3)
 COLOR_BLUE=$(tput sgr0 && tput setaf 4)
 COLOR_MAGENTA=$(tput sgr0 && tput setaf 5)
 COLOR_CYAN=$(tput sgr0 && tput setaf 6)
-COLOR_LIGHT_RED=$(tput sgr0 && tput setaf 1 && tput bold)
-COLOR_LIGHT_GREEN=$(tput sgr0 && tput setaf 2 && tput bold)
-COLOR_LIGHT_YELLOW=$(tput sgr0 && tput setaf 3 && tput bold)
-COLOR_LIGHT_BLUE=$(tput sgr0 && tput setaf 4 && tput bold)
-COLOR_LIGHT_MAGENTA=$(tput sgr0 && tput setaf 5 && tput bold)
-COLOR_LIGHT_CYAN=$(tput sgr0 && tput setaf 6 && tput bold)
+COLOR_LIGHTRED=$(tput sgr0 && tput setaf 1 && tput bold)
+COLOR_LIGHTGREEN=$(tput sgr0 && tput setaf 2 && tput bold)
+COLOR_LIGHTYELLOW=$(tput sgr0 && tput setaf 3 && tput bold)
+COLOR_LIGHTBLUE=$(tput sgr0 && tput setaf 4 && tput bold)
+COLOR_LIGHTMAGENTA=$(tput sgr0 && tput setaf 5 && tput bold)
+COLOR_LIGHTCYAN=$(tput sgr0 && tput setaf 6 && tput bold)
 
 COLOR_RESET=$(tput sgr0)
 
@@ -423,10 +436,10 @@ dvcs_function="
             # :git-ontag
                 tag=\`git describe --tags --exact 2> /dev/null\`
                 if [ -n \"\$tag\" ]; then
-                    prompt=\"\$prompt\\[\$color-git-tag\\] \\\"\$tag\\\"\\[\$color-git\\]\"
+                    prompt=\"\$prompt\\[\$color-git-ontag\\] \\\"\$tag\\\"\\[\$color-git\\]\"
                 fi
             # /git-ontag
-            prompt=\$prompt\"\$gitChange)\\[\$COLOR_RESET\\]\"
+            prompt=\$prompt\"\$gitChange\\[\$color-git\\])\\[\$COLOR_RESET\\]\"
 
             # :git-ahead
                 # How many local commits do you have ahead of origin?
@@ -541,7 +554,7 @@ dvcs_function="
         # Show conflicted files if any
         if [ -n \"\$files\" ]; then
             prompt=\$prompt\" \\[\$color-conflicted\\](\\[\$color-conflict-char\\]\"
-            prompt=\$prompt\"\\[`tput sc`\\]  \\[`tput rc`\\]\\[\$color-conflict-char\\] \"
+            prompt=\$prompt\"\\[`tput sc`\\]  \\[`tput rc`\\]\\[\$color-conflict-char\\]\\[\$CONFLICT_CHAR\\] \"
             prompt=\$prompt\"\\[\$color-conflicted\\] \${files})\"
         fi
     # /conflicts

@@ -19,8 +19,16 @@
                 val,
                 toQuery = function(id, value) {
                     return encodeURIComponent(id) + '=' + encodeURIComponent(value);
+                },
+                lookupByColorCode = function(code) {
+                    for(var color in colorCodes) {
+                        if(colorCodes[color] == code) {
+                            return color;
+                        }
+                    }
+                    return 'Well, we\'re fucked';
                 };
-            $$('input[type="text"], input[type="checkbox"]').each(function(item) {
+            this.getElements('input[type="text"], input[type="checkbox"], div.color-picker').each(function(item) {
                 switch(item.type) {
                     case 'text':
                         if((val = item.value) && val.trim()) {
@@ -32,19 +40,32 @@
                             serialized.push(toQuery(item.id, 1));
                         }
                     break;
+                    default:
+                        if(item.hasClass('color-picker')) {
+                            serialized.push(toQuery(
+                                'color-' + item.getPrevious('input').id,
+                                lookupByColorCode(item.get('class').replace('color-picker ', ''))
+                            ));
+                        }
+                    break;
                 }
             });
             return '#' + serialized.join('&');
         },
         deserialize: function(str) {
             var values = str.replace(/^#/, '').parseQueryString();
-            $$('input[type="text"], input[type="checkbox"]').each(function(item) {
+            this.getElements('input[type="text"], input[type="checkbox"], div.color-picker').each(function(item) {
                 switch(item.type) {
                     case 'text':
                         item.value = values[item.id] || '';
                     break;
                     case 'checkbox':
                         item.checked = values[item.id] == '1';
+                    break;
+                    default:
+                        if(item.hasClass('color-picker')) {
+                            item.set('class', 'color-picker ' + colorCodes[values['color-' + item.getPrevious('input').id]]);
+                        }
                     break;
                 }
                 item.fireEvent('change');
@@ -92,15 +113,15 @@
         'svn-revno': 'The current revision ID.',
 
         // Character options
-        'modified-char': 'The character to show if you have any locally modified, added or deleted files.',
-        'conflict-char': 'The character to show before the list of files currently in a conflicted state. Defaults to a unicdoe butt, because you are in a shitty situation.',
+        'option-modified': 'The character to show if you have any locally modified, added or deleted files.',
+        'option-conflict': 'The character to show before the list of files currently in a conflicted state. Defaults to a unicdoe butt, because you are in a shitty situation.',
 
         // Default options
         'default': 'No description found. God I am so lazy.',
         'general-options': 'Barf.',
         'comments': 'Remove comments from function.',
         'conflicted-files': 'index.js,path/to/package.json,filename.txt,awful.php,...',
-        'no-branch-text': 'Text to show when you are lost in space (detached head)',
+        'option-nobranch': 'Text to show when you are lost in space (detached head)',
         'bisecting-text': 'Text to show when bisecting. Current commit comes after automatically.'
     }, colorCodes = {
         '0': 'color-black',
@@ -119,13 +140,15 @@
         '7b': 'color-white'
     }, colorDefaults = {
         'color-git': 'COLOR_YELLOW',
+        'color-git-prefix': 'COLOR_YELLOW',
         'color-git-modified': 'COLOR_YELLOW',
         'color-git-nobranch': 'COLOR_RED',
         'color-git-submodule': 'COLOR_MAGENTA',
         'color-git-bisect': 'COLOR_MAGENTA',
-        'color-git-tag': 'COLOR_YELLOW',
+        'color-git-ontag': 'COLOR_YELLOW',
         'color-git-ahead': 'COLOR_CYAN',
         'color-hg': 'COLOR_MAGENTA',
+        'color-hg-prefix': 'COLOR_MAGENTA',
         'color-hg-bisect': 'COLOR_YELLOW',
         'color-hg-patches': 'COLOR_YELLOW',
         'color-hg-modified': 'COLOR_PURPLE',
@@ -207,7 +230,7 @@
         $bisectingTexts = $$('.option-bisecting');
         $submoduleTexts = $$('.option-submodule');
         $noBranchTexts = $$('.option-nobranch');
-        var $display = $$('.display'),
+        var $display = $$('.display')[0],
             $funktion = $('function');
 
         $$('.nav').addEvent('click:relay(a)', function(evt) {
@@ -225,12 +248,12 @@
         $('expand').addEvent('click', toggleCodeView);
         $('despand').addEvent('click', toggleCodeView);
         
-        $('modified-char').addEvents({
+        $('option-modified').addEvents({
             change: updateDeltaChars,
             keyup: updateDeltaChars
         }).funPicker({picker: $('modified-picker')});
 
-        $('conflict-char').addEvents({
+        $('option-conflict').addEvents({
             change: updateConflictCharacters,
             keyup: updateConflictCharacters
         }).funPicker({picker: $('conflict-picker')});
@@ -243,7 +266,7 @@
             picker: $('bisect-picker'), 
             append: true
         });
-        $('no-branch-text').typeModifies($noBranchTexts);
+        $('option-nobranch').typeModifies($noBranchTexts);
         $('submodule-text').typeModifies($submoduleTexts);
 
         $('comments').addEvents({
@@ -254,19 +277,23 @@
         $$('.color-picker').funPicker({
             picker: $('color-picker'),
             pickFunction: function(evt) {
-                var color = evt.target.get('class'),
-                    modifier = this.input.getPrevious('input').value;
-
-                this.input.set('class', 'color-picker ' + color);
-                $$('.display .' + modifier).each(function($item) {
-                    $item.set('class', $item.get('class').replace(/ ?color-[a-z]+|$/, ' ' + color));
-                });
-
-                console.log(modifier);
-                $funktion.getElements('.color-' + modifier).each(function($item) {
-                    $item.set('text', color.toUpperCase().replace(/-/g, '_'));
-                });
+                this.input.set('class', 'color-picker ' + evt.target.get('class')).fireEvent('change');
             }
+        }).addEvent('change', function() {
+            var color = this.get('class').replace('color-picker ', ''),
+                modifier = this.getPrevious('input').id;
+
+            $display.getElements('.' + modifier).each(function($item) {
+                $item.set('class', $item.get('class').replace(/ ?color-[a-z]+|$/, ' ' + color));
+            });
+
+            if(modifier.indexOf('-conflicted') > 1) {
+                modifier = 'conflicted';
+            }
+
+            $funktion.getElements('.color-' + modifier).set('text', color.toUpperCase().replace(/-/g, '_'));
+
+            updateLink();
         });
 
         var childClick,
