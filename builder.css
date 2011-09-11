@@ -235,11 +235,13 @@ transition:all 0.52s ease-out;}
 .group .fun-checkbox {float:left;}
 .group label {cursor:pointer; color:#444; padding:0 0 0 8px; float:left;}
 .group label:hover {color:#000;}
+.group.disabled {opacity:0.3;}
+.group.disabled .color-picker {display:none;}
 .group.general .header {float:none; background:#eee; border-radius:20px; padding:3px 12px; display:block; margin:12px 0;}
 .group.general .group {clear:both; float:left; margin:0 0 6px;}
 .config .master {width:191px;}
 .config.characters {width:280px;}
-.config.characters input {font-family:monospace; float:left; width:25px; text-align:center;}
+.config.characters input {font-family:monospace; float:left; width:25px; text-align:center; height:17px;}
 .config.characters label {margin-left:1px; display:block; float:left; padding:8px 10px 4px; }
 .config.characters .color-picker {margin-top:6px; margin-left:0;}
 .config.characters .group.long .color-picker {margin-top:2px;}
@@ -254,7 +256,7 @@ transition:all 0.52s ease-out;}
 .wtf #placeholder {display:block; margin:10px auto 0; width:400px; color:#888; text-transform:uppercase;}
 
 /* Floated config options */
-.form-buttons {position:relative; top:-26px; left:688px; z-index:9998; width:297px; background:#222; height:22px; border-radius:8px 0 0 0; margin-bottom:-20px;
+.form-buttons {position:relative; top:-26px; left:434px; z-index:9998; width:551px; background:#222; height:22px; border-radius:8px 0 0 0; margin-bottom:-20px;
 -webkit-box-shadow:-1px -1px 0 #777,
 -2px -2px 0 #999,
 -3px -3px 0 #9a9a9a,
@@ -267,21 +269,30 @@ box-shadow:-1px -1px 0 #777,
 -4px -4px 0 #aaa,
 -5px -5px 0 #a9a9a9,
 3px 3px 10px #2c2c2c;}
-.form-buttons.floated {position:fixed; top:auto; left:auto; bottom:10px; right:10px; height:auto; margin:0; width:400px; height:auto; background:transparent; border-radius:0; -webkit-box-shadow:0 0 transparent; box-shadow:0 0 transparent; border-top:0 none;}
-.form-buttons.floated #link {bottom:10px;}
+.form-buttons.floated {position:fixed; top:auto; left:auto; bottom:5px; right:10px; height:auto; margin:0; width:552px; height:auto; border-radius:0; -webkit-box-shadow:0 0 transparent; box-shadow:0 0 transparent; border-top:0 none; padding:0 0 8px; border-radius:12px; background:#ddd;
+-webkit-box-shadow:inset 0 0 4px #666;
+box-shadow:inset 0 0 4px #666;}
 .form-buttons#code-buttons {left:577px; width:408px;}
-.form-buttons button {margin:5px 0 0 6px; padding:2px 30px;}
-#float {position:absolute; right:6px; bottom:-8px;}
-#link {position:absolute; right:138px; bottom:-8px;}
-#dock {display:none; position:absolute; font-size:8pt !important; right:20px; bottom:10px; padding:2px 20px;}
-#float-select {display:none; position:absolute; font-size:8pt !important; right:130px; bottom:10px; padding:2px 20px;}
+.form-buttons button {margin:5px 0 0 6px; padding:2px 30px; display:block; float:left;}
+#dock {display:none;}
+#float-select {display:none; position:absolute; font-size:8pt !important; right:0; bottom:10px; padding:2px 20px;}
+#config-copy {border:3px solid red;}
+#config-flash-container {float:left; position:relative;}
 
 .floated {position:fixed; border-radius:0; width:100%; bottom:0; left:0; box-shadow:0 0 transparent; z-index:9999; padding:5px; font-size:9pt; margin:0; border-top:1px solid #888; box-shadow:0 0 8px #666; background:#ddd;}
 .floated .wtf {display:none;}
 .floated .config {padding:0;}
+.floated .config.characters input {height:16px;}
+.floated .group.master {width:159px;}
 .floated .checked {font-size:12pt;}
+.floated#options {padding-bottom:10px; padding-top:8px;}
 .floated .options {marginp-top:4px;}
 .floated .config.characters .group {margin-bottom:1px;}
+.floated .options .group {width:80%;}
+.floated .group .color-picker {border-width:1px;}
+.floated .group .color-picker:hover {width:4px; height:4px;}
+.floated .config-svn {width:160px; margin-right:20px;}
+.floated .config-svn .group.master {width:133px;}
 
 /* About */
 .what {line-height:1.3em;}

@@ -13,6 +13,7 @@
                 range.selectNode(this);
                 window.getSelection().addRange(range);
             }
+            return this;
         },
         // Serialize the inputs, checkboxes and color pickers inside an element to a string
         serialize: function() {
@@ -86,6 +87,8 @@
             return this;
         }
     });
+    
+    ZeroClipboard.setMoviePath('ZeroClipboard10.swf');
 
     // Rollover text and default texts
     var optionDetails = {
@@ -170,7 +173,9 @@
         $submoduleTexts,
         $noBranchTexts,
         $display,
-        $funktion;
+        $conflicteds,
+        $funktion,
+        $formButtons;
 
     window.addEvent('domready', function() {
 
@@ -178,7 +183,7 @@
         document.body.noisify({
             monochrome: false
         }).addClass(Browser.Engine.webkit ? 'webkit' : '');
-        $$('.form-buttons').noisify();
+        ($formButtons = $$('.form-buttons'));//.noisify();
 
         var $built = $('function'),
             lines = $built.get('html').split('\n'),
@@ -229,10 +234,10 @@
                     // Mark replaceable areas like #auto_url#
                     .replace(/#([a-zA-Z_0-9]+)#/, '<span id="$1"></span>'));
 
-                newLine += (newLine.indexOf('class="comment"') == -1 ? '<br />' : '');
+                newLine += (newLine.indexOf('class="comment"') == -1 ? '<br />\r\n' : '');
 
                 if(current && !current.indexOf('option-')) {
-                    newLine = newLine.replace(/>(['"])([^'"]+)(['"]?)<br/, '>$1<span class="configurable ' + current + '">$2</span>$3<br');
+                    newLine = newLine.replace(/>(['"]?)([^'"= ]+)(['"]?)<br/, '>$1<span class="configurable ' + current + '">$2</span>$3<br');
                 }
 
                 output += newLine;
@@ -251,6 +256,7 @@
         $noBranchTexts = $$('.option-nobranch');
         $display = $$('.display')[0];
         $funktion = $('function');
+        $conflicteds = $$('#git-conflicted, #hg-conflicted');
 
         // Navigation clicks
         $$('.nav').addEvent('click:relay(a)', function(evt) {
@@ -261,9 +267,10 @@
         // Configuraiton clicks
         $('float').addEvent('click', floatControls);
         $('dock').addEvent('click', hideControls);
-        $('select').addEvent('click', function() {
-            $('function').selectText();
-        });
+
+        wheresMyClippy($('copy-config'), $('function'));
+        wheresMyClippy($('copy-form'), $('function'));
+
         $('link').addEvent('click', popLink);
 
         $('expand').addEvent('click', toggleCodeView);
@@ -351,6 +358,24 @@
 
                 for(; $div = $divs[x++];) {
                     $div[$input.checked ? 'show' : 'hide']();
+                }
+
+                if($input.id.indexOf('-conflicted') > -1) {
+                    var both = $conflicteds.get('checked').join(''),
+                        $group = $('group-max-conflict');
+                    if(both == 'falsefalse') {
+                        $$('.conflicts').toggle();
+                        $('group-conflict').toggleClass('disabled');
+                        $('option-conflict').set('disabled', true);
+                        $('max-conflicted-files').set('disabled', true);
+                        $group.toggleClass('disabled');
+                    } else if($group.hasClass('disabled')) {
+                        $$('.conflicts').toggle();
+                        $('group-conflict').toggleClass('disabled');
+                        $('option-conflict').set('disabled', false);
+                        $('max-conflicted-files').set('disabled', false);
+                        $group.toggleClass('disabled');
+                    }
                 }
 
                 updateLink();
@@ -442,6 +467,7 @@
             val = Math.max(0, parseInt(this.get('value'), 10)) || 0;
         $conflictedFiles.set('text', split.slice(0, val).join(', '));
         this.set('value', val).focus();
+        $$('.option-max-conflicted-files').set('text', val);
         updateLink();
     }
 
@@ -488,4 +514,28 @@
             window.getSelection().removeAllRanges();
         }
 	}
+
+    // There's my clippy!
+    function wheresMyClippy($button, $copyBoard) {
+        var clippy = new ZeroClipboard.Client();
+
+        clippy.glue($button, $button.getParent());
+        clippy.setHandCursor(true);
+        clippy.addEventListener('mouseDown', function(client) { 
+            clippy.setText($copyBoard.selectText().get('text'));
+            $button.addClass('toggled');
+        });
+
+        clippy.addEventListener('mouseUp', function(client) { 
+            $button.removeClass('toggled');
+        });
+
+        clippy.addEventListener('onComplete', function(client) {
+            new MooDialog.Alert(new Element('div', {
+                text: 'Copied!'
+            }));
+        });
+
+        return clippy;
+    }
 })();

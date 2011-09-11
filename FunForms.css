@@ -17,6 +17,11 @@ background:-webkit-linear-gradient(top, #e0e0e0 10%,#fff 100%);
 background:linear-gradient(top, #e0e0e0 10%,#fff 100%);}
 input[type="text"]:focus {border:1px solid #dd8888; color:#444; -webkit-box-shadow:inset 0 0 2px #eed2d2, 2px 2px 4px #ffcccc; box-shadow:inset 0 0 2px #eed2d2, 2px 2px 4px #ffcccc;}
 
+input[disabled] {color:#555;
+background:-moz-linear-gradient(top, #aaa 0%, #eee 40%);
+background:-webkit-linear-gradient(top, #aaa 10%,#eee 100%);
+background:linear-gradient(top, #aaa 10%,#eee 100%);}
+
 .fun-picker {position:absolute; z-index:999999; background:#fff; border-radius:12px; -webkit-box-shadow:2px 2px 10px #666; box-shadow:2px 2px 10px #666; display:none;}
 .fun-picker ul {border:1px solid #999; -webkit-box-shadow:1px 1px 3px #ccc; box-shadow:1px 1px 3px #ccc; border-radius:6px; float:left; margin:8px; padding:0; overflow:hidden; max-width:150px; border-right:0 none; border-bottom:0 none;}
 .fun-picker ul li {float:left; display:block; padding:3px; border-right:1px solid #999; border-left:1px solid #fff; width:17px; height:17px; text-shadow:-1px -1px 1px #666, 1px 1px 1px #fff; text-align:center; border-bottom:1px solid #aaa;
@@ -53,7 +58,7 @@ rgba(0,0,0,0.2) 0 .5em 5px; /* drop shadow */
 
 button:hover {cursor:pointer;}
 button:hover {background-color:hsl(0, 0%, 83%);}
-button:active {
+button:active, button.toggled {
 background-image:-webkit-gradient(radial, 50% 0, 100, 50% 0, 0, from( rgba(255,255,255,0) ), to( rgba(255,255,255,0) ));
 background-image:-moz-gradient(radial, 50% 0, 100, 50% 0, 0, from( rgba(255,255,255,0) ), to( rgba(255,255,255,0) ));
 background-image:gradient(radial, 50% 0, 100, 50% 0, 0, from( rgba(255,255,255,0) ), to( rgba(255,255,255,0) ));
