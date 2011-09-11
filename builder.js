@@ -1,6 +1,7 @@
 (function() {
     // Implement a function to select the contents of an HTML element that isn't a form element
     Element.implement({
+        // Select all text inside an element, like a div
         selectText: function() {
             deselect();
             if (document.selection) {
@@ -13,6 +14,7 @@
                 window.getSelection().addRange(range);
             }
         },
+        // Serialize the inputs, checkboxes and color pickers inside an element to a string
         serialize: function() {
             var serialized = [],
                 type,
@@ -44,6 +46,7 @@
                         if(item.hasClass('color-picker')) {
                             serialized.push(toQuery(
                                 'color-' + item.getPrevious('input').id,
+                                // Shorten the color code (color-cyan > 4)
                                 lookupByColorCode(item.get('class').replace('color-picker ', ''))
                             ));
                         }
@@ -114,7 +117,7 @@
 
         // Character options
         'option-modified': 'The character to show if you have any locally modified, added or deleted files.',
-        'option-conflict': 'The character to show before the list of files currently in a conflicted state. Defaults to a unicdoe butt, because you are in a shitty situation.',
+        'option-conflict': 'The character to show before the list of files currently in a conflicted state.',
 
         // Default options
         'default': 'No description found. God I am so lazy.',
@@ -123,6 +126,7 @@
         'conflicted-files': 'index.js,path/to/package.json,filename.txt,awful.php,...',
         'option-nobranch': 'Text to show when you are lost in space (detached head)',
         'bisecting-text': 'Text to show when bisecting. Current commit comes after automatically.'
+    // Used to shorten colors in URL saved link
     }, colorCodes = {
         '0': 'color-black',
         '1': 'color-red',
@@ -138,6 +142,7 @@
         '6': 'color-cyan',
         '6b': 'color-lightcyan',
         '7b': 'color-white'
+    // Default colors for function output. Formated function auto-fills colors from this object
     }, colorDefaults = {
         'color-git': 'COLOR_YELLOW',
         'color-git-prefix': 'COLOR_YELLOW',
@@ -168,6 +173,7 @@
         $funktion;
 
     window.addEvent('domready', function() {
+
         // Make the body and displays noisy and tag it with webkit
         document.body.noisify({
             monochrome: false
@@ -246,11 +252,13 @@
         $display = $$('.display')[0];
         $funktion = $('function');
 
+        // Navigation clicks
         $$('.nav').addEvent('click:relay(a)', function(evt) {
             evt.preventDefault();
             window.scrollTo(0, $(this.get('href').substring(1)).getPosition().y);
         });
 
+        // Configuraiton clicks
         $('float').addEvent('click', floatControls);
         $('dock').addEvent('click', hideControls);
         $('select').addEvent('click', function() {
@@ -261,20 +269,24 @@
         $('expand').addEvent('click', toggleCodeView);
         $('despand').addEvent('click', toggleCodeView);
         
+        // Modified character picker and events
         $('option-modified').addEvents({
             change: updateDeltaChars,
             keyup: updateDeltaChars
         }).funPicker({picker: $('modified-picker')});
 
+        // Conflict character picker and events
         $('option-conflict').addEvents({
             change: updateConflictCharacters,
             keyup: updateConflictCharacters
         }).funPicker({picker: $('conflict-picker')});
 
+        // Conflicted file input events
         $('max-conflicted-files').addEvents({
             change: updateConflictedFilesList
         });
 
+        // Bisecting text picker and events
         $('bisecting-text').typeModifies($bisectingTexts).funPicker({
             picker: $('bisect-picker'), 
             append: true
