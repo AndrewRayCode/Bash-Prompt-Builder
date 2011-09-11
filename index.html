@@ -169,8 +169,15 @@
 
                     <div class="group general">
                         <label class="header" id="general-options">General Options</label>
-                        <input type="checkbox" value="comments" id="comments" />
-                        <label for="comments">Strip all comments</label>
+                        <div class="group">
+                            <input type="checkbox" value="comments" id="comments" />
+                            <label for="comments">Strip all comments</label>
+                        </div>
+
+                        <div class="group">
+                            <input type="checkbox" value="no-colors" id="no-colors" />
+                            <label for="no-colors">No colors!</label>
+                        </div>
                     </div>
                 </div>
 
@@ -285,22 +292,24 @@
     SUBMODULE_TEXT="[submodule] "
 # /option-submodule
 
-# Colors for prompt
-COLOR_RED=$(tput sgr0 && tput setaf 1)
-COLOR_GREEN=$(tput sgr0 && tput setaf 2)
-COLOR_YELLOW=$(tput sgr0 && tput setaf 3)
-COLOR_BLUE=$(tput sgr0 && tput setaf 4)
-COLOR_MAGENTA=$(tput sgr0 && tput setaf 5)
-COLOR_CYAN=$(tput sgr0 && tput setaf 6)
-COLOR_LIGHTRED=$(tput sgr0 && tput setaf 1 && tput bold)
-COLOR_LIGHTGREEN=$(tput sgr0 && tput setaf 2 && tput bold)
-COLOR_LIGHTYELLOW=$(tput sgr0 && tput setaf 3 && tput bold)
-COLOR_LIGHTBLUE=$(tput sgr0 && tput setaf 4 && tput bold)
-COLOR_LIGHTMAGENTA=$(tput sgr0 && tput setaf 5 && tput bold)
-COLOR_LIGHTCYAN=$(tput sgr0 && tput setaf 6 && tput bold)
+# :color-list
+    # Colors for prompt
+    COLOR_RED=$(tput sgr0 && tput setaf 1)
+    COLOR_GREEN=$(tput sgr0 && tput setaf 2)
+    COLOR_YELLOW=$(tput sgr0 && tput setaf 3)
+    COLOR_BLUE=$(tput sgr0 && tput setaf 4)
+    COLOR_MAGENTA=$(tput sgr0 && tput setaf 5)
+    COLOR_CYAN=$(tput sgr0 && tput setaf 6)
+    COLOR_LIGHTRED=$(tput sgr0 && tput setaf 1 && tput bold)
+    COLOR_LIGHTGREEN=$(tput sgr0 && tput setaf 2 && tput bold)
+    COLOR_LIGHTYELLOW=$(tput sgr0 && tput setaf 3 && tput bold)
+    COLOR_LIGHTBLUE=$(tput sgr0 && tput setaf 4 && tput bold)
+    COLOR_LIGHTMAGENTA=$(tput sgr0 && tput setaf 5 && tput bold)
+    COLOR_LIGHTCYAN=$(tput sgr0 && tput setaf 6 && tput bold)
 
-COLOR_RESET=$(tput sgr0)
+    COLOR_RESET=$(tput sgr0)
 
+# /color-list
 # :hg
     _hg_dir=""
     function _hg_check {
@@ -416,12 +425,12 @@ dvcs_function="
 
                 # :git-submodule
                     if is_submodule; then
-                        prompt=\$prompt\"\\[\$color-git-submodule\]\$SUBMODULE_TEXT\\[\$color-git\\]\"
+                        prompt=\$prompt\"\\[\$color-git-submodule\\]\$SUBMODULE_TEXT\\[\$color-git\\]\"
                     fi
                 # /git-submodule
 
                 # :git-prefix
-                    prefix=\"\\[\$color-git-prefix\]git:\\[\$color-git\]\"
+                    prefix=\"\\[\$color-git-prefix\\]git:\\[\$color-git\\]\"
                 # /git-prefix
                 prompt=\$prompt\$prefix\${gitBranch#refs/heads/}\$bisecting
             # /git-branch
@@ -490,7 +499,7 @@ dvcs_function="
                 prompt=\$prompt\"\\[\$color-hg\\] (\"
                 
                 # :hg-prefix
-                    prefix=\"\\[\$color-hg-prefix\]hg:\\[\$color-hg\]\"
+                    prefix=\"\\[\$color-hg-prefix\\]hg:\\[\$color-hg\\]\"
                 # /hg-prefix
                 prompt=\$prompt\"\${prefix}\${hgBranch}\"
 

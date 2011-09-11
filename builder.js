@@ -163,7 +163,9 @@
         $conflictedFiles,
         $bisectingTexts,
         $submoduleTexts,
-        $noBranchTexts;
+        $noBranchTexts,
+        $display,
+        $funktion;
 
     window.addEvent('domready', function() {
         // Make the body and displays noisy and tag it with webkit
@@ -202,12 +204,23 @@
                     .replace(new RegExp('^\\s{' + (stack.length * 4) + '}'), '')
                     .replace(/ /g, '&nbsp;')
                     .replace(/([a-zA-Z_]+)=/, '<span class="line-def">$1</span><span class="operator">=</span>')
-                    .replace(/\b(if|then|fi)\b/g, '<span class="keyword">$1</span>')
-                    .replace(/(color-[a-z-]+)/g, function(match) {
-                        return '<span class="' + match + '">' + colorDefaults[match] + '</span>';
+                    .replace(/\b(if|then|else|fi)\b/g, '<span class="keyword">$1</span>')
+
+                    // Make all colors hidable
+                    .replace(/(\\\\\[\\\$color-[a-z-]+\\\\\])/g, '<span class="color-value">$1</span>')
+
+                    // Make the color values replaceable
+                    .replace(/\$(color-[a-z-]+)/g, function(whole, part) {
+                        return '<span class="' + part + '">$' + colorDefaults[part] + '</span>';
                     })
+                    
+                    // Highlight variables
                     .replace(/(\$[a-zA-Z_]+)/g, '<span class="variable">$1</span>')
+
+                    // Highlight comments
                     .replace(/(#(.+|$))/, '<span class="comment">$1<br /></span>')
+
+                    // Mark replaceable areas like #auto_url#
                     .replace(/#([a-zA-Z_0-9]+)#/, '<span id="$1"></span>'));
 
                 newLine += (newLine.indexOf('class="comment"') == -1 ? '<br />' : '');
@@ -230,8 +243,8 @@
         $bisectingTexts = $$('.option-bisecting');
         $submoduleTexts = $$('.option-submodule');
         $noBranchTexts = $$('.option-nobranch');
-        var $display = $$('.display')[0],
-            $funktion = $('function');
+        $display = $$('.display')[0];
+        $funktion = $('function');
 
         $$('.nav').addEvent('click:relay(a)', function(evt) {
             evt.preventDefault();
@@ -270,19 +283,26 @@
         $('submodule-text').typeModifies($submoduleTexts);
 
         $('comments').addEvents({
-            click: toggleComments,
             change: toggleComments
         });
 
+        $('no-colors').addEvents({
+            change: toggleColors
+        });
+
+        // Color pickers
         $$('.color-picker').funPicker({
             picker: $('color-picker'),
+            // Custom pick function to set the classname, then fire change
             pickFunction: function(evt) {
                 this.input.set('class', 'color-picker ' + evt.target.get('class')).fireEvent('change');
             }
+        // Change captured separately in case deserialize script calles change and we need to react
         }).addEvent('change', function() {
             var color = this.get('class').replace('color-picker ', ''),
                 modifier = this.getPrevious('input').id;
 
+            // Give the elements in the display the right color class
             $display.getElements('.' + modifier).each(function($item) {
                 $item.set('class', $item.get('class').replace(/ ?color-[a-z]+|$/, ' ' + color));
             });
@@ -291,6 +311,7 @@
                 modifier = 'conflicted';
             }
 
+            // Give the variables in the output function the right values
             $funktion.getElements('.color-' + modifier).set('text', color.toUpperCase().replace(/-/g, '_'));
 
             updateLink();
@@ -324,7 +345,7 @@
             }
         // Override stupid firefox's pattern and auto-check everything
         }).each(function($cb) {
-            if($cb.id == 'comments') {
+            if($cb.id == 'comments' || $cb.id == 'no-colors') {
                 $cb.set('checked', false);
             } else {
                 $cb.set('checked', 'checked');
@@ -412,6 +433,14 @@
         updateLink();
     }
 
+    function toggleColors(evt) {
+        $display.toggleClass('blanco-niño');
+        $funktion.getElements('.color-value').toggle();
+        $('options').toggleClass('blanco-niño');
+        $$('.color-list').toggle();
+        updateLink();
+    }
+
     function toggleCodeView() {
         $('function').toggleClass('expanded');
         $('expand').toggle();
@@ -436,7 +465,7 @@
         $('auto_url').set('text', getLink());
     }
 
-    function toggleComments() {
+    function toggleComments(evt) {
         $$('.comment')[this.checked ? 'hide' : 'show']();
     }
 

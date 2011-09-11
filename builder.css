@@ -193,6 +193,8 @@ transition:all 0.52s ease-out;}
 .color-picker {width:4px; height:4px; margin:-3px 0 0 5px; cursor:pointer; float:right; border:3px solid #fff; padding:4px; font-family:serif; font-size:12pt; color:#666; -webkit-box-shadow:2px 2px 3px #ccc; box-shadow:2px 2px 3px #ccc;}
 .color-picker:hover {border-width:2px; width:6px; height:6px;}
 
+.display.blanco-niño .group div span {color:white !important;}
+
 .color-red {background:#c80c00 !important;}
 .color-lightred {background:#ff6a68 !important; font-weight:bold;}
 .color-green {background:#00c426 !important;}
@@ -226,6 +228,7 @@ transition:all 0.52s ease-out;}
 
 /* Configuration options */
 #options {padding-bottom:30px;}
+#options.blanco-niño .color-picker {display:none;}
 .config {float:left; width:193px; padding:0 10px 10px;}
 .options {border-left:13px solid #eee; overflow:auto; clear:both; padding:0 0 0 10px; margin:23px 0 0 1px;}
 .options .group {padding:2px 0; margin:4px 0 0; float:left; clear:both; width:99%;}
@@ -233,6 +236,7 @@ transition:all 0.52s ease-out;}
 .group label {cursor:pointer; color:#444; padding:0 0 0 8px; float:left;}
 .group label:hover {color:#000;}
 .group.general .header {float:none; background:#eee; border-radius:20px; padding:3px 12px; display:block; margin:12px 0;}
+.group.general .group {clear:both; float:left; margin:0 0 6px;}
 .config .master {width:191px;}
 .config.characters {width:280px;}
 .config.characters input {font-family:monospace; float:left; width:25px; text-align:center;}
