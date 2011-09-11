@@ -117,6 +117,23 @@
         '6': 'color-cyan',
         '6b': 'color-lightcyan',
         '7b': 'color-white'
+    }, colorDefaults = {
+        'color-git': 'COLOR_YELLOW',
+        'color-git-modified': 'COLOR_YELLOW',
+        'color-git-nobranch': 'COLOR_RED',
+        'color-git-submodule': 'COLOR_MAGENTA',
+        'color-git-bisect': 'COLOR_MAGENTA',
+        'color-git-tag': 'COLOR_YELLOW',
+        'color-git-ahead': 'COLOR_CYAN',
+        'color-hg': 'COLOR_MAGENTA',
+        'color-hg-bisect': 'COLOR_YELLOW',
+        'color-hg-patches': 'COLOR_YELLOW',
+        'color-hg-modified': 'COLOR_PURPLE',
+        'color-svn': 'COLOR_CYAN',
+        'color-svn-revno': 'COLOR_CYAN',
+        'color-svn-modified': 'COLOR_CYAN',
+        'color-conflicted': 'COLOR_RED',
+        'color-conflict-char': 'COLOR_YELLOW'
     },
         $deltaChars,
         $conflictChars,
@@ -163,6 +180,9 @@
                     .replace(/ /g, '&nbsp;')
                     .replace(/([a-zA-Z_]+)=/, '<span class="line-def">$1</span><span class="operator">=</span>')
                     .replace(/\b(if|then|fi)\b/g, '<span class="keyword">$1</span>')
+                    .replace(/(color-[a-z-]+)/g, function(match) {
+                        return '<span class="' + match + '">' + colorDefaults[match] + '</span>';
+                    })
                     .replace(/(\$[a-zA-Z_]+)/g, '<span class="variable">$1</span>')
                     .replace(/(#(.+|$))/, '<span class="comment">$1<br /></span>')
                     .replace(/#([a-zA-Z_0-9]+)#/, '<span id="$1"></span>'));
@@ -187,6 +207,8 @@
         $bisectingTexts = $$('.option-bisecting');
         $submoduleTexts = $$('.option-submodule');
         $noBranchTexts = $$('.option-nobranch');
+        var $display = $$('.display'),
+            $funktion = $('function');
 
         $$('.nav').addEvent('click:relay(a)', function(evt) {
             evt.preventDefault();
@@ -232,10 +254,17 @@
         $$('.color-picker').funPicker({
             picker: $('color-picker'),
             pickFunction: function(evt) {
-                var color = evt.target.get('class');
+                var color = evt.target.get('class'),
+                    modifier = this.input.getPrevious('input').value;
+
                 this.input.set('class', 'color-picker ' + color);
-                $$('.' + this.input.getPrevious('input').value).each(function($item) {
+                $$('.display .' + modifier).each(function($item) {
                     $item.set('class', $item.get('class').replace(/ ?color-[a-z]+|$/, ' ' + color));
+                });
+
+                console.log(modifier);
+                $funktion.getElements('.color-' + modifier).each(function($item) {
+                    $item.set('text', color.toUpperCase().replace(/-/g, '_'));
                 });
             }
         });
