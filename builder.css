@@ -145,6 +145,10 @@ box-shadow:1px 1px 0 #ce553e,
 4px 4px 0 #ce553e,
 10px 5px 7px #000;}
 
+/* Abstract */
+p.abstract {margin:-7px 0 4px 10px; display:block; font-size:13.7pt; color:#d72329; letter-spacing:3px; text-shadow:0 0 transparent, -2px -2px 2px #090909, 1px 1px 2px #222, 2px 2px 2px #444; }
+.webkit p.abstract {font-size:13.7pt; margin-left:19px;}
+
 /* Function display */
 #function {display:none; font-family:monospace; overflow-x:scroll; width:940px; font-size:10pt; height:300px;
 -webkit-transition:all 0.52s ease-out;
