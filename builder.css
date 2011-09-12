@@ -202,7 +202,7 @@ transition:all 0.52s ease-out;}
 .color-lightgreen {background:#5dfc72 !important; font-weight:bold;}
 .color-yellow {background:#c5c525 !important;}
 .color-lightyellow {background:#fdfd71 !important; font-weight:bold;}
-.color-blue {background: #2773fc !important;}
+.color-blue {background:#2773fc !important;}
 .color-lightblue {background:#6f6ffc !important; font-weight:bold;}
 .color-magenta {background:#ca24c4 !important;}
 .color-lightmagenta {background:#ff71fc !important; font-weight:bold;}
@@ -218,7 +218,7 @@ transition:all 0.52s ease-out;}
 .display .color-lightgreen {color:#5dfc72 !important; background:transparent !important;}
 .display .color-yellow {color:#c5c525 !important; background:transparent !important;}
 .display .color-lightyellow {color:#fdfd71 !important; background:transparent !important;}
-.display .color-blue {color: #2773fc !important; background:transparent !important;}
+.display .color-blue {color:#2773fc !important; background:transparent !important;}
 .display .color-lightblue {color:#6f6ffc !important; background:transparent !important;}
 .display .color-magenta {color:#ca24c4 !important; background:transparent !important;}
 .display .color-lightmagenta {color:#ff71fc !important; background:transparent !important;}
@@ -260,6 +260,8 @@ transition:all 0.52s ease-out;}
 .group.presets {position:absolute; bottom:10px;}
 .group.presets label {color:#444; font-size:14pt;}
 .group.presets select {margin:0 0 0 10px;}
+.floated .group.presets { bottom:13px; left:189px;}
+.floated .group.presets label {display:none;}
 
 /* Floated config options */
 .form-buttons {position:relative; top:-26px; left:434px; z-index:9998; width:551px; background:#222; height:22px; border-radius:8px 0 0 0;

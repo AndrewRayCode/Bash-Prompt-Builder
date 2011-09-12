@@ -6,7 +6,7 @@
             deselect();
             if (document.selection) {
                 var range = document.body.createTextRange();
-                    range.moveToElementText(this);
+                range.moveToElementText(this);
                 range.select();
             } else if (window.getSelection) {
                 var range = document.createRange();
@@ -75,6 +75,11 @@
                 item.fireEvent('change');
             });
         },
+        getTextLikeTheBrowserWould: function() {
+            var temp = this.clone();
+            temp.getElements(':invisible').destroy();
+            return temp.get('text').replace(/ |&amp;/g, ' ');
+        },
         typeModifies: function($collection) {
             var modify = function() {
                 $collection.set('text', this.get('value'));
@@ -85,6 +90,14 @@
                 keyup: modify
             });
             return this;
+        }
+    });
+
+    $extend(Selectors.Pseudo, {
+        invisible: function() {
+            if(this.getStyle('visibility') == 'hidden' || this.getStyle('display') == 'none') {
+                return this;
+            }
         }
     });
     
@@ -150,7 +163,7 @@
         'color-git': 'COLOR_YELLOW',
         'color-git-prefix': 'COLOR_YELLOW',
         'color-git-modified': 'COLOR_YELLOW',
-        'color-git-nobranch': 'COLOR_RED',
+        'color-option-nobranch': 'COLOR_RED',
         'color-git-submodule': 'COLOR_MAGENTA',
         'color-git-bisect': 'COLOR_MAGENTA',
         'color-git-ontag': 'COLOR_YELLOW',
@@ -229,7 +242,7 @@
                     .replace(/(\$[a-zA-Z_]+)/g, '<span class="variable">$1</span>')
 
                     // Highlight comments
-                    .replace(/(#(.+|$))/, '<span class="comment">$1<br /></span>')
+                    .replace(/(#(.+|$))/, '<span class="comment">$1<br /></span>\r\n')
 
                     // Mark replaceable areas like #auto_url#
                     .replace(/#([a-zA-Z_0-9]+)#/, '<span id="$1"></span>'));
@@ -331,7 +344,7 @@
             }
 
             // Give the variables in the output function the right values
-            $funktion.getElements('.color-' + modifier).set('text', color.toUpperCase().replace(/-/g, '_'));
+            $funktion.getElements('.color-' + modifier).getFirst().set('text', '$' + color.toUpperCase().replace(/-/g, '_'));
 
             updateLink();
         });
@@ -407,6 +420,7 @@
 
         $$('.config label').addEvent('mouseover', updateDescription.bindWithEvent(this));
 
+        $('presets').getChildren()[0].selected = true;
         $('presets').addEvent('change', updatePreset);
 
         if(window.location.hash && window.location.hash.trim() != '#') {
@@ -474,10 +488,12 @@
     }
 
     function toggleColors(evt) {
-        $display.toggleClass('blanco-niño');
-        $funktion.getElements('.color-value').toggle();
-        $('options').toggleClass('blanco-niño');
-        $$('.color-list').toggle();
+        var checked = this.checked,
+            showHide = checked ? 'hide' : 'show';
+        $display.toggleClass('blanco-niño', checked);
+        $funktion.getElements('.color-value')[showHide]();
+        $('options').toggleClass('blanco-niño', checked);
+        $$('.color-list')[showHide]();
         updateLink();
     }
 
@@ -535,7 +551,7 @@
                 clippy.setText($copyBoard.value);
                 $copyBoard.select();
             } else {
-                clippy.setText($copyBoard.selectText().get('text'));
+                clippy.setText($copyBoard.selectText().getTextLikeTheBrowserWould());
             }
             $button.addClass('toggled');
         });
