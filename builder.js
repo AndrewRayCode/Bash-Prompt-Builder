@@ -407,6 +407,8 @@
 
         $$('.config label').addEvent('mouseover', updateDescription.bindWithEvent(this));
 
+        $('presets').addEvent('change', updatePreset);
+
         if(window.location.hash && window.location.hash.trim() != '#') {
             $('options').deserialize(window.location.hash);
             window.location.replace('#');
@@ -504,6 +506,10 @@
 
     function updateLink() {
         $('auto_url').set('text', getLink());
+    }
+
+    function updatePreset() {
+        $('options').deserialize(this.value);
     }
 
     function toggleComments(evt) {

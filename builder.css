@@ -150,7 +150,7 @@ box-shadow:1px 1px 0 #ce553e,
 -webkit-transition:all 0.52s ease-out;
 -moz-transition:all 0.52s ease-out;
 transition:all 0.52s ease-out;}
-#function.expanded {height:2500px; /* estimation of total height, eyeball it after updating function */}
+#function.expanded {height:3500px; /* estimation of total height, eyeball it after updating function */}
 #function .opposite {display:none;}
 #function .git {background:#ffffee;}
 #function .hg {background:#ffeeff;}
@@ -166,7 +166,8 @@ transition:all 0.52s ease-out;}
 #code button {margin:15px 15px 0 0;}
 
 /* Preview output */
-.display {font-family:monospace;}
+#preview {top:-8px;}
+.display {font-family:monospace; margin-top:-25px;}
 .display label {color:#444; font-family:sans-serif; margin:5px 0 5px; display:block; float:left; width:100px;}
 .display .screen {background:#222; padding:3px; color:#fff; float:left; width:800px; border-radius:4px; line-height:16pt; box-shadow:3px 3px 9px #000 inset; -webkit-box-shadow:3px 3px 9px #000 inset text-shadow:1px 1px 3px #000;}
 
@@ -255,8 +256,13 @@ transition:all 0.52s ease-out;}
 .wtf label {display:block; font-style:italic; color:#aaa; display:none; font-size:11pt; margin:0 0 3px;}
 .wtf #placeholder {display:block; margin:10px auto 0; width:400px; color:#888; text-transform:uppercase;}
 
+/* Presets */
+.group.presets {position:absolute; bottom:10px;}
+.group.presets label {color:#444; font-size:14pt;}
+.group.presets select {margin:0 0 0 10px;}
+
 /* Floated config options */
-.form-buttons {position:relative; top:-26px; left:434px; z-index:9998; width:551px; background:#222; height:22px; border-radius:8px 0 0 0; margin-bottom:-20px;
+.form-buttons {position:relative; top:-26px; left:434px; z-index:9998; width:551px; background:#222; height:22px; border-radius:8px 0 0 0;
 -webkit-box-shadow:-1px -1px 0 #777,
 -2px -2px 0 #999,
 -3px -3px 0 #9a9a9a,
