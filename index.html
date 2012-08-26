@@ -346,7 +346,7 @@
         base_dir="."
         while [ -d "$base_dir/../.hg" ]; do base_dir="$base_dir/.."; done
         if [ -d "$base_dir/.hg" ]; then
-            _hg_dir=`cd $base_dir; pwd`
+            _hg_dir=`cd "$base_dir"; pwd`
             return 0
         else
             return 1
@@ -366,7 +366,7 @@
         done
 
         if [ ! -z "$parent" ]; then
-            _svn_dir=`cd $parent; pwd`
+            _svn_dir=`cd "$parent"; pwd`
             return 0
         else
             return 1
@@ -390,7 +390,7 @@
     function is_submodule() {
         local parent_git=`cd "$_git_dir/.." && git rev-parse --show-toplevel 2> /dev/null`
         if [[ -n $parent_git ]]; then
-            local submodules=`cd $parent_git && git submodule --quiet foreach 'echo $path'`
+            local submodules=`cd "$parent_git" && git submodule --quiet foreach 'echo $path'`
             for line in $submodules; do
                 cd "$parent_git/$line"
                 if [[ `pwd` = $_git_dir ]]; then return 0; fi
