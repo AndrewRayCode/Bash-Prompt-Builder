@@ -340,6 +340,10 @@
 
 # /color-list
 # :hg
+    if [ -z "`echo $(hg prompt \"abort\" 2>&1) | grep abort`" ]; then
+        echo "hg-prompt not installed. Suggest http://sjl.bitbucket.org/hg-prompt/installation/"
+    fi
+
     _hg_dir=""
     function _hg_check {
         [ -d ".hg" ] && _hg_dir=`pwd`
@@ -376,11 +380,17 @@
 
 # :git
     _git_dir=""
+    _git_svn_dir=""
     function _git_check {
         _git_dir=`git rev-parse --show-toplevel 2> /dev/null`
         if [[ "$_git_dir" == "" ]]; then
             return 1
         else
+            _gsvn_check=`cd "$_git_dir"; ls .git/svn/.metadata 2> /dev/null`
+
+            if [[ ! -z "$_gsvn_check" ]]; then
+                _git_svn_dir=$_git_dir
+            fi
             return 0
         fi
     }
@@ -424,13 +434,11 @@ dvcs_function="
 
             # Figure out current branch, or if we are bisecting, or lost in space
             bisecting=\"\"
-            noBranch=\"\"
             if [ -z \"\$gitBranch\" ]; then
                 # :git-bisect
                     bisect=\$(git rev-list --bisect 2> /dev/null | cut -c1-7)
                     if [ -z \"\$bisect\" ]; then
                 # /git-bisect
-                noBranch=True
                 gitBranch=\"\\[\$color-option-nobranch\\]\$NOBRANCH_TEXT\\[\$color-git\\]\"
                 # :git-bisect
                 else
@@ -439,6 +447,14 @@ dvcs_function="
                 fi
                 # /git-bisect
             fi
+            gitBranch=\${gitBranch#refs/heads/}
+            #: git-svn
+            if [ -z \"\$bisect\" ]; then
+                if [ -n \"\$_git_svn_dir\" ]; then
+                    gitBranch=\"\\[\$COLOR_DARK_BLUE\\]git-svn\\[\$COLOR_YELLOW\\] \$gitBranch\"
+                fi
+            fi
+            # /git-svn
 
             # :git-modified
                 # changed *tracked* files in local directory?
@@ -461,7 +477,7 @@ dvcs_function="
                 # :git-prefix
                     prefix=\"\\[\$color-git-prefix\\]git:\\[\$color-git\\]\"
                 # /git-prefix
-                prompt=\$prompt\$prefix\${gitBranch#refs/heads/}\$bisecting
+                prompt=\$prompt\$prefix\$gitBranch\$bisecting
             # /git-branch
             # :git-revno
                 revNo=\$(git rev-parse HEAD 2> /dev/null | cut -c1-7) || return
@@ -489,7 +505,7 @@ dvcs_function="
 
             # :git-conflicted
                 # any conflicts? (sed madness is to remove line breaks)
-                files=\$(git ls-files -u | cut -f 2 | sort -u | sed '$(($MAX_CONFLICTED_FILES+1)),1000d' |  sed -e :a -e '\$!N;s/\\\n/, /;ta' -e 'P;D')
+                files=\$(git ls-files -u | cut -f 2 | sort -u | sed '$(($MAX_CONFLICTED_FILES+1)),1000d' | sed -e :a -e '\$!N;s/\\\n/, /;ta' -e 'P;D')
             # /git-conflicted
         fi
     # /git
@@ -736,6 +752,23 @@ PS1="\$(${dvcs_function})\[$COLOR_RESET\] \$ "
                 <li>◮</li>
                 <li>✄</li>
                 <li>‡</li>
+            </ul>
+        </div>
+        <div class="fun-picker" id="rebase-picker">
+            <ul>
+                <li>®</li>
+                <li>±</li>
+                <li>÷</li>
+                <li>~</li>
+                <li>µ</li>
+                <li>Ŕ</li>
+                <li>Ř</li>
+                <li>ř</li>
+                <li>ʀ</li>
+                <li>ʶ</li>
+                <li>ϟ</li>
+                <li>᚜</li>
+                <li>➦</li>
             </ul>
         </div>
         <div class="fun-picker color-modal" id="color-picker">
