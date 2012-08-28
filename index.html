@@ -3,14 +3,9 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
         <title>Bash Prompt Builder - AndrewRay.me</title>
-        <script src="https://ajax.googleapis.com/ajax/libs/mootools/1.3.2/mootools-yui-compressed.js" type="text/javascript"></script>
-        <script src="mootools-more-1.3.2.1.js" type="text/javascript"></script>
-        <script src="mootools.noisy.min.js" type="text/javascript"></script>
-        <script src="FunForms.js" type="text/javascript"></script>
-        <script src="MooDialog.js" type="text/javascript"></script>
-        <script src="ZeroClipboard.js" type="text/javascript"></script>
+        <link href='http://fonts.googleapis.com/css?family=Capriola' rel='stylesheet' type='text/css'>
+        <link href='http://fonts.googleapis.com/css?family=Quicksand' rel='stylesheet' type='text/css'>
         <link type="text/css" rel="stylesheet" href="FunForms.css" />
-        <script src="builder.js" type="text/javascript"></script>
         <link type="text/css" rel="stylesheet" href="builder.css" />
         <script type="text/javascript">
             var _gaq = _gaq || [];
@@ -33,19 +28,32 @@
             <a href="https://github.com/DelvarWorld/Bash-Prompt-Builder" rel="me" target="_blank">Fork me on GitHub!</a>
         </div>
         <div class="wrap">
-            <header>
-                <h1>Bash Prompt Builder</h1>
-                <p class="abstract">Create a function to show Git / Hg / Svn&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;repository information in your prompt!</p>
-            </header>
+            <h1>Bash Prompt Builder</h1>
 
-            <ul class="nav">
-                <li>Explore:</li>
-                <li><a href="#nav-options">Options</a></li>
-                <li><a href="#preview">Preview</a></li>
-                <li><a href="#nav-code">Code</a></li>
-                <li><a href="#what">What is this I don't even</a></li>
-                <li><a href="#contact">Contact and Contribute</a></li>
-            </ul>
+            <h2><span class="circ">1</span> Pick your tools</h2>
+            <section>
+                <h3>What verison control tools do you use?</h3>
+                <div>
+                    <label for="git-all">git-all</label>
+                    <input id="git-all" type="checkbox" value="git" class="large-checkbox git-all" data-toggle="git-prefix git-revno git-ahead git-modified git-conflicted git-bisect option-submodule git-ontag" checked="checked" />
+                <div>
+                </div>
+                    <label for="hg-all">hg-all</label>
+                    <input id="hg-all" type="checkbox" value="hg" class="large-checkbox hg-all" data-toggle="hg-patches hg-prefix hg-revno hg-modified hg-conflicted hg-bisect" checked="checked" />
+                <div>
+                </div>
+                    <label for="svn-all">svn-all</label>
+                    <input id="svn-all" type="checkbox" value="svn" class="large-checkbox svn-all" data-toggle="svn-revno svn-modified" checked="checked" />
+                </div>
+            </section>
+            <div class="form-buttons one-btn">
+                <button id="ok">Let's Go!</button>
+            </div>
+
+            <h2><span class="circ">1</span> Do you like colors?</h2>
+            <section>
+            test
+            </section>
 
             <h2 id="nav-options">Options</h2>
             <section id="options">
@@ -57,7 +65,7 @@
 
                 <div class="config config-git">
                     <div class="group master">
-                        <input type="checkbox" value="git" id="git" data-toggle="git-prefix git-revno git-ahead git-modified git-conflicted git-bisect option-submodule git-ontag" checked="checked" />
+                        <input type="checkbox" value="git" class="git-all" id="git" data-toggle="git-prefix git-revno git-ahead git-modified git-conflicted git-bisect option-submodule git-ontag" checked="checked" />
                         <label for="git">Git</label>
                         <div class="color-picker color-yellow"></div>
                     </div>
@@ -115,7 +123,7 @@
 
                 <div class="config config-hg">
                     <div class="group master">
-                        <input type="checkbox" value="hg" id="hg" data-toggle="hg-patches hg-prefix hg-revno hg-modified hg-conflicted hg-bisect" checked="checked" />
+                        <input type="checkbox" value="hg" class="hg-all" id="hg" data-toggle="hg-patches hg-prefix hg-revno hg-modified hg-conflicted hg-bisect" checked="checked" />
                         <label for="hg">Mercurial</label>
                         <div class="color-picker color-magenta"></div>
                     </div>
@@ -161,7 +169,7 @@
 
                 <div class="config config-svn">
                     <div class="group master">
-                        <input type="checkbox" value="svn" id="svn" data-toggle="svn-revno svn-modified" checked="checked" />
+                        <input type="checkbox" value="svn" class="svn-all" id="svn" data-toggle="svn-revno svn-modified" checked="checked" />
                         <label for="svn">Subversion</label>
                         <div class="color-picker color-cyan"></div>
                     </div>
@@ -315,6 +323,9 @@
 # :option-nobranch
     NOBRANCH_TEXT="no branch!"
 # /option-nobranch
+# :option-rebase
+    REBASE_TEXT="✂ ʀebase"
+# /option-rebase
 # :option-submodule
     SUBMODULE_TEXT="[submodule] "
 # /option-submodule
@@ -432,9 +443,23 @@ dvcs_function="
             gitBranch=\$(git symbolic-ref HEAD 2> /dev/null)
             gitStatus=\`git status\`
 
+            # :git-rebase
+                # Figure out if we are rebasing
+                if [[ -d \"\$_git_dir/.git/rebase-apply\" || -d \"\$_git_dir/.git/rebase-merge\" ]]; then
+                    is_rebase=1
+                fi
+            # /git-rebase
+
             # Figure out current branch, or if we are bisecting, or lost in space
             bisecting=\"\"
             if [ -z \"\$gitBranch\" ]; then
+                # :git-rebase
+                if [ -n \"\$is_rebase\" ]; then
+                    rebase_prompt=\" \\[\$COLOR_LIGHT_CYAN\\]\"
+                    rebase_prompt=\$rebase_prompt\"\\[`tput sc`\\]  \\[`tput rc`\\]\\[\$REBASE_TEXT\\] \"
+                    rebase_prompt=\$rebase_prompt\"\\[\$COLOR_YELLOW\\]\"
+                else
+                # /git-rebase
                 # :git-bisect
                     bisect=\$(git rev-list --bisect 2> /dev/null | cut -c1-7)
                     if [ -z \"\$bisect\" ]; then
@@ -446,6 +471,9 @@ dvcs_function="
                     gitBranch=\"\"
                 fi
                 # /git-bisect
+                # :git-rebase
+                fi
+                # /git-rebase
             fi
             gitBranch=\${gitBranch#refs/heads/}
             #: git-svn
@@ -456,6 +484,10 @@ dvcs_function="
             fi
             # /git-svn
 
+            
+            # :git-rebase
+            if [ -z \"\$is_rebase\" ]; then
+            # /git-rebase
             # :git-modified
                 # changed *tracked* files in local directory?
                 gitChange=\$(echo \$gitStatus | ack 'modified:|deleted:|new file:')
@@ -463,6 +495,9 @@ dvcs_function="
                     gitChange=\"\\[\$color-git-modified\\] \\[`tput sc`\\]  \\[`tput rc`\\]\\[\$DELTA_CHAR\\] \"
                 fi
             # /git-modified
+            # :git-rebase
+            fi
+            # /git-rebase
 
             # :git-branch
                 # output the branch and changed character if present
@@ -797,5 +832,12 @@ PS1="\$(${dvcs_function})\[$COLOR_RESET\] \$ "
         <!-- Miaka: http://www.colourlovers.com/palette/482416/Wasabi_Suicide -->
         <!-- This guy: https://github.com/relevance/etc/blob/master/bash/bash_vcs.sh -->
         <!-- Brodie Rao: https://bitbucket.org/brodie/dotfiles/src/1a3e7c8d25d2/.zsh/.zshrc#cl-201 -->
+        <script src="https://ajax.googleapis.com/ajax/libs/mootools/1.3.2/mootools-yui-compressed.js" type="text/javascript"></script>
+        <script src="mootools-more-1.3.2.1.js" type="text/javascript"></script>
+        <script src="mootools.noisy.min.js" type="text/javascript"></script>
+        <script src="FunForms.js" type="text/javascript"></script>
+        <script src="MooDialog.js" type="text/javascript"></script>
+        <script src="ZeroClipboard.js" type="text/javascript"></script>
+        <script src="builder.js" type="text/javascript"></script>
     </body>
 </html>

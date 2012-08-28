@@ -7,13 +7,7 @@ html, body {margin:0; padding:0; font-family:sans-serif; font-size:12pt; backgro
 a{color:#ae350e;}
 #nojs {position:fixed; width:80%; top:10%; height:60%; left:10%; background:red; z-index:99999; font-size:60pt; color:yellow; padding:40px; border-radius:10px;}
 
-section {background:#fff; padding:35px 20px 20px; border-radius:8px; margin:0 0 10px; overflow:auto; clear:both; position:relative; z-index:20;
--webkit-box-shadow:1px 1px 0 #777,
-2px 2px 0 #999,
-3px 3px 0 #9a9a9a,
-4px 4px 0 #aaa,
-5px 5px 0 #a9a9a9,
-5px 5px 10px #000;
+section {background:#fff; padding:20px 20px 20px; border-radius:18px; margin:0 0 10px; overflow:auto; clear:both; position:relative; z-index:20;
 box-shadow:1px 1px 0 #777,
 2px 2px 0 #999,
 3px 3px 0 #9a9a9a,
@@ -46,12 +40,12 @@ h1 {
 -moz-transition:all 2.12s ease-out 0.5s;
 transition:all 2.12s ease-out 0.5s; }
 
-h1, h2 {color:#FF4242; margin:0 0 0px 10px; padding:0; font-size:53pt; font-family:monospace; letter-spacing:0.1em; font-weight:bold; z-index:30; position:relative;
-text-shadow:1px 1px 0 #aa3037,
-1px 2px 0 #881017,
-2px 3px 0 #801017,
-3px 4px 0 #7a1017,
-4px 5px 0 #781017,
+h1, h2 {color:#6FD904; margin:0 0 0px 10px; padding:0; font-size:53pt; font-family:'Capriola',sans-serif; z-index:30; position:relative;
+text-shadow:1px 1px 0 #4FA900,
+1px 2px 0 #4FA900,
+2px 3px 0 #4FA900,
+3px 4px 0 #2F9902,
+4px 5px 0 #1F8901,
 5px 3px 10px #000;}
 
 h1:hover { margin-bottom:25px; margin-left:-10px;
@@ -82,13 +76,32 @@ text-shadow:
 24px 24px 0 red,
 25px 25px 0 red;}
 
-h2 {clear:both; position:relative; top:16px; margin-left:20px; color:#B4CE1E; font-size:24pt; letter-spacing:7px; text-transform:uppercase; font-weight:normal;
-text-shadow:1px 1px 0 #546E6E,
-2px 2px 0 #546E6E,
-3px 3px 0 #546E6E,
-3px 3px 3px #222;}
+h2 {font-family:'Quicksand', sans-serif; clear:both; position:relative; top:12px; margin-left:20px; color:#F1F0F0; font-size:24pt; text-transform:uppercase; font-weight:normal;
+text-shadow:1px 1px 0 #888,
+2px 2px 0 #8a8a8a,
+3px 3px 0 #999,
+5px 5px 10px #000;
+}
 
-h3 {font-size:14pt; margin:10px 0; padding:0; letter-spacing:1px;}
+.circ {
+    display: inline-block;
+    color: white;
+    background: #056CF2;
+    text-shadow: -1px -1px 1px #052CA2;
+    border-radius: 20px;
+    padding: 0px 2px 12px 12px;
+    top: 8px;
+    width: 20px;
+    border: 2px solid white;
+    height: 20px;
+    font-size: 26px;
+    position: relative;
+box-shadow:1px 1px 0 #777,
+2px 2px 0 #999,
+2px 2px 3px #555;
+}
+
+h3 {font-family:'Quicksand', sans-serif; font-size:14pt; margin:10px 0; padding:0; letter-spacing:-2px; color:#056CF2;}
 
 /* Navigation */
 ul.nav {padding:15px 0 0 10px; margin:0; height:30px; font-size:10pt;}
@@ -290,6 +303,11 @@ box-shadow:inset 0 0 4px #666;}
 #float-select {display:none; position:absolute; font-size:8pt !important; right:0; bottom:10px; padding:2px 20px;}
 #config-copy {border:3px solid red;}
 #config-flash-container {float:left; position:relative;}
+
+.form-buttons.one-btn {
+    width:132px;
+    left:853px;
+}
 
 .floated {position:fixed; border-radius:0; width:100%; bottom:0; left:0; box-shadow:0 0 transparent; z-index:9999; padding:5px; font-size:9pt; margin:0; border-top:1px solid #888; box-shadow:0 0 8px #666; background:#ddd;}
 .floated .wtf {display:none;}

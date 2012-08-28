@@ -133,7 +133,7 @@
             this.input = input.hide();
 
             this.container = new Element('div')
-                .addClass('fun-checkbox' + (input.checked ? ' checked' : ''))
+                .addClass('fun-checkbox ' + input.get('class') + (input.checked ? ' checked' : ''))
                 .inject(input, 'after')
                 .addEvent('click', this.toggle.bindWithEvent(this));
 

@@ -402,12 +402,12 @@
             }
             $cb.funForm();
         // Target only the child checkboxes and make them turn on parent checkbox
-        }).erase($('git')).erase($('hg')).erase($('svn')).addEvent('change', function(evt) {
+        }).erase($('.git-all')).erase($('.hg-all')).erase($('.svn-all')).addEvent('change', function(evt) {
             // If our change event comes from master toggle, ignore it
             if(!parentToggle) {
                 childClick = true;
                 var me = this;
-                $$('#git, #hg, #svn').each(function($master) {
+                $$('.git-all, .hg-all, .svn-all').each(function($master) {
                     if($master.get('data-toggle').indexOf(me.get('id')) > -1) {
                         $master.set('checked', 'checked').fireEvent('change');
                     }

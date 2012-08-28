@@ -3,6 +3,13 @@ background:-moz-linear-gradient(top, #bbc0ca 0%, #d2d5dc 100%);
 background:-webkit-linear-gradient(top, #bbc0ca 0%,#d2d5dc 100%);
 background:linear-gradient(top, #bbc0ca 0%,#d2d5dc 100%);}
 
+.large-checkbox {
+    padding:0;
+    font-size:50px;
+    width:40px;
+    height:40px;
+}
+
 .fun-checkbox.checked:after {content:'✓'; text-shadow:0 0 1px #fff; opacity:0.8; color:#aa3037; position:absolute; top:-4px; left:2px; cursor:pointer;}
 
 .fun-checkbox.checked {position:relative;
