@@ -1,7 +1,16 @@
-.fun-checkbox {display:inline-block; width:12px; height:12px; border:1px solid #9e9fa1; border-bottom:1px solid #888; border-top:1px solid #bbb; border-radius:3px; -webkit-box-shadow:2px 2px 2px #ddd, inset 0 0 2px #686c77box-shadow:2px 2px 2px #ddd, inset 0 0 2px #686c77; cursor:pointer;
-background:-moz-linear-gradient(top, #bbc0ca 0%, #d2d5dc 100%);
-background:-webkit-linear-gradient(top, #bbc0ca 0%,#d2d5dc 100%);
-background:linear-gradient(top, #bbc0ca 0%,#d2d5dc 100%);}
+.fun-checkbox {display:inline-block; width:12px; height:12px; border:1px solid #9e9fa1; border-bottom:1px solid #888; border-top:1px solid #bbb; border-radius:3px;
+    box-shadow:2px 2px 2px #ddd, inset 0 0 2px #686c77;
+    cursor:pointer;
+    background:-moz-linear-gradient(top, #bbc0ca 0%, #d2d5dc 100%);
+    background:-webkit-linear-gradient(top, #bbc0ca 0%,#d2d5dc 100%);
+    background:linear-gradient(top, #bbc0ca 0%,#d2d5dc 100%);
+}
+
+.large-label {
+    font-size:50px;
+    color:#056cf2;
+    font-family:'Quicksand', sans-serif;
+}
 
 .large-checkbox {
     padding:0;
@@ -10,13 +19,18 @@ background:linear-gradient(top, #bbc0ca 0%,#d2d5dc 100%);}
     height:40px;
 }
 
-.fun-checkbox.checked:after {content:'✓'; text-shadow:0 0 1px #fff; opacity:0.8; color:#aa3037; position:absolute; top:-4px; left:2px; cursor:pointer;}
+.fun-checkbox.checked:after {content:'✓'; opacity:0.8;
+    color:#fff;
+    text-shadow:0 0 8px #f1f0f0;
+    position:absolute;
+    top:-9px;
+    left:2px; cursor:pointer;
+}
 
 .fun-checkbox.checked {position:relative;
-background:-webkit-radial-gradient(circle, #feddd7, #fec3cd);
-background:-moz-radial-gradient(circle, #feddd7, #fec3cd);
--webkit-box-shadow:0 0 5px #FFA2A2, 1px 1px 2px #daaac3, inset 0 0 2px red;
-box-shadow:0 0 5px #FFA2A2, 1px 1px 2px #daaac3, inset 0 0 2px red; }
+background:-webkit-radial-gradient(circle, #5999ff, #056cf2);
+background:-moz-radial-gradient(circle, #056CF2, #3889F2);
+}
 
 input[type="text"] {border:1px solid #aaa; padding:4px; font-family:serif; font-size:12pt; color:#666; -webkit-box-shadow:2px 2px 3px #ccc; box-shadow:2px 2px 3px #ccc;
 background:-moz-linear-gradient(top, #e0e0e0 0%, #fff 40%);

@@ -38,9 +38,13 @@ footer a {color:#fff; text-decoration:none;}
 h1 {
 -webkit-transition:all 2.12s ease-out 0.5s;
 -moz-transition:all 2.12s ease-out 0.5s;
-transition:all 2.12s ease-out 0.5s; }
+transition:all 2.12s ease-out 0.5s;
+font-size:80px;
+letter-spacing:5px;
+font-family:'Paytone One',sans-serif;
+}
 
-h1, h2 {color:#6FD904; margin:0 0 0px 10px; padding:0; font-size:53pt; font-family:'Capriola',sans-serif; z-index:30; position:relative;
+h1, h2 {color:#6FD904; margin:0 0 0px 10px; padding:0; z-index:30; position:relative;
 text-shadow:1px 1px 0 #4FA900,
 1px 2px 0 #4FA900,
 2px 3px 0 #4FA900,
@@ -340,3 +344,42 @@ button span {font-size:23pt; line-height:2pt; position:relative; top:7px;}
 .ribbon {z-index:10; background:#000; overflow:hidden; position:fixed; left:-3em; top:2.5em; -moz-transform:rotate(-45deg); -webkit-transform:rotate(-45deg); box-shadow:0 0 10px #111; opacity:0.4;}
 .ribbon:hover {opacity:1.0;}
 .ribbon a {border:1px solid #000; color:#fff; display:block; font:bold 81.25% 'Helvetiva Neue', Helvetica, Arial, sans-serif; margin:0.05em 0 0.075em 0; padding:0.5em 3.5em; text-align:center; text-decoration:none; text-shadow:0 0 0.5em #444; }
+
+.checkers {
+    width:90%;
+    margin:0 auto;
+}
+.group-left:last-child {
+    margin-right:0;
+}
+.group-left {
+    float: left;
+    width: 26.6%;
+    margin-right: 10%;
+}
+.group-left > .large-checkbox {
+    top:8px;
+    left:10px;
+}
+.group-left > label {
+    cursor:pointer;
+    float:left;
+    display:block;
+    max-width:130px;
+}
+.word {
+    font-family:'Courier New', monospace;
+    display:block;
+    margin:0 0 8px 6px;
+}
+.def {
+    font-size: 14px;
+    line-height: 15px;
+    display: block;
+    font-family: 'Quicksand';
+    color: #999;
+    display: block;
+    border-left: 2px solid #EEE;
+    padding: 0 0 0 10px;
+    margin: 0 0 0 5px;
+}
