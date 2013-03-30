@@ -188,7 +188,7 @@ transition:all 0.52s ease-out;}
 
 /* Preview output */
 #preview {top:-8px;}
-.display {font-family:monospace; margin-top:-25px;}
+.display {font-family:monospace;}
 .display label {color:#444; font-family:sans-serif; margin:5px 0 5px; display:block; float:left; width:100px;}
 .display .screen {background:#222; padding:3px; color:#fff; float:left; width:800px; border-radius:4px; line-height:16pt; box-shadow:3px 3px 9px #000 inset; -webkit-box-shadow:3px 3px 9px #000 inset text-shadow:1px 1px 3px #000;}
 
@@ -278,7 +278,6 @@ transition:all 0.52s ease-out;}
 .wtf #placeholder {display:block; margin:10px auto 0; width:400px; color:#888; text-transform:uppercase;}
 
 /* Presets */
-.group.presets {position:absolute; bottom:10px;}
 .group.presets label {color:#444; font-size:14pt;}
 .group.presets select {margin:0 0 0 10px;}
 .floated .group.presets { bottom:13px; left:189px;}

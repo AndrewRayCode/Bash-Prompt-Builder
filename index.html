@@ -65,14 +65,58 @@
             <h2><span class="circ">2</span> Pick a theme</h2>
             <section>
                 <div class="group presets">
-                    <label for="presets">Presets</label>
-                    <select id="presets">
-                        <option value="#git=1&color-git=3&git-prefix=1&color-git-prefix=3&git-ahead=1&color-git-ahead=6b&git-modified=1&color-git-modified=3&git-conflicted=1&color-git-conflicted=1&git-revno=1&color-git-revno=3&git-bisect=1&color-git-bisect=5&option-submodule=1&color-option-submodule=5&git-ontag=1&color-git-ontag=3&hg=1&color-hg=5&hg-prefix=1&color-hg-prefix=5&hg-modified=1&color-hg-modified=5&hg-conflicted=1&color-hg-conflicted=1&hg-revno=1&color-hg-revno=5&hg-bisect=1&color-hg-bisect=3&hg-patches=1&color-hg-patches=3&svn=1&color-svn=6&svn-modified=1&color-svn-modified=6&svn-revno=1&color-svn-revno=6&option-modified=%E2%96%B3&option-conflict=%E2%98%A2&color-option-conflict=3&max-conflicted-files=2&option-nobranch=no%20branch!&color-option-nobranch=1&bisecting-text=bisecting&submodule-text=%5Bsubmodule%5D%20">Zen Pizza (Make Me One With Everything)</option>
-                        <option value="#git=1&color-git=3&color-git-prefix=3&git-ahead=1&color-git-ahead=6b&git-modified=1&color-git-modified=3&git-conflicted=1&color-git-conflicted=1&color-git-revno=3&git-bisect=1&color-git-bisect=3b&option-submodule=1&color-option-submodule=3b&git-ontag=1&color-git-ontag=3b&hg=1&color-hg=5&color-hg-prefix=5&hg-modified=1&color-hg-modified=5&hg-conflicted=1&color-hg-conflicted=1&color-hg-revno=5&hg-bisect=1&color-hg-bisect=5b&hg-patches=1&color-hg-patches=5b&svn=1&color-svn=6&svn-modified=1&color-svn-modified=6&svn-revno=1&color-svn-revno=6&option-modified=%E2%9C%8E&option-conflict=%E2%98%A2&color-option-conflict=3&max-conflicted-files=2&option-nobranch=no%20branch!&color-option-nobranch=1&bisecting-text=%CF%9F&submodule-text=%5Bsubmodule%5D%20">Andrew Ray's</option>
-                        <option value="#git=1&color-git=3&color-git-prefix=3&color-git-ahead=6b&git-modified=1&color-git-modified=3&color-git-conflicted=1&color-git-revno=3&color-git-bisect=5&color-option-submodule=5&color-git-ontag=3&hg=1&color-hg=5&color-hg-prefix=5&hg-modified=1&color-hg-modified=5&color-hg-conflicted=1&color-hg-revno=5&color-hg-bisect=3&color-hg-patches=3&svn=1&color-svn=6&svn-modified=1&color-svn-modified=6&color-svn-revno=6&no-colors=1&option-modified=%E2%96%B3&option-conflict=%E2%98%A2&color-option-conflict=3&max-conflicted-files=2&option-nobranch=no%20branch!&color-option-nobranch=1&bisecting-text=bisecting&submodule-text=%5Bsubmodule%5D%20">Pretty Simple</option>
-                        <option value="#git=1&color-git=3&color-git-prefix=3&git-ahead=1&color-git-ahead=3b&git-modified=1&color-git-modified=3b&git-conflicted=1&color-git-conflicted=1&color-git-revno=3b&git-bisect=1&color-git-bisect=3b&option-submodule=1&color-option-submodule=3b&git-ontag=1&color-git-ontag=3&hg=1&color-hg=3&color-hg-prefix=3b&hg-modified=1&color-hg-modified=3b&hg-conflicted=1&color-hg-conflicted=1&color-hg-revno=3b&hg-bisect=1&color-hg-bisect=3b&hg-patches=1&color-hg-patches=3b&svn=1&color-svn=3&svn-modified=1&color-svn-modified=3b&svn-revno=1&color-svn-revno=3b&option-modified=%E2%96%B3&option-conflict=%E2%98%A2&color-option-conflict=3b&max-conflicted-files=2&option-nobranch=no%20branch!&color-option-nobranch=3b&bisecting-text=bisecting&submodule-text=%5Bsubmodule%5D%20">One Color Sexmachine</option>
-                        <option value="#git=1&color-git=3&color-git-prefix=3&color-git-ahead=6b&git-modified=1&color-git-modified=3&git-conflicted=1&color-git-conflicted=1&color-git-revno=3&git-bisect=1&color-git-bisect=2&option-submodule=1&color-option-submodule=2&color-git-ontag=3&hg=1&color-hg=5&color-hg-prefix=5&hg-modified=1&color-hg-modified=5&hg-conflicted=1&color-hg-conflicted=1&color-hg-revno=5&hg-bisect=1&color-hg-bisect=2&hg-patches=1&color-hg-patches=2&svn=1&color-svn=6&svn-modified=1&color-svn-modified=6&svn-revno=1&color-svn-revno=6&option-modified=%E2%9C%8E&option-conflict=%E2%98%A2&color-option-conflict=3&max-conflicted-files=2&option-nobranch=no%20branch&color-option-nobranch=1&bisecting-text=%E2%9C%84&submodule-text=submodule%20">The Pragmatic BashMaster</option>
-                    </select>
+                    <div class="fun-select">
+                        <select id="presets">
+                            <option value="#git=1&color-git=3&git-prefix=1&color-git-prefix=3&git-ahead=1&color-git-ahead=6b&git-modified=1&color-git-modified=3&git-conflicted=1&color-git-conflicted=1&git-revno=1&color-git-revno=3&git-bisect=1&color-git-bisect=5&option-submodule=1&color-option-submodule=5&git-ontag=1&color-git-ontag=3&hg=1&color-hg=5&hg-prefix=1&color-hg-prefix=5&hg-modified=1&color-hg-modified=5&hg-conflicted=1&color-hg-conflicted=1&hg-revno=1&color-hg-revno=5&hg-bisect=1&color-hg-bisect=3&hg-patches=1&color-hg-patches=3&svn=1&color-svn=6&svn-modified=1&color-svn-modified=6&svn-revno=1&color-svn-revno=6&option-modified=%E2%96%B3&option-conflict=%E2%98%A2&color-option-conflict=3&max-conflicted-files=2&option-nobranch=no%20branch!&color-option-nobranch=1&bisecting-text=bisecting&submodule-text=%5Bsubmodule%5D%20">Zen Pizza (Make Me One With Everything)</option>
+                            <option value="#git=1&color-git=3&color-git-prefix=3&git-ahead=1&color-git-ahead=6b&git-modified=1&color-git-modified=3&git-conflicted=1&color-git-conflicted=1&color-git-revno=3&git-bisect=1&color-git-bisect=3b&option-submodule=1&color-option-submodule=3b&git-ontag=1&color-git-ontag=3b&hg=1&color-hg=5&color-hg-prefix=5&hg-modified=1&color-hg-modified=5&hg-conflicted=1&color-hg-conflicted=1&color-hg-revno=5&hg-bisect=1&color-hg-bisect=5b&hg-patches=1&color-hg-patches=5b&svn=1&color-svn=6&svn-modified=1&color-svn-modified=6&svn-revno=1&color-svn-revno=6&option-modified=%E2%9C%8E&option-conflict=%E2%98%A2&color-option-conflict=3&max-conflicted-files=2&option-nobranch=no%20branch!&color-option-nobranch=1&bisecting-text=%CF%9F&submodule-text=%5Bsubmodule%5D%20">Andrew Ray's</option>
+                            <option value="#git=1&color-git=3&color-git-prefix=3&color-git-ahead=6b&git-modified=1&color-git-modified=3&color-git-conflicted=1&color-git-revno=3&color-git-bisect=5&color-option-submodule=5&color-git-ontag=3&hg=1&color-hg=5&color-hg-prefix=5&hg-modified=1&color-hg-modified=5&color-hg-conflicted=1&color-hg-revno=5&color-hg-bisect=3&color-hg-patches=3&svn=1&color-svn=6&svn-modified=1&color-svn-modified=6&color-svn-revno=6&no-colors=1&option-modified=%E2%96%B3&option-conflict=%E2%98%A2&color-option-conflict=3&max-conflicted-files=2&option-nobranch=no%20branch!&color-option-nobranch=1&bisecting-text=bisecting&submodule-text=%5Bsubmodule%5D%20">Pretty Simple</option>
+                            <option value="#git=1&color-git=3&color-git-prefix=3&git-ahead=1&color-git-ahead=3b&git-modified=1&color-git-modified=3b&git-conflicted=1&color-git-conflicted=1&color-git-revno=3b&git-bisect=1&color-git-bisect=3b&option-submodule=1&color-option-submodule=3b&git-ontag=1&color-git-ontag=3&hg=1&color-hg=3&color-hg-prefix=3b&hg-modified=1&color-hg-modified=3b&hg-conflicted=1&color-hg-conflicted=1&color-hg-revno=3b&hg-bisect=1&color-hg-bisect=3b&hg-patches=1&color-hg-patches=3b&svn=1&color-svn=3&svn-modified=1&color-svn-modified=3b&svn-revno=1&color-svn-revno=3b&option-modified=%E2%96%B3&option-conflict=%E2%98%A2&color-option-conflict=3b&max-conflicted-files=2&option-nobranch=no%20branch!&color-option-nobranch=3b&bisecting-text=bisecting&submodule-text=%5Bsubmodule%5D%20">One Color Sexmachine</option>
+                            <option value="#git=1&color-git=3&color-git-prefix=3&color-git-ahead=6b&git-modified=1&color-git-modified=3&git-conflicted=1&color-git-conflicted=1&color-git-revno=3&git-bisect=1&color-git-bisect=2&option-submodule=1&color-option-submodule=2&color-git-ontag=3&hg=1&color-hg=5&color-hg-prefix=5&hg-modified=1&color-hg-modified=5&hg-conflicted=1&color-hg-conflicted=1&color-hg-revno=5&hg-bisect=1&color-hg-bisect=2&hg-patches=1&color-hg-patches=2&svn=1&color-svn=6&svn-modified=1&color-svn-modified=6&svn-revno=1&color-svn-revno=6&option-modified=%E2%9C%8E&option-conflict=%E2%98%A2&color-option-conflict=3&max-conflicted-files=2&option-nobranch=no%20branch&color-option-nobranch=1&bisecting-text=%E2%9C%84&submodule-text=submodule%20">The Pragmatic BashMaster</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="display">
+                    <div class="group git">
+                        <label for="git-display">Git</label>
+                        <div id="git-display" class="screen">
+                            <span class="git">(<span class="git-submodule"><span class="option-submodule">[submodule] </span></span><span class="git-prefix">git:</span>master<span class="git-revno">:f9302</span><span class="git-ontag"> "tag"</span><span class="option-delta git-modified"> △</span>)</span><span class="git-ahead"> +1</span><span class="git-conflicted"> (<span class="option-conflict">☢ </span><span class="conflicted-files">index.js, path/to/package.json</span>)</span> $ 
+                        </div>
+
+                        <div class="sub git-bisect">
+                            <label for="git-bisecting-dsplay">Bisecting</label>
+                            <div id="git-bisecting-display" class="screen">
+                                <span class="git">(<span class="git-prefix">git:</span><span class="git-bisect"><span class="option-bisecting">bisecting</span>:91acf15</span>)</span> $
+                            </div>
+                        </div>
+
+                        <div class="sub">
+                            <label for="git-no-branch">No branch</label>
+                            <div id="git-no-branch" class="screen">
+                                <span class="git">(<span class="git-prefix">git:</span><span class="git-no-branch"><span class="option-nobranch">no branch!</span></span>)</span> $
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="group hg">
+                        <label for="hg-display">Mercurial</label>
+                        <div class="screen" id="hg-display">
+                            <span class="hg">(<span class="hg-prefix">hg:</span>default<span class="hg-revno">:f9302</span><span class="option-delta hg-modified"> △</span><span class="hg-patches"> [patch1,patch2]</span>)</span><span class="hg-conflicted"> (<span class="option-conflict">☢ </span><span class="conflicted-files">index.js, path/to/package.json</span>)</span> $ 
+                        </div>
+
+                        <div class="sub hg-bisect">
+                            <label for="hg-bisecting-dsplay">Bisecting</label>
+                            <div id="hg-bisecting-display" class="screen">
+                                <span class="hg">(<span class="hg-prefix">hg:</span>default<span class="hg-bisect">:<span class="option-bisecting">bisecting</span>:91acf15</span>)</span> $
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="group svn">
+                        <label for="svn-display">Subversion</label>
+                        <div class="screen" id="svn-display">
+                            <span class="svn">(svn<span class="svn-revno">:9284</span><span class="option-delta svn-modified"> △</span>)</span> $ 
+                        </div>
+                    </div>
                 </div>
             </section>
 

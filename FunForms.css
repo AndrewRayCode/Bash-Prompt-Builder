@@ -1,4 +1,8 @@
-.fun-checkbox {display:inline-block; width:12px; height:12px; border:1px solid #9e9fa1; border-bottom:1px solid #888; border-top:1px solid #bbb; border-radius:3px;
+.fun-checkbox {display:inline-block; width:12px; height:12px;
+    border:1px solid #9e9fa1;
+    border-bottom:1px solid #888;
+    border-top:1px solid #bbb;
+    border-radius:3px;
     box-shadow:2px 2px 2px #ddd, inset 0 0 2px #686c77;
     cursor:pointer;
     background:-moz-linear-gradient(top, #bbc0ca 0%, #d2d5dc 100%);
@@ -125,3 +129,43 @@ box-shadow:1px 1px 0 #777,
 .MooDialog .buttons {float:right; text-align:right; margin:0; padding:0; border:0; background:none; position:relative; top:-6px;}
 .MooDialog .textInput { width:200px; float:left; }
 .MooDialog .MooDialogAlert{padding-left:40px; min-height:40px; }
+
+.fun-select {
+    margin:0 0 15px 0;
+    position:relative;
+    display:inline-block;
+}
+.fun-select:after {
+    content:'\25bd'; /* ▽ ▼ ➦ */
+    font-size: 25px;
+    color:#abc;
+    position: absolute;
+    right: 10px;
+    top: 2px;
+    text-shadow: 1px 1px 0 #eee,
+        2px 2px 0 #ddd,
+        2px 2px 3px #ccc,
+        3px 3px 10px #666;
+}
+.fun-select > select {
+    background:-webkit-linear-gradient(#5999FF, #056CF2);
+    padding:8px 40px 8px 20px;
+    border:1px solid #fff;
+    font-size:15px;
+    height:42px;
+    color:#f1f0f0;
+    box-shadow:2px 2px 2px #DDD;
+    border-bottom:1px solid #888;
+    border-top:1px solid #bbb;
+    border-radius:6px;
+    -webkit-appearance:none;
+}
+.fun-select > select:hover {
+    box-shadow:2px 2px 2px #DDD, inset 0 0 9px #f1f0f0;
+}
+.fun-select > select:active {
+    box-shadow:2px 2px 2px #DDD, inset 0 0 12px #686C77;
+}
+.fun-select > select > option {
+    background:#000;
+}
