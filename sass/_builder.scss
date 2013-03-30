@@ -189,11 +189,35 @@ transition:all 0.52s ease-out;}
 /* Preview output */
 #preview {top:-8px;}
 .display {font-family:monospace;}
-.display label {color:#444; font-family:sans-serif; margin:5px 0 5px; display:block; float:left; width:100px;}
-.display .screen {background:#222; padding:3px; color:#fff; float:left; width:800px; border-radius:4px; line-height:16pt; box-shadow:3px 3px 9px #000 inset; -webkit-box-shadow:3px 3px 9px #000 inset text-shadow:1px 1px 3px #000;}
+.display label {
+    color:#444;
+    font-family:sans-serif;
+    margin:5px 0 5px;
+    display:block;
+    float:left;
+    width:100px;
+}
+.display .screen {
+    background:#222;
+    padding:3px;
+    color:#fff;
+    float:left;
+    width:800px;
+    border-radius:4px;
+    line-height:16pt;
+    box-shadow:3px 3px 9px #000 inset;
+    -webkit-box-shadow:3px 3px 9px #000 inset;
+    text-shadow:1px 1px 3px #000;
+}
 
-.display .group {clear:both; margin:0 0 20px; float:left;}
-.display .group:last-child {border:0 none;}
+.display .group {
+    clear:both;
+    margin:0 0 20px;
+    float:left;
+}
+.display .group:last-child {
+    border:0 none;
+}
 .display .group .sub {margin:4px 0 0 11px; float:left;}
 .display .group .sub label {color:#888; width:89px;}
 .display .git {color:#c7c323;}
