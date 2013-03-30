@@ -167,10 +167,16 @@ p.abstract {margin:-7px 0 4px 10px; display:block; font-size:13.7pt; color:#d723
 .webkit p.abstract {font-size:13.7pt; margin-left:19px;}
 
 /* Function display */
-#function {display:none; font-family:monospace; overflow-x:scroll; width:940px; font-size:10pt; height:300px;
--webkit-transition:all 0.52s ease-out;
--moz-transition:all 0.52s ease-out;
-transition:all 0.52s ease-out;}
+#function {
+    font-family:monospace;
+    overflow-x:scroll;
+    width:940px;
+    font-size:10pt;
+    height:300px;
+    -webkit-transition:all 0.52s ease-out;
+    -moz-transition:all 0.52s ease-out;
+    transition:all 0.52s ease-out;
+}
 #function.expanded {height:3500px; /* estimation of total height, eyeball it after updating function */}
 #function .opposite {display:none;}
 #function .git {background:#ffffee;}
