@@ -513,7 +513,7 @@ dvcs_function="
     # :hg
         # If we are in mercurial ...
         if [ -n \"\$_hg_dir\" ]; then
-            hgBranch=\`cat \"\$_hg_dir/.hg/branch\"\`
+            hgBranch=\`[ -e \"\$_hg_dir/.hg/branch\" ] && cat \"\$_hg_dir/.hg/branch\" || echo \"default\"\`
 
             hgPrompt=\"s\"
             # :hg-modified
