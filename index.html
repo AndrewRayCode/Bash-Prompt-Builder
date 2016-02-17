@@ -497,7 +497,7 @@ dvcs_function="
 
             # :git-ahead
                 # How many local commits do you have ahead of origin?
-                num=\$(echo \$gitStatus | grep \"Your branch is ahead of\" | awk '{split(\$0,a,\" \"); print a[13];}') || return
+                num=\$(echo \$gitStatus | grep \"Your branch is ahead of\" | awk '{split(\$0,a,\" \"); print a[11];}') || return
                 if [ -n \"\$num\" ]; then
                     prompt=\$prompt\"\\[\$color-git-ahead\\] +\$num\"
                 fi
