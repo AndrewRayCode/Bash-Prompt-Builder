@@ -458,7 +458,7 @@ dvcs_function="
 
             # :git-modified
                 # changed *tracked* files in local directory?
-                gitChange=\$(echo \$gitStatus | ack 'modified:|deleted:|new file:')
+                gitChange=\$(echo \$gitStatus | ack-grep 'modified:|deleted:|new file:')
                 if [ -n \"\$gitChange\" ]; then
                     gitChange=\"\\[\$color-git-modified\\] \\[`tput sc`\\]  \\[`tput rc`\\]\\[\$DELTA_CHAR\\] \"
                 fi
